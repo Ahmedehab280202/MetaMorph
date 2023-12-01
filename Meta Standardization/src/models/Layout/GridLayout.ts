@@ -1,3 +1,3 @@
-class GridLayout {
+export default class GridLayout {
   
 }

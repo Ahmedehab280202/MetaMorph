@@ -1,4 +1,7 @@
-class Border {
+import LTRB_Edges from "./LTRB_Edges"
+import Paint from "./Paint"
+
+export default class Border {
   readonly weight : number
   readonly colour : Paint
   readonly radius : LTRB_Edges

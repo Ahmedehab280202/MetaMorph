@@ -1,4 +1,8 @@
-class Design {
+import Border from "./Border"
+import Paint from "./Paint"
+import Shadow from "./Shadow"
+
+export default class Design {
   readonly background : Paint
   readonly border : Border
   readonly shadow : Shadow

@@ -1,4 +1,4 @@
-class LTRB_Edges {
+export default class LTRB_Edges {
   readonly topLeft : number
   readonly topRight : number
   readonly bottomRight : number

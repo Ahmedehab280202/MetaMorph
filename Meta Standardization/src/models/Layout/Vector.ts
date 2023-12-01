@@ -1,4 +1,4 @@
-class Vector {
+export default class Vector {
   readonly x : number
   readonly y : number
 

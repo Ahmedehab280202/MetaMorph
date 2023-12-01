@@ -1,4 +1,12 @@
-class TextNode extends BaseNode {
+import BoxModel from "../BoxModel/BoxModel"
+import Design from "../Design/Design"
+import Layout from "../Layout/Layout"
+import { NodeType } from "../types"
+import ApiType from "./ApiType"
+import BaseNode from "./BaseNode"
+import ChildrenNodes from "./ChildrenNodes"
+
+export default class TextNode extends BaseNode {
   readonly nodeType : NodeType = 'TEXT'
   readonly typography : Typography
 

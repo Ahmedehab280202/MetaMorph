@@ -1,10 +1,10 @@
-class LinearLayout extends Layout {
+import Axis from "./Axis"
+
+export default class LinearLayout {
   readonly primaryAxis : Axis
   readonly counterAxis : Axis
 
   constructor(primaryAxis : Axis, counterAxis : Axis){ 
-    super("LINEAR")
-    
     this.primaryAxis = primaryAxis
     this.counterAxis = counterAxis
   }

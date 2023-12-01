@@ -1,4 +1,7 @@
-class BoxModel {
+import Dimension from "./Dimension"
+import LTRB from "./LTRB"
+
+export default class BoxModel {
   readonly width : Dimension
   readonly height : Dimension
   readonly padding : LTRB

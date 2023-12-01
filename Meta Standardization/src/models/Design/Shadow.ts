@@ -1,4 +1,8 @@
-class Shadow {
+import Vector from "../Layout/Vector"
+import { ShadowType } from "../types"
+import Paint from "./Paint"
+
+export default class Shadow {
   readonly type : ShadowType
   readonly colour : Paint
   readonly offset : Vector

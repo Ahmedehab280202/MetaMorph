@@ -1,4 +1,6 @@
-class Axis {
+import { AxisDirection, AxisMode } from "../types"
+
+export default class Axis {
   readonly direction : AxisDirection
   readonly alignMode : AxisMode
   readonly spacing : number

@@ -1,4 +1,4 @@
-class LTRB {
+export default class LTRB {
   readonly left : number
   readonly top : number
   readonly right : number

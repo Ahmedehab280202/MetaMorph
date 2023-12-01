@@ -1,4 +1,6 @@
-class Paint {
+import { PaintType } from "../types"
+
+export default class Paint {
   readonly type : PaintType
   readonly r : number 
   readonly g : number

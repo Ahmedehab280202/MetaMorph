@@ -1,4 +1,6 @@
-class ApiType {
+import { ApiName } from "../types"
+
+export default class ApiType {
   readonly api : ApiName
   readonly name : string
 
