@@ -4,10 +4,10 @@ import Axis from '../models/Layout/Axis'
 import Layout from '../models/Layout/Layout'
 import LinearLayout from '../models/Layout/LinearLayout'
 import Vector from '../models/Layout/Vector'
-import { FrameNode } from '../models/types'
+import { FrameLayout, FrameNode } from '../models/FrameNode'
 
 type TestCase = {
-  testData: FrameNode,
+  testData: FrameLayout,
   expectedData: Layout
 }
 

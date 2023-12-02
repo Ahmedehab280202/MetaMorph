@@ -25,15 +25,4 @@ type LetterCase = 'NORMAL' | 'UPPER' | 'LOWER' | 'TITLE'
 type TextDecoration = 'NONE' | 'UNDERLINE' | 'MIDDLELINE' | 'OVERLINE'
 type LineHeightUnit = 'PIXEL' | 'PERCENTAGE'
 
-// Figma Plugin Api
-type FrameNode = {
-  x: number,
-  y: number,
-
-  layoutMode: 'NONE' | 'HORIZONTAL' | 'VERTICAL',
-  primaryAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN',
-  counterAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN',
-  itemSpacing: number
-}
-
-export {ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,PaintType,ShadowType,FontStyle,LetterCase,TextDecoration,LineHeightUnit,FrameNode}
+export {ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,PaintType,ShadowType,FontStyle,LetterCase,TextDecoration,LineHeightUnit}
