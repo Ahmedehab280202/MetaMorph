@@ -1,3 +1,5 @@
+import { GradientPaint } from "./Design/GradientPaint"
+import SolidPaint from "./Design/SolidPaint"
 import AbsoluteLayout from "./Layout/AbsoluteLayout"
 import GridLayout from "./Layout/GridLayout"
 import LinearLayout from "./Layout/LinearLayout"
@@ -16,7 +18,8 @@ type DimensionUnit = 'PIXEL' | 'PERCENTAGE' | 'NONE'
 type DimensionMode = 'STRETCH' | 'FIXED' | 'AUTO'
 
 // Design
-type PaintType = 'SOLID' | 'GRADIENT'
+type Paint = SolidPaint | GradientPaint
+type GradientType = 'GRADIENT_LINEAR' | 'GRADIENT_RADIAL' | 'GRADIENT_ANGULAR' | 'GRADIENT_DIAMOND'
 type ShadowType = 'DROPSHADOW' | 'INNERSHADOW'
 
 // Typography
@@ -25,4 +28,4 @@ type LetterCase = 'NORMAL' | 'UPPER' | 'LOWER' | 'TITLE'
 type TextDecoration = 'NONE' | 'UNDERLINE' | 'MIDDLELINE' | 'OVERLINE'
 type LineHeightUnit = 'PIXEL' | 'PERCENTAGE'
 
-export {ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,PaintType,ShadowType,FontStyle,LetterCase,TextDecoration,LineHeightUnit}
+export {GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,PaintType,ShadowType,FontStyle,LetterCase,TextDecoration,LineHeightUnit}

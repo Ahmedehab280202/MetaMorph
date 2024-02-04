@@ -1,7 +1,8 @@
 import BoxModel from "./BoxModel/BoxModel"
 import Dimension from "./BoxModel/Dimension"
 import LTRB from "./BoxModel/LTRB"
-import { FrameBox, FrameLayout, FrameNode } from "./FrameNode"
+import Design from "./Design/Design"
+import { FrameBox, FrameDesign, FrameLayout, FrameNode } from "./FrameNode"
 import IFactory from "./IFactory"
 import AbsoluteLayout from "./Layout/AbsoluteLayout"
 import Axis from "./Layout/Axis"
@@ -123,5 +124,9 @@ export default class FigmaFactory implements IFactory {
     )
 
     return new BoxModel(width,height,padding)
+  }
+
+  static DesignConstructor(node: FrameDesign) : Design {
+    
   }
 }

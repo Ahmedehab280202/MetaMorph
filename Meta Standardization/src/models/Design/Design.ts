@@ -1,15 +1,18 @@
 import Border from "./Border"
-import Paint from "./Paint"
 import Shadow from "./Shadow"
+import { Blur } from "./Blur"
+import { Paint } from "../types"
 
 export default class Design {
-  readonly background : Paint
+  readonly background : ReadonlyArray<Paint>
   readonly border : Border
-  readonly shadow : Shadow
+  readonly shadow : ReadonlyArray<Shadow>
+  readonly blur: ReadonlyArray<Blur>
 
-  constructor(background : Paint, border : Border, shadow : Shadow){
+  constructor(background : ReadonlyArray<Paint>, border : Border, shadow : ReadonlyArray<Shadow>, blur: ReadonlyArray<Blur>){
     this.background = background
     this.border = border
     this.shadow = shadow
+    this.blur = blur
   }
 }

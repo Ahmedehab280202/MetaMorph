@@ -1,3 +1,8 @@
+import { Blur } from "./Design/Blur"
+import Shadow from "./Design/Shadow"
+import { Paint } from "./types"
+
+
 // Figma Plugin Api
 export type FrameNode = {
   x: number,
@@ -36,4 +41,16 @@ export type FrameBox = {
   paddingRight: number,
   paddingBottom: number,
 
+}
+
+export type FrameDesign = {
+  fills: ReadonlyArray<Paint>
+  strokes: ReadonlyArray<Paint>
+  effects: ReadonlyArray<Shadow | Blur>
+
+  strokeWeight: number
+  topLeftRadius: number
+  topRightRadius: number
+  bottomRightRadius: number
+  bottomLeftRadius: number
 }
