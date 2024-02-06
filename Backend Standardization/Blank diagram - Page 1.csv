@@ -1,0 +1,5 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Status,Text Area 1,Text Area 2,Text Area 3,Comments
+1,Document,,,,,Draft,Blank diagram,,,
+3,Class,UML,2,,,,Car,"​+ brand:String = 'bmw'
++ name:String
+- price:int",​+ calcPrice(int year):int,
