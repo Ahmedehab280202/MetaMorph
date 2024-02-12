@@ -26,6 +26,10 @@ public class FileArtifact {
 
     String path_directory;
 
+    public FileArtifact(){
+
+    }//When you use JPA entities, you need to provide a default (no-argument) constructor explicitly, along with your parameterized constructor,
+    // especially if you're defining a custom constructor with arguments 
 
     public FileArtifact(int id, String name, String extension, String language, Double size, String text, String path_directory) {
         this.id = id;
