@@ -12,19 +12,19 @@ public class FileArtifact {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    int id;
+    private int id;
 
-    String name;
+    private String name;
 
-    String extension;
+    private String extension;
 
-    String language;
+    private String language;
 
-    Double size;
+    private Double size;
 
-    String text;
+    private String text;
 
-    String path_directory;
+    private String path_directory;
 
     public FileArtifact(){
 
