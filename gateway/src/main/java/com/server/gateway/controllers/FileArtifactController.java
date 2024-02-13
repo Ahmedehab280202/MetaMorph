@@ -18,59 +18,92 @@ import com.server.gateway.models.FileArtifact;
 import com.server.gateway.services.FileArtifactService;
 import org.springframework.web.bind.annotation.PutMapping;
 
-
 @RestController
 @RequestMapping("/fileartifact")
 public class FileArtifactController {
-    
+
     @Autowired
     FileArtifactService file_artifact_service;
 
-    
-
     @GetMapping("")
-    public ResponseEntity getAllFileArtifacts(){
-        try{
+    public ResponseEntity getAllFileArtifacts() {
+        try {
             List<FileArtifact> fa = file_artifact_service.getAllFiles();
             return new ResponseEntity<>(fa, HttpStatus.OK);
-        }catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("error getting all files" + e.getMessage());
         }
     }
 
     @GetMapping("{fileid}")
-    public ResponseEntity getFileArtifactById(@PathVariable("fileid") int fileid){
-        try{
+    public ResponseEntity getFileArtifactById(@PathVariable("fileid") int fileid) {
+        try {
             FileArtifact fa = this.file_artifact_service.getFileById(fileid);
-            if(fa != null){
+            if (fa != null) {
                 return new ResponseEntity<>(fa, HttpStatus.OK);
-            }else{
+            } else {
                 return new ResponseEntity<>("FileArtifact is not found", HttpStatus.NOT_FOUND);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body("error getting the file with this id" + e.getMessage());
         }
     }
 
-    // @PostMapping()
-    // public ResponseEntity createFileArtifact(@RequestBody Map<String, String> request_body){
-        
-    // }
-
     @PostMapping("")
-    public FileArtifact createFileArtifact(@RequestBody FileArtifact file_artifact){
-        return file_artifact_service.createOrUpdate(new FileArtifact(file_artifact.getId(), file_artifact.getName(), file_artifact.getExtension(), file_artifact.getLanguage(), file_artifact.getSize(), file_artifact.getText(), file_artifact.getPath_directory()));
+    public ResponseEntity<String> createFileArtifact(@RequestBody Map<String, String> request_body) {
+
+        FileArtifact fa = new FileArtifact();
+        try {
+
+            fa.setName((String) request_body.get("name"));
+            fa.setExtension((String) request_body.get("extension"));
+            fa.setLanguage((String) request_body.get("language"));
+            fa.setSize(Double.parseDouble((String) request_body.get("size")));
+            fa.setText((String) request_body.get("text"));
+            fa.setPath_directory((String) request_body.get("path_directory"));
+
+            file_artifact_service.createOrUpdate(fa);
+            return new ResponseEntity<>("offer created successfully", HttpStatus.CREATED);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error creating the file" + e.getMessage());
+        }
+    }
+
+    @PutMapping("{fileid}")
+    public ResponseEntity<String> updateFileArtifact(@RequestBody Map<String, String> request_body,
+            @PathVariable int fileid) {
+        try {
+            FileArtifact fa = this.file_artifact_service.getFileById(fileid);
+            if (fa != null) {
+                fa.setName((String) request_body.get("name"));
+                fa.setExtension((String) request_body.get("extension"));
+                fa.setLanguage((String) request_body.get("language"));
+                fa.setSize(Double.parseDouble((String) request_body.get("size")));
+                fa.setText((String) request_body.get("text"));
+                fa.setPath_directory((String) request_body.get("path_directory"));
+
+                file_artifact_service.createOrUpdate(fa);
+                return new ResponseEntity<>("File updated successfully", HttpStatus.CREATED);
+            } else {
+                return new ResponseEntity<>("File not Found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error updating the file" + e.getMessage());
+        }
     }
 
     @DeleteMapping("{fileid}")
-    public void deleteFileArtifact(@PathVariable("fileid") int fileid){
-        
+    public ResponseEntity deleteFileArtifact(@PathVariable("fileid") int fileid) {
+        try {
+            FileArtifact fa = this.file_artifact_service.getFileById(fileid);
+            if (fa != null) {
+                file_artifact_service.deleteFile(fileid);
+                return new ResponseEntity<>("File deleted successfully", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("File not found", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Error deleting the file" + e.getMessage());
+        }
     }
-
-    // @DeleteMapping("{fileid}")
-    // public void deleteFileArtifact(@PathVariable("fileid") int fileid){
-    //     file_artifact_service.deleteFile(fileid);
-    // }
-
-    // @PutMapping("")
 }
