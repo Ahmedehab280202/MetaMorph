@@ -1,0 +1,107 @@
+{
+  "diagram_name": "test_diagram",
+  "class_nodes": [
+    {
+      "id": "123",
+      "name": "Bank",
+      "prop_nodes": [
+        {
+          "modifier": "public",
+          "name": "bankId",
+          "dtype": "int",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "name",
+          "dtype": "string",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "location",
+          "dtype": "string",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "customer",
+          "dtype": "Customer",
+          "defaultVal": ""
+        }
+      ],
+      "method_nodes": [
+        {
+          "method_name": "calculateDebt",
+          "method_modifier": "public",
+          "method_rtype": "String",
+          "method_params": "int amount"
+        }
+      ]
+    },
+    {
+      "id": "456",
+      "name": "Person",
+      "prop_nodes": [
+        {
+          "modifier": "public",
+          "name": "personId",
+          "dtype": "int",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "name",
+          "dtype": "string",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "age",
+          "dtype": "int",
+          "defaultVal": ""
+        }
+      ],
+      "method_nodes": [
+        {
+          "method_name": "makeFriend",
+          "method_modifier": "public",
+          "method_rtype": "void",
+          "method_params": "Person friend"
+        }
+      ]
+    },
+    {
+      "id": "789",
+      "name": "Transaction",
+      "prop_nodes": [
+        {
+          "modifier": "public",
+          "name": "transactionId",
+          "dtype": "int",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "amount",
+          "dtype": "double",
+          "defaultVal": ""
+        },
+        {
+          "modifier": "public",
+          "name": "date",
+          "dtype": "Date",
+          "defaultVal": ""
+        }
+      ],
+      "method_nodes": [
+        {
+          "method_name": "processTransaction",
+          "method_modifier": "public",
+          "method_rtype": "boolean",
+          "method_params": ""
+        }
+      ]
+    }
+  ]
+}
