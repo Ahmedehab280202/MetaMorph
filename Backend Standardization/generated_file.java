@@ -1,4 +1,3 @@
-
 class Car {
   // Fields
   public String brand = 'bmw';
@@ -7,10 +6,9 @@ class Car {
   
   // Constructor
   public Car(String brand, String name, int price, ) {
-      this.brand = brand;
-      this.name = name;
-      this.price = price;
-      
+    this.brand = brand;
+    this.name = name;
+    this.price = price;
   }
 
   // Methods
@@ -19,4 +17,3 @@ class Car {
   }
   
 }
-  

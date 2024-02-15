@@ -1,6 +1,13 @@
 import re
 
+from dataclasses import dataclass
+@dataclass
 class PropNode:
+  name: str
+  modifier: str
+  dtype: str
+  defaultVal: str
+
   def __init__(
     self,
     name,
@@ -19,15 +26,19 @@ class PropNode:
 
      return(f"{self.modifier} {self.dtype} {self.name} {conditionalDefVal}")
 
-def lucidRegexSlicer(input_string):
+  @staticmethod
+  def lucidRegexSlicer(input_string):
+    input_string= str(input_string)
     pattern = re.compile(r'(?:[\u200b\n])(.*?)(?=\n|$)')
     matches = pattern.findall(input_string)
     nodeList = []
     for match in matches:
-      nodeList.append(lucidRegexConvertor(match))
+      nodeList.append(PropNode.lucidRegexConvertor(match))
     return nodeList
-
-def lucidRegexConvertor(input_string):
+  
+  @staticmethod
+  def lucidRegexConvertor(input_string):
+    input_string= str(input_string)
     modifier_pattern = re.compile(r'^\s*([-+])')
     modifier_match = modifier_pattern.search(input_string)
     modifier_symbol = modifier_match.group(1) if modifier_match else 'None'

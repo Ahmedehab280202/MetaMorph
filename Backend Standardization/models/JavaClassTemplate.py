@@ -30,7 +30,7 @@ class {self.class_name} {{
   {self.methods}
 }}
   '''
-    
+
 def java_props_template(props):
   code_str = ''
   for prop in props:

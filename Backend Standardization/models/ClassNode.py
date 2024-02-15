@@ -1,19 +1,16 @@
-from models import LucidCSV, PropNode, MethodNode
-
+from models.PropNode import PropNode
+from models.MethodNode import MethodNode
+import pandas as pd
+from dataclasses import dataclass
+@dataclass
 class ClassNode:
-  def __init__(
-    self,
-    name,
-    props,
-    methods,
-  ):
-    self.name = name
-    self.props = props
-    self.methods = methods
+  id: str
+  name: str
+  prop_nodes: list
+  method_nodes: list
 
-  def csvConvertor(classCsv: LucidCSV.ClassCSV):
-    return ClassNode(
-      name= classCsv.text_area1,
-      props= PropNode.lucidRegexSlicer(classCsv.text_area2),
-      methods= MethodNode.lucidRegexSlicer(classCsv.text_area3)
-    )
+  def __init__(self,series: pd.Series):
+    self.id = series['Id']
+    self.name = series['Text Area 1']
+    self.prop_nodes = PropNode.lucidRegexSlicer(input_string=  series['Text Area 2'])
+    self.method_nodes = MethodNode.lucidRegexSlicer(input_string= series['Text Area 3'])
