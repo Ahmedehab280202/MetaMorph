@@ -8,4 +8,7 @@ import com.server.gateway.models.AppArtifact;
 @Repository
 public interface AppArtifactRepository extends JpaRepository<AppArtifact,Integer>{
     
+    // @Query("select File from App where App.id")
+    // void get
+
 }

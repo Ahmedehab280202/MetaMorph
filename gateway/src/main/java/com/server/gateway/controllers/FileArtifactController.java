@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.gateway.models.AppArtifact;
 import com.server.gateway.models.FileArtifact;
+import com.server.gateway.services.AppArtifactService;
 import com.server.gateway.services.FileArtifactService;
 import org.springframework.web.bind.annotation.PutMapping;
 
@@ -24,6 +26,9 @@ public class FileArtifactController {
 
     @Autowired
     FileArtifactService file_artifact_service;
+
+    @Autowired
+    AppArtifactService app_artifact_service;
 
     @GetMapping("")
     public ResponseEntity getAllFileArtifacts() {
@@ -61,9 +66,16 @@ public class FileArtifactController {
             fa.setSize(Double.parseDouble((String) request_body.get("size")));
             fa.setText((String) request_body.get("text"));
             fa.setPath_directory((String) request_body.get("path_directory"));
+            fa.setApp_artifact(Integer.parseInt((String) request_body.get("app_artifact_id")));
+            
+            // int appId = Integer.parseInt(request_body.get("app_artifact_id"));
+
+            // AppArtifact app_Artifact = app_artifact_service.getAppById(appId);
+
+            // fa.setApp_artifact(app_Artifact);
 
             file_artifact_service.createOrUpdate(fa);
-            return new ResponseEntity<>("offer created successfully", HttpStatus.CREATED);
+            return new ResponseEntity<>("File created successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error creating the file" + e.getMessage());
         }
