@@ -17,10 +17,7 @@ public class AppArtifactService {
     AppArtifactRepository app_artifact_repository;
 
     public List<AppArtifact> getAllApps(){
-        List<AppArtifact> test = app_artifact_repository.findAll();
-        System.out.println(test.get(0).getName());
         return app_artifact_repository.findAll();
-
     }
 
     public AppArtifact getAppById(Integer id){
