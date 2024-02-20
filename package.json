@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Ahmedehab280202/MetaMorph/issues"
   },
-  "homepage": "https://github.com/Ahmedehab280202/MetaMorph#readme"
+  "homepage": "https://github.com/Ahmedehab280202/MetaMorph#readme",
+  "publishConfig": {
+    "@ahmedehab280202:registry": "https://npm.pkg.github.com"
+  }
 }
