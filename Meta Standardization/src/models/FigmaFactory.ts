@@ -126,7 +126,7 @@ export default class FigmaFactory implements IFactory {
     return new BoxModel(width,height,padding)
   }
 
-  static DesignConstructor(node: FrameDesign) : Design {
+  static DesignConstructor(node: FrameDesign) : void {
     
   }
 }

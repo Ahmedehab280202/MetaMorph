@@ -1,4 +1,4 @@
-class Font {
+/* class Font {
   readonly family : string
   readonly style : FontStyle
   readonly weight : number
@@ -12,4 +12,4 @@ class Font {
     this.size = size
     this.letterCase = letterCase
   }
-}
+} */

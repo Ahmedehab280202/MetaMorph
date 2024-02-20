@@ -8,5 +8,5 @@ export default interface IFactory {
   boxConstructor?() : BoxModel
   layoutConstructor?() : Layout
   designConstructor?() : Design
-  typographyConstructor?() : Typography
+  /* typographyConstructor?() : Typography */
 }

@@ -28,4 +28,4 @@ type LetterCase = 'NORMAL' | 'UPPER' | 'LOWER' | 'TITLE'
 type TextDecoration = 'NONE' | 'UNDERLINE' | 'MIDDLELINE' | 'OVERLINE'
 type LineHeightUnit = 'PIXEL' | 'PERCENTAGE'
 
-export {GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,PaintType,ShadowType,FontStyle,LetterCase,TextDecoration,LineHeightUnit}
+export {GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,/* PaintType, */ShadowType,FontStyle,LetterCase,TextDecoration,LineHeightUnit}

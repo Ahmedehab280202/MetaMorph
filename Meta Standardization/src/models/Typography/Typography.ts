@@ -1,4 +1,4 @@
-class Typography {
+/* class Typography {
   readonly font : Font
   readonly decoration : TextDecoration
   readonly lineHeight : LineHeight
@@ -11,3 +11,4 @@ class Typography {
     this.indent = indent
   }
 }
+ */

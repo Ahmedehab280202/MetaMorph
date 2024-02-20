@@ -1,4 +1,4 @@
-class LineHeight {
+/* class LineHeight {
   readonly value : number
   readonly unit : LineHeightUnit
 
@@ -6,4 +6,4 @@ class LineHeight {
     this.value = value
     this.unit = unit
   }
-}
+} */

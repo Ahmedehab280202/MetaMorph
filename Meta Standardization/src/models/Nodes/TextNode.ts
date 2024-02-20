@@ -1,4 +1,4 @@
-import BoxModel from "../BoxModel/BoxModel"
+/* import BoxModel from "../BoxModel/BoxModel"
 import Design from "../Design/Design"
 import Layout from "../Layout/Layout"
 import { NodeType } from "../types"
@@ -32,4 +32,4 @@ export default class TextNode extends BaseNode {
 
     this.typography = typography
   }
-}
+} */
