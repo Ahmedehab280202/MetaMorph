@@ -24,6 +24,7 @@ public class RepositoryArtifactService {
     }
 
     public RepositoryArtifact createOrupdateRepositoryArtifact(RepositoryArtifact repo_artifact){
+        System.out.println("checking the post service to know where is the error !!!!!!!!!!!!!!!!!!!!!!!!!");
         return repo_artifact_repo.save(repo_artifact);
     }
 

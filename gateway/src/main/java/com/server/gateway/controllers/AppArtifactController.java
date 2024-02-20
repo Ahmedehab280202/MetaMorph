@@ -84,6 +84,7 @@ public class AppArtifactController {
             AppArtifact app_artifact = app_artifact_service.getAppById(appId);
             if(app_artifact != null){
                 app_artifact.setName((String) appArtifact.getName());
+                app_artifact_service.createOrUpdateApp(app_artifact);
                 return new ResponseEntity<>(app_artifact, HttpStatus.CREATED);
             }else{
                 return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
