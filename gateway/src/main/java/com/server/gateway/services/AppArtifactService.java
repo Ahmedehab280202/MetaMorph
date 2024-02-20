@@ -28,10 +28,6 @@ public class AppArtifactService {
         return app_artifact_repository.save(app_artifact);
     }
 
-    // public List<FileArtifact> getAppFiles(Integer id){
-    //     return app_artifact_repository.getFilesByApp(id);
-    // }
-
     public void deleteApp(Integer id){
         app_artifact_repository.deleteById(id);
     }
