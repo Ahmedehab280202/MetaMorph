@@ -1,6 +1,10 @@
 def generate_model_content(diagram_class):
-    content = f"class {diagram_class.name} {{\n"
-    content += f"@Entity\n"
+    content = f"@Entity\n"
+
+    # cotnent+=f"@Data"
+# cotnent+=@ALLArgsConstructor
+    # @NoArgsConstructor
+    content += f"class {diagram_class.name} {{\n"
     content += f"@ID\n"
     content += f"@GeneratedValue\n"
     functionslist = ""
