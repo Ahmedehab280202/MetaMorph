@@ -1,4 +1,4 @@
-import { AxisDirection, AxisMode } from "../types"
+import { AxisDirection, AxisMode } from "../../types/types"
 
 export default class Axis {
   readonly direction : AxisDirection

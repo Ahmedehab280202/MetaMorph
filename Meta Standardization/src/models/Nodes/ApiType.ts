@@ -1,4 +1,4 @@
-import { ApiName } from "../types"
+import { ApiName } from "../../types/types"
 
 export default class ApiType {
   readonly api : ApiName

@@ -1,5 +1,5 @@
-import { Blur } from "./Design/Blur"
-import Shadow from "./Design/Shadow"
+import { Blur } from "../models/Design/Blur"
+import Shadow from "../models/Design/Shadow"
 import { Paint } from "./types"
 
 

@@ -1,7 +1,7 @@
-import BoxModel from "./BoxModel/BoxModel"
-import Design from "./Design/Design"
-import Layout from "./Layout/Layout"
-import BaseNode from "./Nodes/BaseNode"
+import BoxModel from "../models/BoxModel/BoxModel"
+import Design from "../models/Design/Design"
+import Layout from "../models/Layout/Layout"
+import BaseNode from "../models/Nodes/BaseNode"
 
 export default interface IFactory {
   nodeConstructor?(node : Object): BaseNode

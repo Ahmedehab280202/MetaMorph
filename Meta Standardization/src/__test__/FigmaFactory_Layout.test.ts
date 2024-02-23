@@ -1,10 +1,10 @@
-import FigmaFactory from '../models/FigmaFactory'
+import FigmaFactory from '../factories/FigmaFactory'
 import AbsoluteLayout from '../models/Layout/AbsoluteLayout'
 import Axis from '../models/Layout/Axis'
 import Layout from '../models/Layout/Layout'
 import LinearLayout from '../models/Layout/LinearLayout'
 import Vector from '../models/Layout/Vector'
-import { FrameLayout, FrameNode } from '../models/FrameNode'
+import { FrameLayout, FrameNode } from '../types/FrameNode'
 
 type TestCase = {
   testData: FrameLayout,

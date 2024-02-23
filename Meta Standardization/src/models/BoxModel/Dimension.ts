@@ -1,4 +1,4 @@
-import { DimensionMode, DimensionUnit } from "../types"
+import { DimensionMode, DimensionUnit } from "../../types/types"
 
 export default class Dimension {
   readonly value : number

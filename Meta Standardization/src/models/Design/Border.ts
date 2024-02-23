@@ -1,4 +1,4 @@
-import { Paint } from "../types"
+import { Paint } from "../../types/types"
 import LTRB_Edges from "./LTRB_Edges"
 
 

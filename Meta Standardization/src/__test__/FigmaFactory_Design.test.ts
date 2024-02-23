@@ -1,6 +1,6 @@
 import Design from "../models/Design/Design"
 import SolidPaint from "../models/Design/SolidPaint"
-import { FrameDesign } from "../models/FrameNode"
+import { FrameDesign } from "../types/FrameNode"
 import { RGB } from "../models/Design/RGBA"
 import { GradientPaint } from "../models/Design/GradientPaint"
 import { ColorStop } from "../models/Design/ColorStop"
@@ -9,7 +9,7 @@ import Vector from "../models/Layout/Vector"
 import { Blur } from "../models/Design/Blur"
 import Border from "../models/Design/Border"
 import LTRB_Edges from "../models/Design/LTRB_Edges"
-import FigmaFactory from "../models/FigmaFactory"
+import FigmaFactory from "../factories/FigmaFactory"
 
 type TestCase = {
   testData: FrameDesign,
@@ -127,6 +127,10 @@ describe('FigmaFactory.DesignConstructor', () => {
   it('Test Case 1', () => {
     const computed = FigmaFactory.DesignConstructor(testCase1.testData)
     const expected = testCase1.expectedData
+    console.log('computed');
+    console.log(computed);
+    console.log('expected');
+    console.log(expected);
     expect(computed).toEqual(expected)
   })
   // Test Case 2

@@ -1,13 +1,14 @@
 import BoxModel from "../BoxModel/BoxModel"
 import Design from "../Design/Design"
 import Layout from "../Layout/Layout"
-import ApiType from "./ApiType"
 import ChildrenNodes from "./ChildrenNodes"
 
 export default class BaseNode {
   readonly id : string
   readonly name : string
-  readonly apiType : ApiType
+  readonly element_type: string
+  readonly data_entity: string | null
+
   readonly children : ChildrenNodes
  
   readonly box : BoxModel
@@ -17,7 +18,8 @@ export default class BaseNode {
   constructor(
     id : string,
     name : string,
-    apiType : ApiType,
+    element_type : string,
+    data_entity : string | null,
     children : ChildrenNodes,
     box : BoxModel,
     layout : Layout,
@@ -25,7 +27,8 @@ export default class BaseNode {
   ){
     this.id = id
     this.name = name
-    this.apiType = apiType
+    this.element_type = element_type
+    this.data_entity = data_entity
     this.children = children
     this.box = box
     this.layout = layout

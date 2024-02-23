@@ -1,7 +1,7 @@
-import BoxModel from "../BoxModel/BoxModel"
+/* import BoxModel from "../BoxModel/BoxModel"
 import Design from "../Design/Design"
 import Layout from "../Layout/Layout"
-import { NodeType } from "../types"
+import { NodeType } from "../../types/types"
 import ApiType from "./ApiType"
 import BaseNode from "./BaseNode"
 import ChildrenNodes from "./ChildrenNodes"
@@ -12,7 +12,6 @@ export default class LayoutNode extends BaseNode {
   constructor(
     id : string,
     name : string,
-    apiType : ApiType,
     children : ChildrenNodes,
     box : BoxModel,
     layout : Layout,
@@ -21,11 +20,10 @@ export default class LayoutNode extends BaseNode {
     super(
       id = id,
       name = name,
-      apiType = apiType,
       children = children,
       box = box,
       layout = layout,
       design = design,
     )
   }
-}
+} */

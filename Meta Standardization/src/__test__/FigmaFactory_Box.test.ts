@@ -1,9 +1,9 @@
 import Layout from "../models/Layout/Layout"
-import { FrameBox } from "../models/FrameNode"
+import { FrameBox } from "../types/FrameNode"
 import BoxModel from "../models/BoxModel/BoxModel"
 import Dimension from "../models/BoxModel/Dimension"
 import LTRB from "../models/BoxModel/LTRB"
-import FigmaFactory from "../models/FigmaFactory"
+import FigmaFactory from "../factories/FigmaFactory"
 
 type TestCase = {
   testData: FrameBox,

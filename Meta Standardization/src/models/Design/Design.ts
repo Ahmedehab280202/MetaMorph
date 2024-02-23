@@ -1,7 +1,7 @@
 import Border from "./Border"
 import Shadow from "./Shadow"
 import { Blur } from "./Blur"
-import { Paint } from "../types"
+import { Paint } from "../../types/types"
 
 export default class Design {
   readonly background : ReadonlyArray<Paint>

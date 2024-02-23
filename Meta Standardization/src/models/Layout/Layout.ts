@@ -1,4 +1,4 @@
-import { LayoutMode, LayoutStructure } from "../types";
+import { LayoutMode, LayoutStructure } from "../../types/types";
 
 export default class Layout {
   readonly mode: LayoutMode

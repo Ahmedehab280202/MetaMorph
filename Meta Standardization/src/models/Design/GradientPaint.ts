@@ -1,4 +1,4 @@
-import {GradientType} from '../types'
+import {GradientType} from '../../types/types'
 import {ColorStop} from './ColorStop'
 export class GradientPaint {
   readonly type: GradientType
