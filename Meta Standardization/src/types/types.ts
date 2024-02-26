@@ -27,4 +27,6 @@ type LetterCase = 'NORMAL' | 'UPPER' | 'LOWER' | 'TITLE'
 type TextDecoration = 'NONE' | 'UNDERLINE' | 'MIDDLELINE' | 'OVERLINE'
 type LineHeightUnit = 'PIXEL' | 'PERCENTAGE'
 
-export {GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,/* PaintType, */FontStyle,LetterCase,TextDecoration,LineHeightUnit}
+type ElementType = 'div' | 'btn' | 'form' | 'input'
+
+export {ElementType,GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,/* PaintType, */FontStyle,LetterCase,TextDecoration,LineHeightUnit}

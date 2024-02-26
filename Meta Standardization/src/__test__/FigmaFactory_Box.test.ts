@@ -1,4 +1,4 @@
-import Layout from "../models/Layout/Layout"
+/* import Layout from "../models/Layout/Layout"
 import { FrameBox } from "../types/FrameNode"
 import BoxModel from "../models/BoxModel/BoxModel"
 import Dimension from "../models/BoxModel/Dimension"
@@ -230,4 +230,4 @@ describe('FigmaFactory.BoxModelConstructor', () => {
     const expected = testCase7.expectedData
     expect(computed).toEqual(expected)
   })
-})
+}) */

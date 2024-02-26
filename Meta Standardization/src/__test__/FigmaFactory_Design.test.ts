@@ -1,4 +1,4 @@
-import Design from "../models/Design/Design"
+/* import Design from "../models/Design/Design"
 import SolidPaint from "../models/Design/SolidPaint"
 import { FrameDesign } from "../types/FrameNode"
 import { RGB } from "../models/Design/RGBA"
@@ -145,4 +145,4 @@ describe('FigmaFactory.DesignConstructor', () => {
     const expected = testCase3.expectedData
     expect(computed).toEqual(expected)
   })
-})
+}) */

@@ -23,7 +23,7 @@ export default class FigmaFactory implements IFactory {
     const type_substring_match = node_name.match(/#([a-zA-Z]+)/);
     const element_type = (
       type_substring_match 
-      ? type_substring_match[0] 
+      ? type_substring_match[0].replace(/#/g, '')
       : 'div'
     )  
     node_name =(
@@ -35,7 +35,7 @@ export default class FigmaFactory implements IFactory {
     const entity_substring_match = node_name.match(/\$([^\s]+)/);
     const data_entity = (
       entity_substring_match 
-      ? entity_substring_match[0] 
+      ? entity_substring_match[0].replace(/#/g, '')
       : null
     )
     node_name =(
@@ -58,11 +58,17 @@ export default class FigmaFactory implements IFactory {
     )
   }
   
-  static  extractTypeSubstring(input: string): string {
+  /* static  extractTypeSubstring(input: string): string {
     const regex = /#([a-zA-Z]+)/; 
     const match = input.match(regex);
-    return match ? match[0] : 'div'; 
-  }
+
+    if (match) {
+      console.log(match);
+      console.log(match[0].replace(/#/g, ''));
+    }
+
+    return match ? match[0] : 'ssss'; 
+  } */
 
   static ChildrenRecursion(children: any) {
     return children?.map((child: any) => this.NodeConstructor(child))
