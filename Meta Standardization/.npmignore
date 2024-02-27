@@ -2,6 +2,3 @@ src/__test__
 src/factories
 src/index.js
 src/index.ts
-jest.config.js
-package.json
-tsconfig.json
