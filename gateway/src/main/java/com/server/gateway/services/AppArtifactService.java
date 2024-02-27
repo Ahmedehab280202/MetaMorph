@@ -24,6 +24,10 @@ public class AppArtifactService {
         return app_artifact_repository.findById(id).orElse(null);
     }
 
+    // public List<AppArtifact> getAppsByRepositoryId(Integer repositoryId) {
+    //     return app_artifact_repository.findByRepoArtifactId(repositoryId);
+    // }
+
     public AppArtifact createOrUpdateApp(AppArtifact app_artifact){
         return app_artifact_repository.save(app_artifact);
     }

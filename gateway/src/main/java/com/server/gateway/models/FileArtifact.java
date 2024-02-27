@@ -8,39 +8,72 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.Objects;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 public class FileArtifact {
     
+    @Valid
+
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @Column(name="name")
+    @NotBlank(message = "name is mandatory")
+    @NotNull(message = "name is mandatory")
+    @Size(min = 7, max = 50, message = "the minimum amount of charachters is 7 !")
     private String name;
 
     @Column(name="extension")
+    @NotBlank(message = "extension is mandatory")
+    @NotNull(message = "extension is mandatory")
+    @Size(min = 2, max = 20, message = "the minimum amount of charachters is 2 !")
     private String extension;
 
     @Column(name="language")
+    @NotBlank(message = "language is mandatory")
+    @NotNull(message = "language is mandatory")
+    @Size(min = 2, max = 50, message = "the minimum amount of charachters is 2 !")
     private String language;
 
     @Column(name="size")
+    @NotNull(message = "size is mandatory")
+    @DecimalMin(value = "0.9", inclusive = false, message = "size must be greater than 0.9")
     private Double size;
 
     @Column(name="text")
+    @NotBlank(message = "text is mandatory")
+    // @Size(min = 7, max = 50, message = "the minimum amount of charachters is 7 !")
     private String text;
 
     @Column(name="path_directory")
+    @NotBlank(message = "path_directory is mandatory")
+    @NotNull(message = "path_directory is mandatory")
     private String path_directory;
 
-    // @ManyToOne(fetch = FetchType.LAZY) // Optional: Improve performance
-    // @JoinColumn(name = "app_artifact_id")
-    @Column(name="app_artifact_id")
-    private int app_artifact_id;
+    @ManyToOne
+    @JoinColumn(name = "app_artifact_id", referencedColumnName = "id") // Specify the name of the foreign key column
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private AppArtifact appArtifact;
 
     public FileArtifact(){
 
@@ -48,7 +81,7 @@ public class FileArtifact {
     // especially if you're defining a custom constructor with arguments 
 
 
-    public FileArtifact(int id, String name, String extension, String language, Double size, String text, String path_directory, int app_artifact_id) {
+    public FileArtifact(int id, String name, String extension, String language, Double size, String text, String path_directory, AppArtifact appArtifact) {
         this.id = id;
         this.name = name;
         this.extension = extension;
@@ -56,9 +89,8 @@ public class FileArtifact {
         this.size = size;
         this.text = text;
         this.path_directory = path_directory;
-        this.app_artifact_id = app_artifact_id;
+        this.appArtifact = appArtifact;
     }
-
 
     public int getId() {
         return this.id;
@@ -116,12 +148,12 @@ public class FileArtifact {
         this.path_directory = path_directory;
     }
 
-    public int getApp_artifact() {
-        return this.app_artifact_id;
+    public AppArtifact getAppArtifact() {
+        return this.appArtifact;
     }
 
-    public void setApp_artifact(int appArtifact) {
-        this.app_artifact_id = appArtifact;
+    public void setAppArtifact(AppArtifact appArtifact) {
+        this.appArtifact = appArtifact;
     }
-    
+
 }

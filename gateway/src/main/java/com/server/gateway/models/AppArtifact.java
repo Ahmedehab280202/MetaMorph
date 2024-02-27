@@ -3,42 +3,63 @@ package com.server.gateway.models;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 public class AppArtifact {
+
+    @Valid
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name="name")
+    @Column(name = "name")
+    @NotBlank(message = "name is mandatory")
+    @NotNull(message = "name is mandatory")
+    @Size(min = 4, max = 50, message = "the minimum amount of charachters is 7 !")
     private String name;
 
-    @OneToMany(mappedBy = "app_artifact_id", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FileArtifact> fileArtifacts = new ArrayList<>();
+    @OneToMany(mappedBy = "appArtifact",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<FileArtifact> fileArtifacts;
 
-    @Column(name="repo_artifact_id")
-    private int repo_artifact_id;
+    @ManyToOne
+    @JoinColumn(name = "repo_artifact_id", referencedColumnName = "id") // Specify the name of the foreign key column
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private RepositoryArtifact repo_artifact;
 
     public AppArtifact() {
     }
 
-    public AppArtifact(int id, String name, List<FileArtifact> files, int repo_artifact_id) {
+    public AppArtifact(int id, String name, List<FileArtifact> fileArtifacts, RepositoryArtifact repo_artifact) {
         this.id = id;
         this.name = name;
-        this.fileArtifacts = files;
-        this.repo_artifact_id = repo_artifact_id;
+        this.fileArtifacts = fileArtifacts;
+        this.repo_artifact = repo_artifact;
     }
-
 
     public int getId() {
         return this.id;
@@ -64,12 +85,12 @@ public class AppArtifact {
         this.fileArtifacts = fileArtifacts;
     }
 
-    public int getRepo_artifact_id() {
-        return this.repo_artifact_id;
+    public RepositoryArtifact getRepo_artifact() {
+        return this.repo_artifact;
     }
 
-    public void setRepo_artifact_id(int repo_artifact_id) {
-        this.repo_artifact_id = repo_artifact_id;
+    public void setRepo_artifact(RepositoryArtifact repo_artifact) {
+        this.repo_artifact = repo_artifact;
     }
-
+    
 }

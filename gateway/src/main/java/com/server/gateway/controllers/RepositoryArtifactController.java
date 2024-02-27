@@ -1,6 +1,7 @@
 package com.server.gateway.controllers;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,8 +16,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.gateway.models.AppArtifact;
+import com.server.gateway.models.ProjectArtifact;
 import com.server.gateway.models.RepositoryArtifact;
 import com.server.gateway.services.RepositoryArtifactService;
+
+import jakarta.validation.Valid;
+
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/repositoryartifact")
@@ -30,6 +36,7 @@ public class RepositoryArtifactController {
         try {
             List<RepositoryArtifact> repo_artifacts = repo_artifact_service.getAllRepositories();
             if (repo_artifacts != null) {
+                System.out.println("there are repositoriesssssssssssssssssssssssssssssssssssssssssss!!!!");
                 return new ResponseEntity<>(repo_artifacts, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("No Repository Artifact", HttpStatus.OK);
@@ -53,16 +60,33 @@ public class RepositoryArtifactController {
         }
     }
 
-    @PostMapping("")
-    public ResponseEntity createRepositoryArtifact(@RequestBody RepositoryArtifact repo_artifact) {
-        try {
-            RepositoryArtifact created_repo_artifact = repo_artifact_service
-                    .createOrupdateRepositoryArtifact(repo_artifact);
-            return new ResponseEntity<>(created_repo_artifact, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+    // @PostMapping("")
+    // public ResponseEntity createRepositoryArtifact(@Valid @RequestBody Map<String, String> request_body) {
+    //     try {
+    //         int proj_artifact_id = Integer.parseInt(request_body.get("repo_artifact_id"));
+
+    //         // Check if the repositoryArtifact exists
+    //         ProjectArtifact proj_artifact = repo_artifact_service.getRepositoryById(proj_artifact_id);
+    //         if (repositoryArtifact == null) {
+    //             return new ResponseEntity<>("RepositoryArtifact with ID " + proj_artifact_id + " not found",
+    //                     HttpStatus.NOT_FOUND);
+    //         }
+
+    //         // Check if the maximum number of app artifacts is exceeded
+    //         int maxAppArtifacts = 1;
+    //         if (repositoryArtifact.getApp_artifact().size() >= maxAppArtifacts) {
+    //             return new ResponseEntity<>("Maximum number of AppArtifacts per RepositoryArtifact exceeded",
+    //                     HttpStatus.BAD_REQUEST);
+    //         }
+
+    //         String name = request_body.get("name");
+    //         String url = request_body.get("extension");
+    //         // RepositoryArtifact created_repo_artifact = repo_artifact_service.createOrupdateRepositoryArtifact(repo_artifact);
+    //         return new ResponseEntity<>(created_repo_artifact, HttpStatus.CREATED);
+    //     } catch (Exception e) {
+    //         return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+    //     }
+    // }
 
     @PutMapping("{repoId}")
     public ResponseEntity updateRepositoryArtifact(@PathVariable int repoId, @RequestBody RepositoryArtifact repoartifact) {

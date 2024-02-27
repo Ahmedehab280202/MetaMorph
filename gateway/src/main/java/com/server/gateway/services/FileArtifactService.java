@@ -3,6 +3,8 @@ package com.server.gateway.services;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.server.gateway.models.FileArtifact;
@@ -14,8 +16,12 @@ public class FileArtifactService {
     @Autowired
     FileArtifactRepository file_artifact_repository;
 
-    public List<FileArtifact> getAllFiles(){
-        return file_artifact_repository.findAll();
+    public ResponseEntity getAllFiles(){
+        try{
+            return new ResponseEntity<>(file_artifact_repository.findAll(), HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<String>("Error getting the Files: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
     }
 
     public FileArtifact getFileById(Integer Id){
