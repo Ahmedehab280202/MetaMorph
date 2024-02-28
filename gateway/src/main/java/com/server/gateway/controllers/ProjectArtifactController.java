@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.gateway.models.AppArtifact;
 import com.server.gateway.models.FileArtifact;
 import com.server.gateway.models.ProjectArtifact;
+import com.server.gateway.models.RepositoryArtifact;
 import com.server.gateway.services.ProjectArtifactService;
 
 import jakarta.validation.Valid;
@@ -78,23 +80,18 @@ public class ProjectArtifactController {
     }
 
     @PutMapping("{projId}")
-    public ResponseEntity updateProjectArtifact(@Valid @PathVariable int projId,
-            @RequestBody Map<String, String> request_body) {
+    public ResponseEntity<ProjectArtifact> updateProjectArtifact(@Valid @RequestBody Map<String, String> requestBody, @PathVariable int projId) {
         try {
             ProjectArtifact proj_arti = proj_arti_service.getProjById(projId);
             if (proj_arti != null) {
-                String name = request_body.get("name");
-
-                ProjectArtifact proj_artifact = new ProjectArtifact();
-                proj_artifact.setName(name);
-
-                ProjectArtifact created_proj_artifact = proj_arti_service.createOrUpdate(proj_artifact);
-                return new ResponseEntity<>(created_proj_artifact, HttpStatus.OK);
+                proj_arti.setName(requestBody.get("name"));
+                proj_arti_service.createOrUpdate(proj_arti);
+                return new ResponseEntity<>(proj_arti, HttpStatus.CREATED);
             } else {
-                return new ResponseEntity<>("No Project artifact found!", HttpStatus.OK);
+                return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("error getting the Project!" + e.getMessage());
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
