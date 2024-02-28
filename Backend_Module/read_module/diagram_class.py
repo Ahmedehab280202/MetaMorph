@@ -1,18 +1,23 @@
 class Diagram_Class:
-    def __init__(self, id, name, prop_nodes):
+    def __init__(self, project_name, id, name, prop_nodes, method_nodes):
+        self.project_name = project_name
         self.id = id
         self.name = name
         self.prop_nodes = [
             {
-                "modifier": prop_node.get("modifier"),
-                "name": prop_node.get("name"),
-                "dtype": prop_node.get("dtype"),
-                "default": prop_node.get("defaultVal"),
+                "modifier": prop.get("modifier"),
+                "name": prop.get("name"),
+                "dtype": prop.get("dtype"),
+                "default": prop.get("defaultVal"),
             }
-            for prop_node in prop_nodes
+            for prop in prop_nodes
         ]
-
-    def display_info(self):
-        print(self.id)
-        print(self.name)
-        print(self.prop_nodes)
+        self.method_nodes = [
+            {
+                "method_modifier": method.get("method_modifier"),
+                "method_name": method.get("method_name"),
+                "method_rtype": method.get("method_rtype"),
+                "method_params": method.get("method_params")
+            }
+            for method in method_nodes
+        ]

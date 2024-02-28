@@ -10,6 +10,8 @@ class Class_Creator:
     def create_diagram_classes(path):
         data = read_json(path)
         if "class_nodes" in data:
+            project_name = data.get("diagram_name")
+
             class_nodes = data["class_nodes"]
             diagram_classes = []
 
@@ -17,10 +19,10 @@ class Class_Creator:
                 class_id = class_node.get("id")
                 class_name = class_node.get("name")
                 prop_nodes = class_node.get("prop_nodes", [])
-
-                diagram_class = dc(class_id, class_name, prop_nodes)
+                method_nodes = class_node.get("method_nodes", [])
+                diagram_class = dc(project_name, class_id, class_name,
+                                   prop_nodes, method_nodes)
                 diagram_classes.append(diagram_class)
-
             return diagram_classes
 
         else:

@@ -1,13 +1,13 @@
 from ..file_generator import FileGenerator
-from .model_content import generate_model_content
+from .services_content import generate_services_content
 
 
-class Model_Generator(FileGenerator):
+class Services_Generator(FileGenerator):
     def __init__(self, diagram_class):
         self.diagram_class = diagram_class
-        self.content = generate_model_content(self.diagram_class)
+        self.content = generate_services_content(self.diagram_class)
 
-    def generatefile(self, diagramclass):
+    def generatefile(self, diagram_class):
         directory = ""
         filename = self.diagram_class.name+".java"
         file_path = directory+filename
