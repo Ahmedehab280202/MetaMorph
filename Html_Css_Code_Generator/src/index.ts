@@ -1,6 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import BaseNode from 'meta-standardization/src/models/Nodes/BaseNode'
+import BaseNode from 'meta-standardization/dist/models/Nodes/BaseNode'
 import HtmlFactory from './factories/HtmlFactory';
 import HtmlNode from './models/HtmlNode';
 import HtmlTree from './models/HtmlTree';
@@ -26,6 +26,7 @@ app.post('/html', (req, res) => {
 app.post('/css', (req,res) => {
   const body: BaseNode = req.body
   const css_node: CssNode = new CssNode(body)
+
   res.send(css_node.toString())
 })
 

@@ -1,13 +1,12 @@
-import { ElementType } from "meta-standardization/src/types/types";
 
 export default class HtmlNode {
-  readonly type: ElementType;
+  readonly type: string;
   readonly class_name: string;
   readonly content: string | null;
   readonly children_nodes: Array<HtmlNode>;
   readonly is_parent: Boolean;
 
-  constructor(type: ElementType, class_name: string, content: string | null, children_nodes: Array<HtmlNode>) {
+  constructor(type: string, class_name: string, content: string | null, children_nodes: Array<HtmlNode>) {
     this.type = type
     this.class_name = class_name
     this.content = content
