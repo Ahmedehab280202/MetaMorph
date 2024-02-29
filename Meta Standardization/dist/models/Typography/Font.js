@@ -1,6 +1,5 @@
-import { FontStyle, LetterCase } from "../../types/types"
-
-export default class Font {
+"use strict";
+/* class Font {
   readonly family : string
   readonly style : FontStyle
   readonly weight : number
@@ -14,4 +13,4 @@ export default class Font {
     this.size = size
     this.letterCase = letterCase
   }
-}
+} */ 

@@ -1,8 +1,5 @@
-import { TextDecoration } from "../../types/types"
-import Font from "./Font"
-import LineHeight from "./LineHeight"
-
-export default class Typography {
+"use strict";
+/* class Typography {
   readonly font : Font
   readonly decoration : TextDecoration
   readonly lineHeight : LineHeight
@@ -15,3 +12,4 @@ export default class Typography {
     this.indent = indent
   }
 }
+ */ 
