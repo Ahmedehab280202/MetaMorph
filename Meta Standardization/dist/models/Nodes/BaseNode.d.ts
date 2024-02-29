@@ -1,15 +1,18 @@
-import { ElementType } from "../../types/types";
+import { NodeType } from "../../types/types";
 import BoxModel from "../BoxModel/BoxModel";
 import Design from "../Design/Design";
 import Layout from "../Layout/Layout";
+import Typography from "../Typography/Typography";
 export default class BaseNode {
     readonly id: string;
     readonly name: string;
-    readonly element_type: ElementType;
+    readonly node_type: NodeType;
+    readonly element_type: string;
     readonly data_entity: string | null;
-    readonly children: Array<BaseNode>;
     readonly box: BoxModel;
     readonly layout: Layout;
     readonly design: Design;
-    constructor(id: string, name: string, element_type: ElementType, data_entity: string | null, children: Array<BaseNode>, box: BoxModel, layout: Layout, design: Design);
+    readonly typography: Typography | null;
+    readonly children: Array<BaseNode>;
+    constructor(id: string, name: string, node_type: NodeType, element_type: string, data_entity: string | null, children: Array<BaseNode>, box: BoxModel, layout: Layout, design: Design, typography: Typography | null);
 }

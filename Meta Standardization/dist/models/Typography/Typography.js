@@ -1,15 +1,11 @@
 "use strict";
-/* class Typography {
-  readonly font : Font
-  readonly decoration : TextDecoration
-  readonly lineHeight : LineHeight
-  readonly indent : number
-
-  constructor(font : Font, decoration : TextDecoration, lineHeight : LineHeight, indent : number) {
-    this.font = font
-    this.decoration = decoration
-    this.lineHeight = lineHeight
-    this.indent = indent
-  }
+Object.defineProperty(exports, "__esModule", { value: true });
+class Typography {
+    constructor(font, decoration, lineHeight, indent) {
+        this.font = font;
+        this.decoration = decoration;
+        this.lineHeight = lineHeight;
+        this.indent = indent;
+    }
 }
- */ 
+exports.default = Typography;

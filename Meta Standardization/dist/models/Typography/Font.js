@@ -1,16 +1,12 @@
 "use strict";
-/* class Font {
-  readonly family : string
-  readonly style : FontStyle
-  readonly weight : number
-  readonly size : number
-  readonly letterCase : LetterCase
-
-  constructor(family : string, style : FontStyle, weight : number, size : number, letterCase : LetterCase) {
-    this.family = family
-    this.style = style
-    this.weight = weight
-    this.size = size
-    this.letterCase = letterCase
-  }
-} */ 
+Object.defineProperty(exports, "__esModule", { value: true });
+class Font {
+    constructor(family, style, weight, size, letterCase) {
+        this.family = family;
+        this.style = style;
+        this.weight = weight;
+        this.size = size;
+        this.letterCase = letterCase;
+    }
+}
+exports.default = Font;

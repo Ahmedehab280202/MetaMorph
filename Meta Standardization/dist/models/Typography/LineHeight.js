@@ -1,10 +1,9 @@
 "use strict";
-/* class LineHeight {
-  readonly value : number
-  readonly unit : LineHeightUnit
-
-  constructor(value : number, unit : LineHeightUnit) {
-    this.value = value
-    this.unit = unit
-  }
-} */ 
+Object.defineProperty(exports, "__esModule", { value: true });
+class LineHeight {
+    constructor(value, unit) {
+        this.value = value;
+        this.unit = unit;
+    }
+}
+exports.default = LineHeight;
