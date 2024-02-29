@@ -11,5 +11,5 @@ class MakeMyFiles:
     def makemyfiles(self, diagramclass):
         Controller_Generator(self.diagramclass).generatefile(self.diagramclass)
         Model_Generator(self.diagramclass).generatefile(self.diagramclass)
-        # Repository_Generator(self.diagramclass).generatefile(self.diagramclass)
+        Repository_Generator(self.diagramclass).generatefile(self.diagramclass)
         Services_Generator(self.diagramclass).generatefile(self.diagramclass)

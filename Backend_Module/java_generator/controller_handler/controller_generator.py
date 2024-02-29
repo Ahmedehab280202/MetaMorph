@@ -9,7 +9,7 @@ class Controller_Generator(FileGenerator):
 
     def generatefile(self, diagram_class):
         directory = ""
-        filename = self.diagram_class.name+".java"
+        filename = self.diagram_class.name+"Controller"+".java"
         file_path = directory+filename
         # content = generate_model_content(self.diagram_class)
         file_content = self.content

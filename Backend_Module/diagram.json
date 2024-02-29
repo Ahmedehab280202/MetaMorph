@@ -35,7 +35,7 @@
           "method_name": "calculateDebt",
           "method_modifier": "public",
           "method_rtype": "String",
-          "method_params": "int amount"
+          "method_params": "amount"
         }
       ]
     },
@@ -66,8 +66,8 @@
         {
           "method_name": "makeFriend",
           "method_modifier": "public",
-          "method_rtype": "void",
-          "method_params": "Person friend"
+          "method_rtype": "person",
+          "method_params": " friend"
         }
       ]
     },

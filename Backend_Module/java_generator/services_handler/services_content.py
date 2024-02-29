@@ -1,10 +1,15 @@
 def generate_services_content(diagram_class):
-    content = f"import org.springframework.stereotype.Service;\n"
+
+    content = f"package com.example.{
+        diagram_class.project_name}.demo.service;\n"
+    content += f"import org.springframework.stereotype.Service;\n"
     content += f"import org.springframework.beans.factory.annotation.Autowired;\n"
     content += f"import java.util.List;\n"
     content += f"import java.util.Optional;\n"
-    content += f"import {diagram_class.name}Repository;\n"
-    content += f"import {diagram_class.name};\n"
+    content += f"import com.example.{diagram_class.project_name}.demo.repository.{
+        diagram_class.name}Repository;\n"
+    content += f"import com.example.{
+        diagram_class.project_name}.demo.model.{diagram_class.name};\n"
     functionslist = ""
 
     content += f"@Service\n"
@@ -34,11 +39,20 @@ def generate_services_content(diagram_class):
                           }Repository.save({diagram_class.name.lower()});\n"
     content += f"    }}\n"
 
-    content += f"    public void update{diagram_class.name}({diagram_class.name} id, {
+    content += f"    public {diagram_class.name} update{diagram_class.name}({diagram_class.name} id, {
         diagram_class.name} {diagram_class.name.lower()}) {{\n"
+    content += f"try{{    \n"
+    content += f"{diagram_class.name} {diagram_class.name.lower()}Found = {diagram_class.name.lower(
+    )}Repository .findById({diagram_class.name.lower()}.get{diagram_class.name}Id()).orElse(null); \n"
+    content += f"if({diagram_class.name.lower()}Found == null) return null; \n"
     content += f"        {diagram_class.name.lower()
                           }Repository.save({diagram_class.name.lower()});\n"
+    content += f"return {diagram_class.name.lower()};\n"
     content += f"    }}\n"
+    content += f"catch(Exception e){{\n"
+    content += f"return null;\n"
+    content += f"}} \n"
+    content += f"}} \n"
 
     content += f"    public void delete{
         diagram_class.name}({diagram_class.name} id) {{\n"
@@ -51,8 +65,8 @@ def generate_services_content(diagram_class):
         rtype = method_nodes["method_rtype"] if method_nodes["method_rtype"] else "Object"
         params = method_nodes["method_params"]if method_nodes["method_params"]else ""
         # this is for function creation
-        functionslist += f" {modifier} {rtype} {name}({params}) {{\n"
-        functionslist += f" return {params} }}\n"
+        functionslist += f" {modifier} {rtype} {name}({rtype} {params}) {{\n"
+        functionslist += f" return {params}; }}\n"
     content_end = f"}}\n"
     result = content+functionslist+content_end
 
