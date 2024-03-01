@@ -23,7 +23,9 @@ def generate_model_content(diagram_class):
 
     # this to generate model attributes
     for prop_node in diagram_class.prop_nodes:
-        modifier = prop_node["modifier"] if prop_node["modifier"] else ""
+        # modifier is private in model content
+        # prop_node["modifier"] if prop_node["modifier"] else ""
+        modifier = "private"
         dtype = prop_node["dtype"] if prop_node["dtype"] else "Object"
         # this to capitalize string to match java syntax
         if dtype == "string":
