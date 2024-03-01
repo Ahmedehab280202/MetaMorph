@@ -1,5 +1,12 @@
 def generate_services_content(diagram_class):
 
+    # declaration for id type
+    idtype = diagram_class.prop_nodes[0]["dtype"]
+    if idtype == "int":
+        idtype = "Integer"
+    elif idtype == "string":
+        idtype = "String"
+
     content = f"package com.example.{
         diagram_class.project_name}.demo.service;\n"
     content += f"import org.springframework.stereotype.Service;\n"
@@ -27,7 +34,7 @@ def generate_services_content(diagram_class):
     content += f"    }}\n"
 
     content += f"    public {diagram_class.name} get{
-        diagram_class.name}ById({diagram_class.name} id) {{\n"
+        diagram_class.name}ById({idtype} id) {{\n"
     content += f"        Optional<{diagram_class.name}> result = {
         diagram_class.name.lower()}Repository.findById(id);\n"
     content += f"        return result.orElse(null);\n"
@@ -39,7 +46,7 @@ def generate_services_content(diagram_class):
                           }Repository.save({diagram_class.name.lower()});\n"
     content += f"    }}\n"
 
-    content += f"    public {diagram_class.name} update{diagram_class.name}({diagram_class.name} id, {
+    content += f"    public {diagram_class.name} update{diagram_class.name}({idtype} id, {
         diagram_class.name} {diagram_class.name.lower()}) {{\n"
     content += f"try{{    \n"
     content += f"{diagram_class.name} {diagram_class.name.lower()}Found = {diagram_class.name.lower(
@@ -55,7 +62,7 @@ def generate_services_content(diagram_class):
     content += f"}} \n"
 
     content += f"    public void delete{
-        diagram_class.name}({diagram_class.name} id) {{\n"
+        diagram_class.name}({idtype} id) {{\n"
     content += f"        {diagram_class.name.lower()
                           }Repository.deleteById(id);\n"
     content += f"    }}\n"
@@ -66,6 +73,7 @@ def generate_services_content(diagram_class):
         params = method_nodes["method_params"]if method_nodes["method_params"]else ""
         # this is for function creation
         functionslist += f" {modifier} {rtype} {name}({rtype} {params}) {{\n"
+        functionslist += f" //Implement Your Function HERE \n"
         functionslist += f" return {params}; }}\n"
     content_end = f"}}\n"
     result = content+functionslist+content_end

@@ -16,10 +16,12 @@ import java.util.Optional;
 
     content += f"public interface {diagram_class.name}Repository extends JpaRepository<{
         diagram_class.name}, {idtype}> {{\n"
-    content += f" // what is below is experiemental remove if not needed   \n"
-    content += f"Optional<{
-        diagram_class.name}>findById({diagram_class.name} id);\n"
-    content += f"void deleteById( {diagram_class.name} id );\n"
+    # deprecated experiemental#
+    # content += f" // what is below is experiemental remove if not needed   \n"
+    # content += f"Optional<{
+    #    diagram_class.name}>findById({diagram_class.name} id);\n"
+    # content += f"void deleteById( {diagram_class.name} id );\n"
+
     content += f"}}\n"
 
     return content

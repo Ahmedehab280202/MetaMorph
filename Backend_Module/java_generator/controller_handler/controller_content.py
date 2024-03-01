@@ -38,7 +38,7 @@ def generate_controller_content(diagram_class):
                                  }Service.get{diagram_class.name}ById(id);\n"
     content += f"    }}\n"
 
-    content += f"    @PostMapping\n"
+    content += f"    @PostMapping(\"/{{add}}\")\n"
     content += f"    public void create{diagram_class.name}(@RequestBody {
         diagram_class.name} {diagram_class.name.lower()}) {{\n"
     content += f"        {diagram_class.name.lower()}Service.create{
