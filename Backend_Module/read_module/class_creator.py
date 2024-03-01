@@ -1,14 +1,14 @@
 # here is to take each class in diagram and create a class for it
 from read_module.diagram_class import Diagram_Class as dc
-from read_module.json_reader import read_json
+# from read_module.json_reader import read_json
 
 
 class Class_Creator:
-    def __init__(self, path):
-        self.path = path
+    def __init__(self, json_data):
+        self.data = json_data
 
-    def create_diagram_classes(path):
-        data = read_json(path)
+    def create_diagram_classes(json_data):
+        data = json_data
         if "class_nodes" in data:
             project_name = data.get("diagram_name")
 

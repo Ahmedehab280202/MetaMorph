@@ -1,4 +1,7 @@
 def generate_controller_content(diagram_class):
+    idtype = diagram_class.prop_nodes[0]["dtype"]
+    if idtype == "string":
+        idtype = "String"
 
     content = f"package com.example.{
         diagram_class.project_name}.demo.controller;\n"
@@ -30,7 +33,7 @@ def generate_controller_content(diagram_class):
 
     content += f"    @GetMapping(\"/{{id}}\")\n"
     content += f"    public {diagram_class.name} get{
-        diagram_class.name}ById(@PathVariable {diagram_class.name} id) {{\n"
+        diagram_class.name}ById(@PathVariable {idtype} id)) {{\n"
     content += f"        return {diagram_class.name.lower()
                                  }Service.get{diagram_class.name}ById(id);\n"
     content += f"    }}\n"
@@ -43,7 +46,7 @@ def generate_controller_content(diagram_class):
     content += f"    }}\n"
 
     content += f"    @PutMapping(\"/{{id}}\")\n"
-    content += f"    public void update{diagram_class.name}(@PathVariable {diagram_class.name} id, @RequestBody {
+    content += f"    public void update{diagram_class.name}(@PathVariable {idtype} id), @RequestBody {
         diagram_class.name} {diagram_class.name.lower()}) {{\n"
     content += f"        {diagram_class.name.lower()}Service.update{
         diagram_class.name}(id, {diagram_class.name.lower()});\n"
@@ -51,7 +54,7 @@ def generate_controller_content(diagram_class):
 
     content += f"    @DeleteMapping(\"/{{id}}\")\n"
     content += f"    public void delete{
-        diagram_class.name}(@PathVariable {diagram_class.name} id) {{\n"
+        diagram_class.name}(@PathVariable {idtype} id)) {{\n"
     content += f"        {diagram_class.name.lower()
                           }Service.delete{diagram_class.name}(id);\n"
     content += f"    }}\n"
