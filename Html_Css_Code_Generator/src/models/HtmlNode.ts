@@ -2,11 +2,11 @@
 export default class HtmlNode {
   readonly type: string;
   readonly class_name: string;
-  readonly content: string | null;
+  readonly content: string;
   readonly children_nodes: Array<HtmlNode>;
   readonly is_parent: Boolean;
 
-  constructor(type: string, class_name: string, content: string | null, children_nodes: Array<HtmlNode>) {
+  constructor(type: string, class_name: string, content: string, children_nodes: Array<HtmlNode>) {
     this.type = type
     this.class_name = class_name
     this.content = content
@@ -22,7 +22,7 @@ export default class HtmlNode {
         + '\n'
         + this.children_nodes.map(child_node => child_node.toString(indent_length+4)).join('')
         + ' '.repeat(indent_length)
-        + `<${this.type}>`
+        + `</${this.type}>`
         + '\n'
       )
     } else {
@@ -30,17 +30,9 @@ export default class HtmlNode {
         ' '.repeat(indent_length)
         + `<${this.type} class='${this.class_name}'>`
         + this.content
-        + `<${this.type}>`
+        + `</${this.type}>`
         + '\n'
       )
     }
-
-    /* const content_str = (
-      this.is_parent
-      ? '\n' + ' '.repeat(indent_length) + this.children_nodes.map(child_node => child_node.toString(indent_length+2)).join('\n') + '\n'
-      : this.content
-    )
-
-    return `${' '.repeat(indent_length)}<${this.type} class='${this.class_name}'>${content_str}<${this.type}>` */
   }
 }

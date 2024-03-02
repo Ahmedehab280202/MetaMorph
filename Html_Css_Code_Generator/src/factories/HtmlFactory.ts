@@ -17,7 +17,7 @@ export default class HtmlFactory {
     return new HtmlNode(
       node.element_type,
       node.name,
-      null,
+      node.node_type == 'TEXT' ? node.text_content : '',
       childRecursion(node)
     )
   }

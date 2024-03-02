@@ -6,8 +6,11 @@ export default class Width {
   readonly value: number | 'auto'
   readonly unit: WidthUnit | ''
 
-  constructor(width_node: Dimension, node_type: NodeType) {
-    if (width_node.mode == 'FIXED' || node_type=='TEXT') {
+  constructor(width_node: Dimension, node_type: NodeType, is_child: Boolean) {
+    if (!is_child) {
+      this.value = 100
+      this.unit = '%'
+    } else if (width_node.mode == 'FIXED' || node_type=='TEXT') {
       this.value = width_node.value
       this.unit = 'px'
     } else if (width_node.mode == 'STRETCH') {

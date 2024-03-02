@@ -25,9 +25,24 @@ app.post('/html', (req, res) => {
 
 app.post('/css', (req,res) => {
   const body: BaseNode = req.body
-  const css_node: CssNode = new CssNode(body)
+  const css_node: CssNode = new CssNode(body, false)
 
   res.send(css_node.toString())
+})
+
+app.post('/project', (req,res) => {
+  const body: BaseNode = req.body
+
+  const html_node: HtmlNode = HtmlFactory.BaseNodeConvertor(body)
+  const html_tree: HtmlTree = new HtmlTree(html_node)
+  const css_node: CssNode = new CssNode(body, false)
+
+  const obj = {
+    "html": html_tree.code,
+    "css": css_node.toString()
+  }
+
+  res.send(obj)
 })
 
 app.listen(port, () => {
