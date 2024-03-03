@@ -7,16 +7,20 @@ def generate_services_content(diagram_class):
     elif idtype == "string":
         idtype = "String"
 
-    content = f"package com.example.{
-        diagram_class.project_name}.demo.service;\n"
+    # import project name  with initializr way
+    # content = f"package com.example.{diagram_class.project_name}.demo.service;\n"
+    # content += f"import com.example.{diagram_class.project_name}.demo.repository.{diagram_class.name}Repository;\n"
+    # content += f"import com.example.{diagram_class.project_name}.demo.model.{diagram_class.name};\n"
+
+    content = f"package com.{diagram_class.project_name}.demo.service;\n"
     content += f"import org.springframework.stereotype.Service;\n"
     content += f"import org.springframework.beans.factory.annotation.Autowired;\n"
     content += f"import java.util.List;\n"
     content += f"import java.util.Optional;\n"
-    content += f"import com.example.{diagram_class.project_name}.demo.repository.{
+    # import project name and  with default defined way
+    content += f"import com.{diagram_class.project_name}.repository.{
         diagram_class.name}Repository;\n"
-    content += f"import com.example.{
-        diagram_class.project_name}.demo.model.{diagram_class.name};\n"
+    content += f"import com.{diagram_class.project_name}.model.{diagram_class.name};\n"
     functionslist = ""
 
     content += f"@Service\n"

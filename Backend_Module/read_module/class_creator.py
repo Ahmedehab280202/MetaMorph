@@ -10,7 +10,9 @@ class Class_Creator:
     def create_diagram_classes(json_data):
         data = json_data
         if "class_nodes" in data:
-            project_name = data.get("diagram_name")
+            project_name = "Meta.MyGenApp"
+            # takes project name from diagram
+            # project_name = data.get("diagram_name")
 
             class_nodes = data["class_nodes"]
             diagram_classes = []

@@ -3,17 +3,14 @@ def generate_controller_content(diagram_class):
     if idtype == "string":
         idtype = "String"
 
-    content = f"package com.example.{
-        diagram_class.project_name}.demo.controller;\n"
+    content = f"package com.{diagram_class.project_name}.controller;\n"
     content += f"import org.springframework.web.bind.annotation.*;\n"
     content += f"import java.util.List;\n"
     content += f"import org.springframework.beans.factory.annotation.Autowired;\n"
-    # content += f"import com.example.{diagram_class.project_name}.demo.Service.{diagram_class.name};\n"
-    # content += f"import com.example.{diagram_class.project_name}.demo.model.{diagram_class.name};\n"
-    content += f"import com.example.{
-        diagram_class.project_name}.demo.model.*;\n"
-    content += f"import com.example.{
-        diagram_class.project_name}.demo.service.*;\n"
+    # content += f"import com{diagram_class.project_name}Service.{diagram_class.name};\n"
+    # content += f"import com{diagram_class.project_name}model.{diagram_class.name};\n"
+    content += f"import com.{diagram_class.project_name}.model.*;\n"
+    content += f"import com.{diagram_class.project_name}.service.*;\n"
 
     content += f"@RestController\n"
     content += f"@RequestMapping(\"/{diagram_class.name.lower()}\")\n"

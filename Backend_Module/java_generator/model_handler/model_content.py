@@ -1,7 +1,11 @@
 def generate_model_content(diagram_class):
     # model-imports
 
-    content = f"package com.example.{diagram_class.project_name}.demo.model;\n"
+    #       this is dynamic use as you wish
+    # content = f"package com.example.{diagram_class.project_name}.demo.model;\n"
+
+    # preconfigured project folder
+    content = f"package com.{diagram_class.project_name}.model\n"
     content += f"import jakarta.persistence.*;\n"
     content += f"import lombok.*;\n"
 
