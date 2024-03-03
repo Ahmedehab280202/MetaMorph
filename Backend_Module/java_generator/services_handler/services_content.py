@@ -12,7 +12,7 @@ def generate_services_content(diagram_class):
     # content += f"import com.example.{diagram_class.project_name}.demo.repository.{diagram_class.name}Repository;\n"
     # content += f"import com.example.{diagram_class.project_name}.demo.model.{diagram_class.name};\n"
 
-    content = f"package com.{diagram_class.project_name}service;\n"
+    content = f"package com.{diagram_class.project_name}.service;\n"
     content += f"import org.springframework.stereotype.Service;\n"
     content += f"import org.springframework.beans.factory.annotation.Autowired;\n"
     content += f"import java.util.List;\n"
@@ -56,7 +56,7 @@ def generate_services_content(diagram_class):
 #    content += f"{diagram_class.name} {diagram_class.name.lower()}Found = {diagram_class.name.lower()}Repository .findById({diagram_class.name.lower()}.get{diagram_class.name}Id()).orElse(null); \n"
 
     content += f"{diagram_class.name} {diagram_class.name.lower()}Found = {
-        diagram_class.name.lower()}Repository .findById({idtype}).orElse(null); \n"
+        diagram_class.name.lower()}Repository .findById(id).orElse(null); \n"
     content += f"if({diagram_class.name.lower()}Found == null) return null; \n"
     content += f"        {diagram_class.name.lower()
                           }Repository.save({diagram_class.name.lower()});\n"
