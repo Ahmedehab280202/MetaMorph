@@ -1,5 +1,5 @@
 def generate_repository_content(diagram_class):
-    idtype = diagram_class.prop_nodes[0]["dtype"]
+    idtype = "Integer"
     if idtype == "int":
         idtype = "Integer"
     elif idtype == "string":
@@ -8,12 +8,13 @@ def generate_repository_content(diagram_class):
     content = f" package com.{diagram_class.project_name}.repository;   \n"
     content += f" import org.springframework.data.jpa.repository.JpaRepository;   \n"
     content += f" import org.springframework.stereotype.Repository;   \n"
-    content += f" import com{diagram_class.project_name}.model.*;   \n"
+    content += f" import com.{diagram_class.project_name}.model.*;   \n"
     content += f" import java.util.Optional;   \n"
     content += f" @Repository   \n"
 
+#    content += f"public interface {diagram_class.name}Repository extends JpaRepository<{diagram_class.name}, {idtype}> {{\n"
     content += f"public interface {diagram_class.name}Repository extends JpaRepository<{
-        diagram_class.name}, {idtype}> {{\n"
+        diagram_class.name}, Integer> {{\n"
     content += f"}}\n"
 
     return content

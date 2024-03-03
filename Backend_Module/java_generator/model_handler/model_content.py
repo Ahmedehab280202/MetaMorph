@@ -1,5 +1,5 @@
 def generate_model_content(diagram_class):
-    content = f"package com.{diagram_class.project_name}.model\n"
+    content = f"package com.{diagram_class.project_name}.model;\n"
     content += f"import jakarta.persistence.*;\n"
     content += f"import lombok.*;\n"
     # model Annotations
@@ -9,8 +9,8 @@ def generate_model_content(diagram_class):
     content += f"@NoArgsConstructor\n"
     content += f"public class {diagram_class.name} {{\n"
     content += f"@Id\n"
-    content += f"@GeneratedValue\n"
-
+    content += f"@GeneratedValue(strategy = GenerationType.IDENTITY)\n"
+    content += f"private int id\n"
     # this to generate model attributes
     for prop_node in diagram_class.prop_nodes:
         # modifier is private in model content
