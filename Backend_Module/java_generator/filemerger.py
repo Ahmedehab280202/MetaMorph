@@ -3,8 +3,6 @@ from .model_handler.model_content import generate_model_content
 from .services_handler.services_content import generate_services_content
 from .repository_handler.repository_content import generate_repository_content
 
-# a3ml static method
-
 
 class FileMerger:
 
@@ -14,7 +12,7 @@ class FileMerger:
     def filemerger(self):
         jsonformat_list = []
 
-        # Iterate through each class in the list
+        # Iterate through each object in the list
         for diagram_class in self.list_of_classes:
             model = generate_model_content(diagram_class)
             service = generate_services_content(diagram_class)
@@ -26,12 +24,14 @@ class FileMerger:
                 "model": model,
                 "service": service,
                 "controller": controller,
-                "repository": repository,
+                "repository": repository
             }
 
             jsonformat_list.append(result)
 
         return jsonformat_list
+
+
 # class FileMerger:
 #
 #    def __init__(self, diagramclass):

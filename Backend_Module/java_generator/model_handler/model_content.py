@@ -1,21 +1,7 @@
 def generate_model_content(diagram_class):
-    # model-imports
-
-    #       this is dynamic use as you wish
-    # content = f"package com.example.{diagram_class.project_name}.demo.model;\n"
-
-    # preconfigured project folder
     content = f"package com.{diagram_class.project_name}.model\n"
     content += f"import jakarta.persistence.*;\n"
     content += f"import lombok.*;\n"
-
-    # content += f"import com.example.test.demo.*;\n"
-    # content += f"import jakarta.persistence.Entity;\n"
-    # content += f"import jakarta.persistence.GeneratedValue;\n"
-    # content += f"import lombok.Data;\n"
-    # content += f"import lombok.NoArgsConstructor;\n"
-    # content += f"import lombok.AllArgsConstructor;\n"
-
     # model Annotations
     content += f"@Entity\n"
     content += f"@Data\n"
@@ -51,3 +37,12 @@ def generate_model_content(diagram_class):
 #            prop_node['name']}({dtype} {prop_node['name']}) {{\n"
 #        functionslist += f"this.{prop_node['name']
 #                                 } = {prop_node['name']}; }}\n"
+#
+#
+#
+#    # model-imports
+
+    #       this is dynamic use as you wish
+    # content = f"package com.example.{diagram_class.project_name}.demo.model;\n"
+
+    # preconfigured project folder
