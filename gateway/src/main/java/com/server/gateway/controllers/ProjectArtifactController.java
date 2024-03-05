@@ -23,7 +23,9 @@ import com.server.gateway.models.AppArtifact;
 import com.server.gateway.models.FileArtifact;
 import com.server.gateway.models.ProjectArtifact;
 import com.server.gateway.models.RepositoryArtifact;
+import com.server.gateway.models.WorkSpace;
 import com.server.gateway.services.ProjectArtifactService;
+import com.server.gateway.services.WorkSpaceService;
 
 import jakarta.validation.Valid;
 
@@ -35,6 +37,9 @@ public class ProjectArtifactController {
 
     @Autowired
     ProjectArtifactService proj_arti_service;
+
+    @Autowired
+    WorkSpaceService work_space_Service;
 
     @GetMapping("")
     public ResponseEntity getAllProjArtifacts() {
@@ -68,9 +73,16 @@ public class ProjectArtifactController {
     public ResponseEntity createProjjectArtifact(@Valid @RequestBody Map<String, String> request_body) {
         try {
             String name = request_body.get("name");
+            int work_space_id = Integer.parseInt(request_body.get("work_space_id"));
+
+            WorkSpace work_space = work_space_Service.getWorkSpaceById(work_space_id);
+            if (work_space == null) {
+                return ResponseEntity.badRequest().body("WorkSpace with ID " + work_space_id + " not found");
+            }
 
             ProjectArtifact proj_artifact = new ProjectArtifact();
             proj_artifact.setName(name);
+            proj_artifact.setWork_space(work_space);
 
             ProjectArtifact created_proj_artifact = proj_arti_service.createOrUpdate(proj_artifact);
             return new ResponseEntity<>(created_proj_artifact, HttpStatus.CREATED);
@@ -80,11 +92,21 @@ public class ProjectArtifactController {
     }
 
     @PutMapping("{projId}")
-    public ResponseEntity<ProjectArtifact> updateProjectArtifact(@Valid @RequestBody Map<String, String> requestBody, @PathVariable int projId) {
+    public ResponseEntity /*<ProjectArtifact>*/  updateProjectArtifact(
+            @Valid @RequestBody Map<String, String> request_body, @PathVariable int projId) {
         try {
             ProjectArtifact proj_arti = proj_arti_service.getProjById(projId);
             if (proj_arti != null) {
-                proj_arti.setName(requestBody.get("name"));
+                proj_arti.setName(request_body.get("name"));
+                int work_space_id = Integer.parseInt(request_body.get("work_space_id"));
+
+                WorkSpace work_space = work_space_Service.getWorkSpaceById(work_space_id);
+
+                if (work_space == null) {
+                    return ResponseEntity.badRequest().body("WorkSpace with ID " + work_space_id + " not found");
+                }
+                work_space.setId(work_space_id);
+                proj_arti.setWork_space(work_space);
                 proj_arti_service.createOrUpdate(proj_arti);
                 return new ResponseEntity<>(proj_arti, HttpStatus.CREATED);
             } else {

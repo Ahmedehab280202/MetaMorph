@@ -2,18 +2,22 @@ package com.server.gateway.models;
 
 import java.util.List;
 
-
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
 public class WorkSpace {
+
+    @Valid
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,16 +26,17 @@ public class WorkSpace {
     @Column(name="name")
     @NotBlank(message = "name is mandatory")
     @NotNull(message = "name is mandatory")
-    @Size(min = 7, max = 50, message = "the minimum amount of charachters is 7 !")
+    @Size(min = 3, max = 50, message = "the minimum amount of charachters in name attribute is 3 !")
     private String name;
 
     @Column(name="description")
-    @NotBlank(message = "name is mandatory")
-    @NotNull(message = "name is mandatory")
-    @Size(min = 20, max = 200, message = "the minimum amount of charachters is 7 !")
+    @NotBlank(message = "description is mandatory")
+    @NotNull(message = "description is mandatory")
+    @Size(min = 20, max = 200, message = "the minimum amount of charachters in description attribute is 7 !")
     private String description;
 
-    // List<ProjectArtifact> proj_artifacts;
+    @OneToMany(mappedBy = "work_space",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<ProjectArtifact> projects;
 
     private int project_limit;
 
@@ -39,11 +44,12 @@ public class WorkSpace {
     public WorkSpace() {
     }
 
-    public WorkSpace(int id, String name, String description /* , List<ProjectArtifact> proj_artifacts*/, int project_limit) {
+
+    public WorkSpace(int id, String name, String description, List<ProjectArtifact> projects, int project_limit) {
         this.id = id;
         this.name = name;
         this.description = description;
-        // this.proj_artifacts = proj_artifacts;
+        this.projects = projects;
         this.project_limit = project_limit;
     }
 
@@ -72,13 +78,13 @@ public class WorkSpace {
         this.description = description;
     }
 
-    // public List<ProjectArtifact> getProj_artifacts() {
-    //     return this.proj_artifacts;
-    // }
+    public List<ProjectArtifact> getProjects() {
+        return this.projects;
+    }
 
-    // public void setProj_artifacts(List<ProjectArtifact> proj_artifacts) {
-    //     this.proj_artifacts = proj_artifacts;
-    // }
+    public void setProjects(List<ProjectArtifact> projects) {
+        this.projects = projects;
+    }
 
     public int getProject_limit() {
         return this.project_limit;

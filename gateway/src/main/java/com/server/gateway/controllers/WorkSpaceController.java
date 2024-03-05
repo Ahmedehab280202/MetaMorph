@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.server.gateway.models.WorkSpace;
 import com.server.gateway.services.WorkSpaceService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("workspace")
 public class WorkSpaceController {
@@ -55,7 +57,7 @@ public class WorkSpaceController {
     }
 
     @PostMapping("")
-    public ResponseEntity<String> createWorkSpace(@RequestBody Map<String, String> request_body) {
+    public ResponseEntity<String> createWorkSpace(@Valid @RequestBody Map<String, String> request_body) {
         try {
             String name = request_body.get("name");
             String description = request_body.get("description");
@@ -82,7 +84,7 @@ public class WorkSpaceController {
                 work_space.setDescription((String) request_body.get("description"));
                 work_space.setProject_limit(Integer.parseInt((String) request_body.get("project_limit")));
                 workspace_service.createOrUpdate(work_space);
-                return new ResponseEntity<>("WorkSpace with ID: " + workspaceID + "is updated successfully", HttpStatus.CREATED);
+                return new ResponseEntity<>("WorkSpace with ID: " + workspaceID + " is updated successfully", HttpStatus.CREATED);
             }else {
                 return new ResponseEntity<>("No workspace found with this id: " + workspaceID, HttpStatus.NOT_FOUND);
             }
