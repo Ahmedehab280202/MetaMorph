@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.server.gateway.models.AppArtifact;
-import com.server.gateway.models.FileArtifact;
 import com.server.gateway.repositories.AppArtifactRepository;
 
 import java.util.List;

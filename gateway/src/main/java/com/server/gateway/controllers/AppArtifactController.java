@@ -1,7 +1,5 @@
 package com.server.gateway.controllers;
 
-import org.apache.catalina.connector.Response;
-import org.apache.el.stream.Optional;
 
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 
 import com.server.gateway.models.AppArtifact;
-import com.server.gateway.models.FileArtifact;
 import com.server.gateway.models.RepositoryArtifact;
 // import com.server.gateway.models.RepositoryArtifact;
 import com.server.gateway.services.AppArtifactService;
