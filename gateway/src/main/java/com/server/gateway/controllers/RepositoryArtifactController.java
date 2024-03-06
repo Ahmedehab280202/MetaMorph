@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.server.gateway.models.AppArtifact;
 import com.server.gateway.models.ProjectArtifact;
 import com.server.gateway.models.RepositoryArtifact;
 import com.server.gateway.services.ProjectArtifactService;
@@ -23,7 +22,6 @@ import com.server.gateway.services.RepositoryArtifactService;
 
 import jakarta.validation.Valid;
 
-import java.util.HashMap;
 
 @RestController
 @RequestMapping("/repositoryartifact")

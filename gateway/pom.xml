@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.1.8</version>
+		<version>3.0.6</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.server</groupId>
@@ -39,10 +39,22 @@
     	</dependency>
 
 		<dependency>
+        	<groupId>com.auth0</groupId>
+        	<artifactId>java-jwt</artifactId>
+        	<version>3.18.2</version> <!-- Use the specified version -->
+    	</dependency>
+
+		<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-security</artifactId>
+    	</dependency>
+
+		<dependency>
     		<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
     		<version>42.2.24</version> <!-- Replace with the latest version -->
 		</dependency>
+		
 		
 	</dependencies>
 

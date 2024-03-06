@@ -19,10 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.server.gateway.models.AppArtifact;
-import com.server.gateway.models.FileArtifact;
 import com.server.gateway.models.ProjectArtifact;
-import com.server.gateway.models.RepositoryArtifact;
 import com.server.gateway.models.WorkSpace;
 import com.server.gateway.services.ProjectArtifactService;
 import com.server.gateway.services.WorkSpaceService;
