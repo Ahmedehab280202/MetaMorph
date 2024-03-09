@@ -33,11 +33,17 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody Map<String,String> body){
         String username = body.get("username");
+        String first_name = body.get("first_name");
+        String last_name = body.get("last_name");
+        String email = body.get("email");
         String password = body.get("password");
         String passwordHashed = this.pass_encoder.encode(password);
 
         User user = new User();
-        user.setusername(username);
+        user.setUsername(username);
+        user.setFirst_name(first_name);
+        user.setLast_name(last_name);
+        user.setEmail(email);
         user.setPassword(passwordHashed);
 
         this.user_repo.save(user);

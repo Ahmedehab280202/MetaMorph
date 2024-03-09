@@ -15,12 +15,21 @@ public class UserService {
     @Autowired
     UserRepository user_repo;
 
+    @Autowired
+    JwtService jwt_Service;
+
     public List<User> getAllUsers(){
         return user_repo.findAll();
     } 
 
     public User getUserById(String id){
         return user_repo.findById(id).orElse(null);
+    }
+
+    public User getUserByToken(String token){
+        String Userid = jwt_Service.extractUUID(token);
+        User user = this.getUserById(Userid);
+        return user;
     }
 
     public User createOrUpdateUser(User user){
@@ -30,5 +39,6 @@ public class UserService {
     public void deleteById(String id){
         user_repo.deleteById(id);
     }
+
 
 }
