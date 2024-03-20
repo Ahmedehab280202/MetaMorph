@@ -1,4 +1,6 @@
-/* class LineHeight {
+import { LineHeightUnit } from "../../types/types"
+
+export default class LineHeight {
   readonly value : number
   readonly unit : LineHeightUnit
 
@@ -6,4 +8,4 @@
     this.value = value
     this.unit = unit
   }
-} */
+}

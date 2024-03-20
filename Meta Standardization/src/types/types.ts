@@ -3,13 +3,14 @@ import SolidPaint from "../models/Design/SolidPaint"
 import AbsoluteLayout from "../models/Layout/AbsoluteLayout"
 import GridLayout from "../models/Layout/GridLayout"
 import LinearLayout from "../models/Layout/LinearLayout"
+import TextLayout from "../models/Layout/TextLayout"
 
 type ApiName = 'FIGMA'
-type NodeType = 'LAYOUT' | 'TEXT'
+type NodeType = 'FRAME' | 'TEXT'
 
 // Layout
-type LayoutStructure = AbsoluteLayout | LinearLayout | GridLayout
-type LayoutMode = 'LINEAR' | 'ABSOLUTE' | 'GRID'
+type LayoutStructure = AbsoluteLayout | LinearLayout | GridLayout | TextLayout
+type LayoutMode = 'LINEAR' | 'ABSOLUTE' | 'GRID' | 'TEXT'
 type AxisDirection = 'HORIZONTAL' | 'VERTICAL'
 type AxisMode = 'MIN' | 'CENTER' | 'MAX' | 'SPACE_BETWEEN'
 
@@ -27,6 +28,6 @@ type LetterCase = 'NORMAL' | 'UPPER' | 'LOWER' | 'TITLE'
 type TextDecoration = 'NONE' | 'UNDERLINE' | 'MIDDLELINE' | 'OVERLINE'
 type LineHeightUnit = 'PIXEL' | 'PERCENTAGE'
 
-type ElementType = 'div' | 'btn' | 'form' | 'input'
+/* type ElementType = 'div' | 'btn' | 'form' | 'input' */
 
-export {ElementType,GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,/* PaintType, */FontStyle,LetterCase,TextDecoration,LineHeightUnit}
+export {GradientType,Paint,ApiName,NodeType,LayoutStructure,LayoutMode,AxisDirection,AxisMode,DimensionUnit,DimensionMode,/* PaintType, */FontStyle,LetterCase,TextDecoration,LineHeightUnit}

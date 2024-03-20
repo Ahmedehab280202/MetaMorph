@@ -4,7 +4,20 @@ import { Paint } from "./types"
 
 
 // Figma Plugin Api
-export type FrameNode = {
+export type FigmaNode = {
+  id: string,
+  name: string,
+  node_type: 'FRAME' | 'TEXT'
+  text_content: string
+
+  typography: FigmaTypography
+  layout: FigmaLayout
+  box: FigmaBox
+  design: FigmaDesign
+  children: Array<FigmaNode>
+}
+
+export type FigmaLayout = {
   x: number,
   y: number,
 
@@ -12,19 +25,26 @@ export type FrameNode = {
   primaryAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN',
   counterAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN',
   itemSpacing: number
+
+  textAlignHorizontal: 'LEFT' | 'CENTER' | 'RIGHT' | 'JUSTIFIED',
+  textAlignVertical: 'TOP' | 'CENTER' | 'BOTTOM',
+  letterSpacingValue: number,
+  letterSpacingUnit: "PIXELS" | "PERCENT"
 }
 
-export type FrameLayout = {
-  x: number,
-  y: number,
-
-  layoutMode: 'NONE' | 'HORIZONTAL' | 'VERTICAL',
-  primaryAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN',
-  counterAxisAlignItems: 'MIN' | 'MAX' | 'CENTER' | 'SPACE_BETWEEN',
-  itemSpacing: number
+export type FigmaTypography = {
+  textCase: "ORIGINAL" | "UPPER" | "LOWER" | "TITLE" | "SMALL_CAPS" | "SMALL_CAPS_FORCED",
+  fontFamily: string,
+  fontStyle: string,
+  isItalic: Boolean,
+  fontSize: number,
+  textDecoration: "NONE" | "UNDERLINE" | "STRIKETHROUGH",
+  lineHeightValue: number,
+  lineHeightUnit: "PIXELS" | "PERCENT" | "AUTO",
+  paragraphIndent: number
 }
 
-export type FrameBox = {
+export type FigmaBox = {
   width: number,
   height: number,
 
@@ -43,7 +63,7 @@ export type FrameBox = {
 
 }
 
-export type FrameDesign = {
+export type FigmaDesign = {
   fills: ReadonlyArray<Paint>
   strokes: ReadonlyArray<Paint>
   effects: ReadonlyArray<Shadow | Blur>
