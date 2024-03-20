@@ -5,6 +5,7 @@ export type FigmaNode = {
     id: string;
     name: string;
     node_type: 'FRAME' | 'TEXT';
+    text_content: string;
     typography: FigmaTypography;
     layout: FigmaLayout;
     box: FigmaBox;

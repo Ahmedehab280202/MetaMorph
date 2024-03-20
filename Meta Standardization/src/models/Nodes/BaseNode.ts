@@ -11,6 +11,7 @@ export default class BaseNode {
   readonly node_type: NodeType
   readonly element_type: string
   readonly data_entity: string | null
+  readonly text_content: string
 
   readonly box : BoxModel
   readonly layout : Layout
@@ -24,6 +25,7 @@ export default class BaseNode {
     name : string,
     node_type: NodeType,
     element_type : string,
+    text_content : string,
     data_entity : string | null,
     children : Array<BaseNode>,
     box : BoxModel,
@@ -34,6 +36,7 @@ export default class BaseNode {
     this.id = id
     this.name = name
     this.node_type = node_type
+    this.text_content = text_content
     this.element_type = element_type
     this.data_entity = data_entity
     this.children = children

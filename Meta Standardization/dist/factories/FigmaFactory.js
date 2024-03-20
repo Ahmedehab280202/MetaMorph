@@ -30,14 +30,14 @@ class FigmaFactory {
             ? node_name.slice(0, type_substring_match.index) + node_name.slice(type_substring_match.index + type_substring_match[0].length)
             : node_name);
         const entity_substring_match = node_name.match(/\$([^\s]+)/);
-        const data_entity = (entity_substring_match
+        let data_entity = (entity_substring_match
             ? entity_substring_match[0].replace(/#/g, '')
             : null);
         node_name = (entity_substring_match && entity_substring_match.index
             ? node_name.slice(0, entity_substring_match.index) + node_name.slice(entity_substring_match.index + entity_substring_match[0].length)
             : node_name);
         node_name = node_name.replace(/\s+/g, '');
-        return new BaseNode_1.default(node.id, node_name, node.node_type, element_type, data_entity, this.ChildrenRecursion(node.children), this.BoxModelConstructor(node.box), this.layoutConstructor(node.layout), this.DesignConstructor(node.design), this.TypographyConstructor(node.typography));
+        return new BaseNode_1.default(node.id, node_name, node.node_type, element_type, node.text_content, data_entity, this.ChildrenRecursion(node.children), this.BoxModelConstructor(node.box), this.layoutConstructor(node.layout), this.DesignConstructor(node.design), this.TypographyConstructor(node.typography));
     }
     static ChildrenRecursion(children) {
         return children?.map((child) => this.NodeConstructor(child));

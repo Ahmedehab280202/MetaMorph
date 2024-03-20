@@ -37,7 +37,7 @@ export default class FigmaFactory implements IFactory {
     ) 
 
     const entity_substring_match = node_name.match(/\$([^\s]+)/);
-    const data_entity = (
+    let data_entity = (
       entity_substring_match 
       ? entity_substring_match[0].replace(/#/g, '')
       : null
@@ -55,6 +55,7 @@ export default class FigmaFactory implements IFactory {
       node_name,
       node.node_type,
       element_type,
+      node.text_content,
       data_entity,
       this.ChildrenRecursion(node.children),
       this.BoxModelConstructor(node.box),
