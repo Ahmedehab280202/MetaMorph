@@ -16,9 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.server.gateway.models.WorkSpace;
+import com.server.gateway.repositories.UserRepository;
+import com.server.gateway.models.User;
+
 import com.server.gateway.services.WorkSpaceService;
 
 import jakarta.validation.Valid;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @RequestMapping("workspace")
@@ -26,6 +32,9 @@ public class WorkSpaceController {
 
     @Autowired
     WorkSpaceService workspace_service;
+
+    @Autowired
+    UserRepository user_repo;
 
     @GetMapping("")
     public ResponseEntity getAllWorkSpaces() {
@@ -62,13 +71,29 @@ public class WorkSpaceController {
             String name = request_body.get("name");
             String description = request_body.get("description");
             int project_limit = Integer.parseInt(request_body.get("project_limit"));
-
+    
+            // Retrieve the currently logged-in user
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User loggedInUser = (User) authentication.getPrincipal();
+    
+            // Create a new workspace
             WorkSpace work_space = new WorkSpace();
             work_space.setName(name);
             work_space.setDescription(description);
             work_space.setProject_limit(project_limit);
-
+    
+            // Set the workspace owner
+            work_space.setWorkspace_owner(loggedInUser);
+    
+            // Save the workspace
             workspace_service.createOrUpdate(work_space);
+    
+            // Associate the workspace with the user
+            loggedInUser.setWork_space(work_space);
+    
+            // Save the updated user with the workspace association
+            user_repo.save(loggedInUser);
+    
             return new ResponseEntity<>("WorkSpace created successfully", HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error creating the Workspace: " + e.getMessage());

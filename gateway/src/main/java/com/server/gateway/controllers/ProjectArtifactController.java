@@ -59,14 +59,14 @@ public class ProjectArtifactController {
             if (proj_arti != null) {
                 return new ResponseEntity<>(proj_arti, HttpStatus.OK);
             } else {
-                return new ResponseEntity<>("No Project artifact found!", HttpStatus.OK);
+                return new ResponseEntity<>("No Project artifact found!", HttpStatus.NOT_FOUND);
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("error getting the Project!" + e.getMessage());
         }
     }
 
-    @PostMapping()
+    @PostMapping("")
     public ResponseEntity createProjjectArtifact(@Valid @RequestBody Map<String, String> request_body) {
         try {
             String name = request_body.get("name");

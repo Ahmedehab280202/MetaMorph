@@ -2,6 +2,8 @@ package com.server.gateway.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,17 +43,22 @@ public class WorkSpace {
 
     private int project_limit;
 
+    @OneToOne(mappedBy = "work_space", orphanRemoval = true)
+    @JsonManagedReference
+    private User workspace_owner;
+
 
     public WorkSpace() {
     }
 
 
-    public WorkSpace(int id, String name, String description, List<ProjectArtifact> projects, int project_limit) {
+    public WorkSpace(int id, String name, String description, List<ProjectArtifact> projects, int project_limit , User workspace_owner) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.projects = projects;
         this.project_limit = project_limit;
+        this.workspace_owner = workspace_owner;
     }
 
 
@@ -93,5 +101,14 @@ public class WorkSpace {
     public void setProject_limit(int project_limit) {
         this.project_limit = project_limit;
     }
+
+    public User getWorkspace_owner() {
+        return this.workspace_owner;
+    }
+
+    public void setWorkspace_owner(User workspace_owner) {
+        this.workspace_owner = workspace_owner;
+    }
+
 
 }

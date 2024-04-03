@@ -2,11 +2,18 @@ package com.server.gateway.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
@@ -51,16 +58,22 @@ public class User {
     @NotBlank(message = "password is mandatory")
     private String password;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "work_space_id", referencedColumnName = "id")
+    @JsonBackReference
+    private WorkSpace work_space;
+
     public User() {
     }
 
-    public User(String id, String first_name, String last_name, String email, String username, String password) {
+    public User(String id, String first_name, String last_name, String email, String username, String password , WorkSpace work_space) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.work_space = work_space;
     }
 
     public String getId() {
@@ -110,6 +123,15 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public WorkSpace getWork_space() {
+        return this.work_space;
+    }
+
+    public void setWork_space(WorkSpace work_space) {
+        this.work_space = work_space;
+    }
+    
 
 }
 
