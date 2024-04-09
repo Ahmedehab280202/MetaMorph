@@ -1,6 +1,8 @@
 package com.server.gateway.models;
 
 
+import java.util.List;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -9,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIdentityReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -16,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -51,15 +55,19 @@ public class ProjectArtifact {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private WorkSpace work_space;
 
+    // @OneToMany(mappedBy = "proj_artifact",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    // List<User> collaborators;
+
     public ProjectArtifact() {
     }
 
 
-    public ProjectArtifact(int proj_id, String name, RepositoryArtifact repo_artifact, WorkSpace work_space) {
+    public ProjectArtifact(int proj_id, String name, RepositoryArtifact repo_artifact, WorkSpace work_space, List<User> collaborators) {
         this.proj_id = proj_id;
         this.name = name;
         this.repo_artifact = repo_artifact;
         this.work_space = work_space;
+        // this.collaborators = collaborators;
     }
 
 
@@ -94,6 +102,14 @@ public class ProjectArtifact {
     public void setWork_space(WorkSpace work_space) {
         this.work_space = work_space;
     }
+
+    // public List<User> getCollaborators() {
+    //     return this.collaborators;
+    // }
+
+    // public void setCollaborators(List<User> collaborators) {
+    //     this.collaborators = collaborators;
+    // }
     
 
     // public ProjectArtifact(int proj_id, String name, RepositoryArtifact repo_artifact) {

@@ -1,9 +1,12 @@
 package com.server.gateway.models;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -63,10 +67,18 @@ public class User {
     @JsonBackReference
     private WorkSpace work_space;
 
+    // @ManyToOne
+    // @JoinColumn(name = "project_id", referencedColumnName = "id") // Specify the name of the foreign key column
+    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    // @JsonIdentityReference(alwaysAsId = true)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
+    // private ProjectArtifact proj_artifact;
+
     public User() {
     }
 
-    public User(String id, String first_name, String last_name, String email, String username, String password , WorkSpace work_space) {
+
+    public User(String id, String first_name, String last_name, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -74,7 +86,9 @@ public class User {
         this.username = username;
         this.password = password;
         this.work_space = work_space;
+        // this.proj_artifact = proj_artifact;
     }
+
 
     public String getId() {
         return this.id;
@@ -131,8 +145,15 @@ public class User {
     public void setWork_space(WorkSpace work_space) {
         this.work_space = work_space;
     }
-    
 
+    // public ProjectArtifact getProj_artifact() {
+    //     return this.proj_artifact;
+    // }
+
+    // public void setProj_artifact(ProjectArtifact proj_artifact) {
+    //     this.proj_artifact = proj_artifact;
+    // }
+    
 }
 
 // feh haga felapi request 3naha haga esmaha header, data magwgoda fl request
