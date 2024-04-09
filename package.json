@@ -1,7 +1,2 @@
 {
-  "private": true,
-  "workspaces": [
-    "Figma Plugin (Design)",
-    "Meta Standardization"
-  ]
 }
