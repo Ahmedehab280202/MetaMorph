@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0px;
+    }
+
+.window {
+    /* Box Dimensions */
+    width: 100%;
+    height: 1024px;
+    padding: 56px 398px 56px 398px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+    background: rgba(63.0, 114.0, 175.0, 1.0);
+    
+}
+
+.window .main {
+    /* Box Dimensions */
+    width: 100%;
+    height: 100%;
+    padding: 10px 25px 10px 25px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+    background: rgba(255.0, 255.0, 255.0, 1.0);
+    border-radius: 20px 20px 20px 20px;
+
+}
+
+.window .main .ToDoApp {
+    /* Box Dimensions */
+    width: 189px;
+    height: 46px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    font-size: 40px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(17.0, 45.0, 78.0, 1.0);
+    
+}
+.window .main .Frame3 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 5px 10px 5px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+        
+}
+
+.window .main .Frame3 .AddToDo {
+    /* Box Dimensions */
+    width: auto;
+    height: 100%;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+    background: rgba(177.0, 177.0, 177.0, 0.4);
+    border-radius: 5px 5px 5px 5px;
+
+}
+.window .main .Frame3 .addbutton {
+    /* Box Dimensions */
+    width: auto;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+    background: rgba(72.8, 69.1, 255.0, 1.0);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.window .main .Frame3 .addbutton .Add {
+    /* Box Dimensions */
+    width: 46px;
+    height: 29px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(255.0, 255.0, 255.0, 1.0);
+    
+}
+.window .main .taskssection {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+        
+}
+
+.window .main .taskssection .taskrow {
+    /* Box Dimensions */
+    width: 100%;
+    height: 100px;
+    padding: 10px 27px 10px 27px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+
+    /* Design Properties */
+    background: rgba(177.0, 177.0, 177.0, 0.4);
+    border-radius: 10px 10px 10px 10px;
+
+}
+
+.window .main .taskssection .taskrow .taskname {
+    /* Box Dimensions */
+    width: 117px;
+    height: 29px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Ubuntu';
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 1.0);
+    
+}
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Generation -->
+<div class='window'>
+    <div class='main'>
+        <div class='ToDoApp'>To Do App</div>
+        <form class='Frame3'>
+            <input class='AddToDo'></input>
+            <btn class='addbutton'>
+                <div class='Add'>Add</div>
+            </btn>
+        </form>
+        <div class='taskssection'>
+            <div class='taskrow'>
+                <div class='taskname'>task name</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- Dynamic Generation -->
+</body>
+</html>
