@@ -55,8 +55,8 @@ public class ProjectArtifact {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private WorkSpace work_space;
 
-    // @OneToMany(mappedBy = "proj_artifact",  cascade = CascadeType.REMOVE, orphanRemoval = true)
-    // List<User> collaborators;
+    @OneToMany(mappedBy = "proj_artifact",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<User> collaborators;
 
     public ProjectArtifact() {
     }
@@ -67,7 +67,7 @@ public class ProjectArtifact {
         this.name = name;
         this.repo_artifact = repo_artifact;
         this.work_space = work_space;
-        // this.collaborators = collaborators;
+        this.collaborators = collaborators;
     }
 
 
@@ -103,13 +103,13 @@ public class ProjectArtifact {
         this.work_space = work_space;
     }
 
-    // public List<User> getCollaborators() {
-    //     return this.collaborators;
-    // }
+    public List<User> getCollaborators() {
+        return this.collaborators;
+    }
 
-    // public void setCollaborators(List<User> collaborators) {
-    //     this.collaborators = collaborators;
-    // }
+    public void setCollaborators(List<User> collaborators) {
+        this.collaborators = collaborators;
+    }
     
 
     // public ProjectArtifact(int proj_id, String name, RepositoryArtifact repo_artifact) {

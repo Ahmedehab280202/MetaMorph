@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.server.gateway.models.User;
 import com.server.gateway.services.UserService;
@@ -22,6 +23,9 @@ public class UserController {
 
     @Autowired
     private UserService user_service;
+
+    @Autowired
+    private BCryptPasswordEncoder pass_encoder;
 
     @GetMapping("{Userid}")
     public ResponseEntity getUserById(@PathVariable("Userid") String Userid) {
@@ -55,15 +59,22 @@ public class UserController {
     }
 
     @PutMapping("{Userid}")
-    public ResponseEntity updateUser(@RequestBody Map<String, String> request_body, @PathVariable String Userid) {
+    public ResponseEntity updateUser(@RequestBody Map<String, String> body, @PathVariable String Userid) {
         try {
             User user_obj = this.user_service.getUserById(Userid);
             if (user_obj != null) {
-                user_obj.setFirst_name((String) request_body.get("first_name"));
-                user_obj.setLast_name((String) request_body.get("Last_name"));
-                user_obj.setUsername((String) request_body.get("user_name"));
-                user_obj.setEmail((String) request_body.get("Email"));
-                user_obj.setPassword((String) request_body.get("Password"));
+                String username = body.get("username");
+                String first_name = body.get("first_name");
+                String last_name = body.get("last_name");
+                String email = body.get("email");
+                String password = body.get("password");
+                String passwordHashed = this.pass_encoder.encode(password);
+
+                user_obj.setFirst_name(first_name);
+                user_obj.setLast_name(last_name);
+                user_obj.setEmail(email);
+                user_obj.setUsername(username);
+                user_obj.setPassword(passwordHashed);
 
                 user_service.createOrUpdateUser(user_obj);
 
@@ -73,6 +84,7 @@ public class UserController {
             }
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Error updating the User data" + e.getMessage());
+            
         }
     }
 

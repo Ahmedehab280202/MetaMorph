@@ -58,14 +58,29 @@ public class MetaDataController {
 
 
     //shelha ba3d ma t5las testing
-    @PostMapping("")
-    public ResponseEntity createMetaData(@RequestBody MetaData metaData) {
-        try {
-            MetaData createdMetaData = meta_data_service.createMetaData(metaData);
-            return new ResponseEntity<>(createdMetaData, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating MetaData: " + e.getMessage());
+        @PostMapping("")
+        public ResponseEntity createMetaData(@RequestBody Map<String, String> request_body) {
+            try {
+                String design_url = request_body.get("design_url");
+                String data_source = request_body.get("data_source");
+                String data_type = request_body.get("data_type");
+                String raw_data = request_body.get("raw_data");
+                String standardized_data = request_body.get("standardized_data");
+
+                MetaData meta_data_obj = new MetaData();
+
+                meta_data_obj.setDesign_url(design_url);
+                meta_data_obj.setData_source(data_source);
+                meta_data_obj.setData_type(data_type);
+                meta_data_obj.setRaw_Data(raw_data);
+                meta_data_obj.setStandardized_Data(standardized_data);
+
+                this.meta_data_service.createMetaData(meta_data_obj);
+                
+                return new ResponseEntity<>(meta_data_obj, HttpStatus.CREATED);
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error creating MetaData: " + e.getMessage());
+            }
         }
-    }
         
 }

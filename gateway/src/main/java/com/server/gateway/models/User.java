@@ -67,12 +67,12 @@ public class User {
     @JsonBackReference
     private WorkSpace work_space;
 
-    // @ManyToOne
-    // @JoinColumn(name = "project_id", referencedColumnName = "id") // Specify the name of the foreign key column
-    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    // @JsonIdentityReference(alwaysAsId = true)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // private ProjectArtifact proj_artifact;
+    @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "proj_id") // Specify the name of the foreign key column
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ProjectArtifact proj_artifact;
 
     public User() {
     }
@@ -86,7 +86,7 @@ public class User {
         this.username = username;
         this.password = password;
         this.work_space = work_space;
-        // this.proj_artifact = proj_artifact;
+        this.proj_artifact = proj_artifact;
     }
 
 
@@ -146,13 +146,13 @@ public class User {
         this.work_space = work_space;
     }
 
-    // public ProjectArtifact getProj_artifact() {
-    //     return this.proj_artifact;
-    // }
+    public ProjectArtifact getProj_artifact() {
+        return this.proj_artifact;
+    }
 
-    // public void setProj_artifact(ProjectArtifact proj_artifact) {
-    //     this.proj_artifact = proj_artifact;
-    // }
+    public void setProj_artifact(ProjectArtifact proj_artifact) {
+        this.proj_artifact = proj_artifact;
+    }
     
 }
 

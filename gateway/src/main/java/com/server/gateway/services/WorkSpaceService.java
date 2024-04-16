@@ -30,4 +30,18 @@ public class WorkSpaceService {
         workspace_repo.deleteById(id);
     }
 
+    public int getProjectCountByWorkspaceId(int workspaceId) {
+        // Retrieve the workspace by ID
+        WorkSpace workSpace = workspace_repo.findById(workspaceId).orElse(null);
+
+        // Check if the workspace exists
+        if (workSpace == null) {
+            throw new RuntimeException("Workspace with ID " + workspaceId + " not found.");
+        }
+
+        // Get the count of projects associated with the workspace
+        int projectCount = workSpace.getProjects().size();
+
+        return projectCount;
+    }
 }
