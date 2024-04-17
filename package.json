@@ -1,0 +1,19 @@
+{
+  "name": "metamorph-lib",
+  "version": "1.0.0",
+  "description": "Metamorph is a revolutionary tool designed to streamline the transition from design to code in the software development life cycle. It aims to eliminate common challenges faced during this phase, ensuring accuracy, efficiency, and consistency in the generated code.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ahmedehab280202/MetaMorph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ahmedehab280202/MetaMorph/issues"
+  },
+  "homepage": "https://github.com/Ahmedehab280202/MetaMorph#readme"
+}
