@@ -1,0 +1,412 @@
+{
+  "javax_packages": [
+    {
+      "result_word": " javax.persistence.AttributeConverter"
+    },
+    {
+      "result_word": " javax.persistence.AttributeNode"
+    },
+    {
+      "result_word": " javax.persistence.Cache"
+    },
+    {
+      "result_word": " javax.persistence.EntityGraph"
+    },
+    {
+      "result_word": " javax.persistence.EntityManager"
+    },
+    {
+      "result_word": " javax.persistence.EntityManagerFactory"
+    },
+    {
+      "result_word": " javax.persistence.EntityTransaction"
+    },
+    {
+      "result_word": " javax.persistence.Parameter"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceUnitUtil"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceUtil"
+    },
+    {
+      "result_word": " javax.persistence.Query"
+    },
+    {
+      "result_word": " javax.persistence.StoredProcedureQuery"
+    },
+    {
+      "result_word": " javax.persistence.Subgraph"
+    },
+    {
+      "result_word": " javax.persistence.Tuple"
+    },
+    {
+      "result_word": " javax.persistence.TupleElement"
+    },
+    {
+      "result_word": " javax.persistence.TypedQuery"
+    },
+    {
+      "result_word": " javax.persistence.Persistence"
+    },
+    {
+      "result_word": " javax.persistence.AccessType"
+    },
+    {
+      "result_word": " javax.persistence.CacheRetrieveMode"
+    },
+    {
+      "result_word": " javax.persistence.CacheStoreMode"
+    },
+    {
+      "result_word": " javax.persistence.CascadeType"
+    },
+    {
+      "result_word": " javax.persistence.ConstraintMode"
+    },
+    {
+      "result_word": " javax.persistence.DiscriminatorType"
+    },
+    {
+      "result_word": " javax.persistence.EnumType"
+    },
+    {
+      "result_word": " javax.persistence.FetchType"
+    },
+    {
+      "result_word": " javax.persistence.FlushModeType"
+    },
+    {
+      "result_word": " javax.persistence.GenerationType"
+    },
+    {
+      "result_word": " javax.persistence.InheritanceType"
+    },
+    {
+      "result_word": " javax.persistence.LockModeType"
+    },
+    {
+      "result_word": " javax.persistence.ParameterMode"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceContextType"
+    },
+    {
+      "result_word": " javax.persistence.PessimisticLockScope"
+    },
+    {
+      "result_word": " javax.persistence.SharedCacheMode"
+    },
+    {
+      "result_word": " javax.persistence.SynchronizationType"
+    },
+    {
+      "result_word": " javax.persistence.TemporalType"
+    },
+    {
+      "result_word": " javax.persistence.ValidationMode"
+    },
+    {
+      "result_word": " javax.persistence.EntityExistsException"
+    },
+    {
+      "result_word": " javax.persistence.EntityNotFoundException"
+    },
+    {
+      "result_word": " javax.persistence.LockTimeoutException"
+    },
+    {
+      "result_word": " javax.persistence.NonUniqueResultException"
+    },
+    {
+      "result_word": " javax.persistence.NoResultException"
+    },
+    {
+      "result_word": " javax.persistence.OptimisticLockException"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceException"
+    },
+    {
+      "result_word": " javax.persistence.PessimisticLockException"
+    },
+    {
+      "result_word": " javax.persistence.QueryTimeoutException"
+    },
+    {
+      "result_word": " javax.persistence.RollbackException"
+    },
+    {
+      "result_word": " javax.persistence.TransactionRequiredException"
+    },
+    {
+      "result_word": " javax.persistence.Access"
+    },
+    {
+      "result_word": " javax.persistence.AssociationOverride"
+    },
+    {
+      "result_word": " javax.persistence.AssociationOverrides"
+    },
+    {
+      "result_word": " javax.persistence.AttributeOverride"
+    },
+    {
+      "result_word": " javax.persistence.AttributeOverrides"
+    },
+    {
+      "result_word": " javax.persistence.Basic"
+    },
+    {
+      "result_word": " javax.persistence.Cacheable"
+    },
+    {
+      "result_word": " javax.persistence.CollectionTable"
+    },
+    {
+      "result_word": " javax.persistence.Column"
+    },
+    {
+      "result_word": " javax.persistence.ColumnResult"
+    },
+    {
+      "result_word": " javax.persistence.ConstructorResult"
+    },
+    {
+      "result_word": " javax.persistence.Convert"
+    },
+    {
+      "result_word": " javax.persistence.Converter"
+    },
+    {
+      "result_word": " javax.persistence.Converts"
+    },
+    {
+      "result_word": " javax.persistence.DiscriminatorColumn"
+    },
+    {
+      "result_word": " javax.persistence.DiscriminatorValue"
+    },
+    {
+      "result_word": " javax.persistence.ElementCollection"
+    },
+    {
+      "result_word": " javax.persistence.Embeddable"
+    },
+    {
+      "result_word": " javax.persistence.Embedded"
+    },
+    {
+      "result_word": " javax.persistence.EmbeddedId"
+    },
+    {
+      "result_word": " javax.persistence.Entity"
+    },
+    {
+      "result_word": " javax.persistence.EntityListeners"
+    },
+    {
+      "result_word": " javax.persistence.EntityResult"
+    },
+    {
+      "result_word": " javax.persistence.Enumerated"
+    },
+    {
+      "result_word": " javax.persistence.ExcludeDefaultListeners"
+    },
+    {
+      "result_word": " javax.persistence.ExcludeSuperclassListeners"
+    },
+    {
+      "result_word": " javax.persistence.FieldResult"
+    },
+    {
+      "result_word": " javax.persistence.ForeignKey"
+    },
+    {
+      "result_word": " javax.persistence.GeneratedValue"
+    },
+    {
+      "result_word": " javax.persistence.Id"
+    },
+    {
+      "result_word": " javax.persistence.IdClass"
+    },
+    {
+      "result_word": " javax.persistence.Index"
+    },
+    {
+      "result_word": " javax.persistence.Inheritance"
+    },
+    {
+      "result_word": " javax.persistence.JoinColumn"
+    },
+    {
+      "result_word": " javax.persistence.JoinColumns"
+    },
+    {
+      "result_word": " javax.persistence.JoinTable"
+    },
+    {
+      "result_word": " javax.persistence.Lob"
+    },
+    {
+      "result_word": " javax.persistence.ManyToMany"
+    },
+    {
+      "result_word": " javax.persistence.ManyToOne"
+    },
+    {
+      "result_word": " javax.persistence.MapKey"
+    },
+    {
+      "result_word": " javax.persistence.MapKeyClass"
+    },
+    {
+      "result_word": " javax.persistence.MapKeyColumn"
+    },
+    {
+      "result_word": " javax.persistence.MapKeyEnumerated"
+    },
+    {
+      "result_word": " javax.persistence.MapKeyJoinColumn"
+    },
+    {
+      "result_word": " javax.persistence.MapKeyJoinColumns"
+    },
+    {
+      "result_word": " javax.persistence.MapKeyTemporal"
+    },
+    {
+      "result_word": " javax.persistence.MappedSuperclass"
+    },
+    {
+      "result_word": " javax.persistence.MapsId"
+    },
+    {
+      "result_word": " javax.persistence.NamedAttributeNode"
+    },
+    {
+      "result_word": " javax.persistence.NamedEntityGraph"
+    },
+    {
+      "result_word": " javax.persistence.NamedEntityGraphs"
+    },
+    {
+      "result_word": " javax.persistence.NamedNativeQueries"
+    },
+    {
+      "result_word": " javax.persistence.NamedNativeQuery"
+    },
+    {
+      "result_word": " javax.persistence.NamedQueries"
+    },
+    {
+      "result_word": " javax.persistence.NamedQuery"
+    },
+    {
+      "result_word": " javax.persistence.NamedStoredProcedureQueries"
+    },
+    {
+      "result_word": " javax.persistence.NamedStoredProcedureQuery"
+    },
+    {
+      "result_word": " javax.persistence.NamedSubgraph"
+    },
+    {
+      "result_word": " javax.persistence.OneToMany"
+    },
+    {
+      "result_word": " javax.persistence.OneToOne"
+    },
+    {
+      "result_word": " javax.persistence.OrderBy"
+    },
+    {
+      "result_word": " javax.persistence.OrderColumn"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceContext"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceContexts"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceProperty"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceUnit"
+    },
+    {
+      "result_word": " javax.persistence.PersistenceUnits"
+    },
+    {
+      "result_word": " javax.persistence.PostLoad"
+    },
+    {
+      "result_word": " javax.persistence.PostPersist"
+    },
+    {
+      "result_word": " javax.persistence.PostRemove"
+    },
+    {
+      "result_word": " javax.persistence.PostUpdate"
+    },
+    {
+      "result_word": " javax.persistence.PrePersist"
+    },
+    {
+      "result_word": " javax.persistence.PreRemove"
+    },
+    {
+      "result_word": " javax.persistence.PreUpdate"
+    },
+    {
+      "result_word": " javax.persistence.PrimaryKeyJoinColumn"
+    },
+    {
+      "result_word": " javax.persistence.PrimaryKeyJoinColumns"
+    },
+    {
+      "result_word": " javax.persistence.QueryHint"
+    },
+    {
+      "result_word": " javax.persistence.SecondaryTable"
+    },
+    {
+      "result_word": " javax.persistence.SecondaryTables"
+    },
+    {
+      "result_word": " javax.persistence.SequenceGenerator"
+    },
+    {
+      "result_word": " javax.persistence.SqlResultSetMapping"
+    },
+    {
+      "result_word": " javax.persistence.SqlResultSetMappings"
+    },
+    {
+      "result_word": " javax.persistence.StoredProcedureParameter"
+    },
+    {
+      "result_word": " javax.persistence.Table"
+    },
+    {
+      "result_word": " javax.persistence.TableGenerator"
+    },
+    {
+      "result_word": " javax.persistence.Temporal"
+    },
+    {
+      "result_word": " javax.persistence.Transient"
+    },
+    {
+      "result_word": " javax.persistence.UniqueConstraint"
+    },
+    {
+      "result_word": " javax.persistence.Version"
+    }
+  ]
+}
