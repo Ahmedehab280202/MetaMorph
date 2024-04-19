@@ -1,5 +1,7 @@
 package com.server.gateway.models;
 
+import java.util.List;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -17,6 +19,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -74,11 +77,14 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ProjectArtifact proj_artifact;
 
+    @OneToMany(mappedBy = "data_owner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<MetaData> user_data;
+
     public User() {
     }
 
 
-    public User(String id, String first_name, String last_name, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact) {
+    public User(String id, String first_name, String last_name, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact, List<MetaData> user_data) {
         this.id = id;
         this.first_name = first_name;
         this.last_name = last_name;
@@ -87,7 +93,10 @@ public class User {
         this.password = password;
         this.work_space = work_space;
         this.proj_artifact = proj_artifact;
+        this.user_data = user_data;
     }
+
+    
 
 
     public String getId() {
@@ -153,7 +162,14 @@ public class User {
     public void setProj_artifact(ProjectArtifact proj_artifact) {
         this.proj_artifact = proj_artifact;
     }
-    
+
+    public List<MetaData> getUser_data() {
+        return this.user_data;
+    }
+
+    public void setUser_data(List<MetaData> user_data) {
+        this.user_data = user_data;
+    }
 }
 
 // feh haga felapi request 3naha haga esmaha header, data magwgoda fl request

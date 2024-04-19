@@ -55,6 +55,23 @@
     		<version>42.2.24</version> <!-- Replace with the latest version -->
 		</dependency>
 		
+		<dependency>
+    		<groupId>com.sun.mail</groupId>
+    		<artifactId>javax.mail</artifactId>
+    		<version>1.6.2</version> <!-- Or the latest version available -->
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.boot</groupId>
+    		<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
+		<dependency>
+    		<groupId>org.projectlombok</groupId>
+    		<artifactId>lombok</artifactId>
+    		<version>1.18.20</version> <!-- Or the latest version available -->
+    		<scope>provided</scope>
+		</dependency>
 		
 	</dependencies>
 
