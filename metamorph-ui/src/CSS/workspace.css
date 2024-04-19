@@ -1,0 +1,200 @@
+.workspacepage-container {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+  }
+  .workspacepage {
+    width: 100%;
+    height: 1446px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .navbar {
+    top: 0px;
+    left: 0px;
+    width: 1440px;
+    height: 169px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+  .useraccount {
+    top: 30px;
+    left: 1500px;
+    width: 213px;
+    height: 35px;
+    position: absolute;
+    align-items: flex-start;
+    
+  }
+  .userprofile {
+    top: 0px;
+    left: 140px;
+    width: 34px;
+    height: 34px;
+    position: absolute;
+  }
+  .workspacepage-text {
+    color: rgba(0, 0, 0, 1);
+    width: 213px;
+    height: auto;
+    position: absolute;
+    font-size: 24px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+    top: 0px;
+  }
+  .workspacepage-logo {
+    top: 20px;
+    left: 87px;
+    width: 100px;
+    height: 60px;
+    position: absolute;
+  }
+  .addprojectbtn {
+    top: 150px;
+    left: 1150px;
+    width: 167px;
+    height: 42px;
+    display: flex;
+    position: absolute;
+    align-items: flex-start;
+  }
+
+  .account-button {
+    background-color: transparent; 
+    border: none; 
+    cursor: pointer; 
+    padding: 0; 
+    display: flex; 
+    align-items: center;
+    
+}
+
+.account-button img {
+    width: 30px; 
+    height: auto; 
+    margin-right: 10px; 
+}
+
+.workspacepage-text2 {
+    top: 12.5595703125px;
+    left: 23.241548538208008px;
+    color: rgba(255, 255, 255, 1);
+    width: 150px;
+    height: 45px;
+    position: absolute;
+    font-size: 22px;
+    text-align: center;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+    background-color:rgba(86, 0, 117, 1);
+    border-radius: 30px;
+    cursor: pointer;
+  }
+
+
+  .workspacepage-sidebar {
+    top: 180px;
+    left: 0px;
+    width: 324px;
+    height: 1188px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+  .workspacepage-sidebartext {
+    top: 15px;
+    left: 30px;
+    color: rgba(0, 0, 0, 1);
+    width: 255px;
+    height: auto;
+    position: absolute;
+    font-size: 26px;
+    font-style: normal;
+    text-align: center;
+    font-family: Inter;
+    font-weight: 400;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+
+  .parent-container {
+    position: relative; 
+}
+
+.line {
+    width: 918px;
+    height: 3px; 
+    left: 390px;
+    top: 230px;
+    background-color: #000;
+    position: absolute;
+}
+
+.line2 {
+    width: 918px;
+    height: 3px; 
+    left: 390px;
+    top: 430px;
+    background-color: #000;
+    position: absolute;
+}
+
+.showprojects{
+    position: absolute;
+    left: 409px;
+    top: 310px;
+    width: 188px;
+    height: 39px;
+    background-color: transparent; 
+    border-color: rgb(0, 0, 0);
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 22px;
+}
+
+.searchinput {
+    position: absolute;
+    left: 980px;
+    top: 310px;
+    width: 320px;
+    height: 39px;
+    background-color: transparent;
+    border: 1px solid rgb(21, 1, 1);
+    border-radius: 30px;
+    font-size: 22px;
+    text-align: left;
+}
+
+ 
+.searchbutton{
+    position: absolute;
+    left: 1250px;
+    top: 310px;
+    width: 35.44px;
+    height: 35.44px;
+    padding: 0; 
+    border: none; 
+    background: none;
+    cursor: pointer; 
+}
