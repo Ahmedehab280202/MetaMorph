@@ -1,0 +1,168 @@
+.login-page-container {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+  }
+  .login-page-login-page {
+    gap: 15px;
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
+  }
+  .login-page-navbar {
+    top: 0px;
+    left: 0px;
+    width: 1440px;
+    height: 135px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+  .login-page-logo {
+    top: 18px;
+    left: 42px;
+    width: 74px;
+    height: 45px;
+    position: absolute;
+  }
+  .login-page-logintoaccount {
+    gap: 59px;
+    top: 77px;
+    left: 366px;
+    width: 708px;
+    height: 547px;
+    display: flex;
+    padding: 43px 95px;
+    overflow: hidden;
+    position: absolute;
+    align-items: center;
+  }
+  .login-page-text {
+    top: 43px;
+    left: 201px;
+    color: rgba(0, 0, 0, 1);
+    width: 324px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .login-page-text02 {
+    top: 114px;
+    left: 177px;
+    color: rgba(0, 0, 0, 1);
+    width: 371px;
+    height: 36px;
+    position: absolute;
+    font-size: 20px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .login-page-text03 {
+    color: rgba(0, 0, 0, 1);
+  }
+  .login-page-emailfield {
+    top: 189px;
+    left: 190px;
+    width: 335px;
+    height: 48px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: rgb(0, 0, 0);
+  }
+  .login-page-text05 {
+    top: 10px;
+    left: 16px;
+    color: rgba(0, 0, 0, 1);
+    width: 298px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .login-page-passwordfield {
+    top: 288px;
+    left: 190px;
+    width: 335px;
+    height: 48px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: rgb(0, 0, 0);
+  }
+  .login-page-eyeicon {
+    top: 305px;
+    left: 480px;
+    width: 22px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+  }
+  .login-page-text07 {
+    top: 12px;
+    left: 11px;
+    color: rgba(0, 0, 0, 1);
+    width: 258px;
+    height: auto;
+    position: absolute;
+    font-size: 16px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .login-page-loginbutton {
+    top: 387px;
+    left: 232px;
+    width: 252px;
+    height: 47.9900016784668px;
+    display: flex;
+    overflow: hidden;
+    position: absolute; 
+    flex-shrink: 0;
+    border-radius: 30px;
+    background-color: rgba(190, 190, 190, 1);
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    cursor: pointer;
+  }

@@ -1,0 +1,180 @@
+.signup-page-container {
+    width: 100%;
+    display: flex;
+    overflow: auto;
+    min-height: 100vh;
+    align-items: center;
+    flex-direction: column;
+  }
+  .signup-page-signup-page {
+    gap: 15px;
+    width: 100%;
+    height: 1024px;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+    align-items: center;
+    flex-shrink: 0;
+    background-color: rgba(255, 255, 255, 1);
+  }
+ 
+  .signup-page-createaccount {
+    gap: 81px;
+    top: 67px;
+    left: 427px;
+    width: 585px;
+    height: 638px;
+    display: flex;
+    padding: 31px 97px;
+    overflow: hidden;
+    position: absolute;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .signup-page-text {
+    top: 31px;
+    left: 158px;
+    color: rgba(0, 0, 0, 1);
+    width: 250px;
+    height: auto;
+    position: absolute;
+    font-size: 32px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .signup-page-text02 {
+    top: 102px;
+    left: 118px;
+    color: rgba(0, 0, 0, 1);
+    width: 330px;
+    height: auto;
+    position: absolute;
+    font-size: 20px;
+    font-style: Semi Bold;
+    text-align: left;
+    font-family: Inter;
+    font-weight: 700;
+    line-height: 146.5227246284485%;
+    font-stretch: normal;
+    text-decoration: none;
+  }
+  .signup-page-text03 {
+    color: rgba(0, 0, 0, 1);
+  }
+  .signup-page-firstnamefield {
+    top: 169px;
+    left: 97px;
+    width: 168px;
+    height: 34px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: black;
+  }
+ 
+  .signup-page-lastnamefield {
+    top: 169px;
+    left: 301px;
+    width: 168px;
+    height: 34px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: black;
+  }
+
+  .signup-page-emailfield {
+    top: 246px;
+    left: 115px;
+    width: 335px;
+    height: 48px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: black;
+  }
+  
+  .signup-page-passwordfield {
+    top: 345px;
+    left: 115px;
+    width: 335px;
+    height: 48px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: black;
+  }
+  .signup-page-eyeicon {
+    top: 360px;
+    left: 420px;
+    width: 22px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+  }
+ 
+  .signup-page-passwordfield1 {
+    top: 412px;
+    left: 115px;
+    width: 335px;
+    height: 48px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    background-color: rgba(190, 190, 190, 1);
+    font-size: large;
+    border-color: black;
+  }
+  .signup-page-eyeicon1 {
+    top: 425px;
+    left: 420px;
+    width: 22px;
+    height: 20px;
+    position: absolute;
+    cursor: pointer;
+  }
+
+  .signup-page-createaccountbutton {
+    top: 501px;
+    left: 158px;
+    width: 252px;
+    height: 47.9900016784668px;
+    display: flex;
+    overflow: hidden;
+    position: absolute;
+    align-items: flex-start;
+    flex-shrink: 0;
+    border-radius: 30px;
+    background-color: rgba(190, 190, 190, 1);
+    justify-content: center;
+    align-items: center;
+    font-size: large;
+    cursor: pointer;
+  }
+
+ .signup-page-login-link{
+    color: purple;
+}
