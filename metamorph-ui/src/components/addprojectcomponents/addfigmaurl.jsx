@@ -1,15 +1,14 @@
 import figmaicon from '../../assists/figmaicon.png';
-import '../../CSS/app.css';
 
 function Addfigma() {
     return (
         <div>
             <div className="addfigmaurl">
                 <div className="group19">
-                    <span className="text">
+                    <span className="text1">
                     <span>Sync your design</span>
                     </span>
-                    <span className="text2">
+                    <span className="text3">
                     <span>
                         Import Figma design URL to sync your design to your project.
                     </span>

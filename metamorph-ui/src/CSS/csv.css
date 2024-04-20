@@ -1,14 +1,16 @@
 .addcsvfile {
     top: 121px;
-    left: 680px;
-    width: 720px;
-    height: 903px;
+    left: 800px;
+    width: 700px;
+    height: 703px;
     display: flex;
     overflow: hidden;
     position: absolute;
     align-items: flex-start;
     flex-shrink: 0;
     background-color: rgb(255, 255, 255);
+    border: 2px solid #000000; /* Border properties */
+    border-radius: 50px;
   }
   .group20 {
     top: 162px;
@@ -50,7 +52,7 @@
     width: 345px;
     height: auto;
     position: absolute;
-    font-size: 16px;
+    font-size: 18px;
     font-style: Semi Bold;
     text-align: center;
     font-family: Inter;

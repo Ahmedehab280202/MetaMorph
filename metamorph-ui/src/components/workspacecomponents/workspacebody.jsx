@@ -3,7 +3,7 @@ import "../../CSS/workspace.css";
 
 function Workspacebody() {
     return(
-        <div className="">
+        <div>
             <div className="line"></div>
             <div className="line2"></div>
             <button className="showprojects"> All Projects </button>

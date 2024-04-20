@@ -251,7 +251,7 @@
     position: absolute;
   }
   .text{
-    left:335px;
+    left:400px;
     top: 580px;
     width: 770px; 
     height: 179px;
@@ -259,7 +259,7 @@
     position: absolute;
   }
   .text2{
-    left:335px;
+    left:450px;
     top: 710px;
     width: 776px; 
     height: 43px;
@@ -468,7 +468,7 @@
     position: absolute;
     align-items: flex-start;
     flex-shrink: 1;
-   
+    
     
   }
   .home-page-text40 {

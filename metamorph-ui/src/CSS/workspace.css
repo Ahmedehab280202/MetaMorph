@@ -1,11 +1,4 @@
-.workspacepage-container {
-    width: 100%;
-    display: flex;
-    overflow: auto;
-    min-height: 100vh;
-    align-items: center;
-    flex-direction: column;
-  }
+
   .workspacepage {
     width: 100%;
     height: 1446px;
@@ -34,7 +27,6 @@
     height: 35px;
     position: absolute;
     align-items: flex-start;
-    
   }
   .userprofile {
     top: 0px;
@@ -146,7 +138,7 @@
     width: 918px;
     height: 3px; 
     left: 390px;
-    top: 230px;
+    top: 250px;
     background-color: #000;
     position: absolute;
 }
@@ -155,7 +147,7 @@
     width: 918px;
     height: 3px; 
     left: 390px;
-    top: 430px;
+    top: 400px;
     background-color: #000;
     position: absolute;
 }

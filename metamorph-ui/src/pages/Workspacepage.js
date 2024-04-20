@@ -5,7 +5,7 @@ import "../CSS/workspace.css";
 
 function WorkSpacePage() {
     return (
-        <div className="">
+        <div className="workspacepage">
             <NavBar />
             <Sidebar />
             <Workspacebody />
