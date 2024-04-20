@@ -16,10 +16,13 @@ app.get("/", (req: Request, res: Response) => {
   const service_file: ServiceFile = new ServiceFile(class_node);
   const repository_file: RepositoryFile = new RepositoryFile(class_node);
 
-  const final_string: String = "model:" + model_file.toString() + "\n" +
-    "controller:" + controller_file.toString() + "\n" + "service_file:" + service_file.toString() + "\n" + "repository:" + repository_file.toString() + "\n";
-
-  res.send(JSON.stringify(final_string));
+  //output 
+  res.send({
+    "controller": controller_file.toString(),
+    "model": model_file.toString(),
+    "service": service_file.toString(),
+    "repository": repository_file.toString()
+  });
 
 
 });
