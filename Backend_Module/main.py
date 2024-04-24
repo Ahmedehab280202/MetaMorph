@@ -34,8 +34,7 @@ def hello(body: dict):
     data = body
     return process_json_data(data)
 
-
 # fast api server
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("main:app", host="127.0.0.1", port=8001)
+    uvicorn.run("main:app", host="127.0.0.1", port=3006)

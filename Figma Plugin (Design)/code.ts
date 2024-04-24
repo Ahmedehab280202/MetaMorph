@@ -1,22 +1,44 @@
 "use strict";
 const selectLayer = figma.currentPage.selection[0];
 
+console.log('selectLssayer:');
+console.log(selectLayer);
+
 const jsonProcess = (node: any) => ({
   id: node.id,
   name: node.name,
+  node_type: node.type,
+  text_content: node.characters,
+  typography: {
+    textCase: node.textCase,
+    fontFamily: node.fontName?.family,
+    fontStyle: node.fontName?.style,
+    isItalic: node.fontName?.style.includes("Italic"),
+    fontSize: node.fontSize,
+    textDecoration: node.textDecoration,
+    lineHeightValue: node.lineHeight?.value,
+    lineHeightUnit: node.lineHeight?.unit,
+    paragraphIndent: node.paragraphIndent
+  },
   layout: {
     x: node.x,
     y: node.y,
+
     layoutMode: node.layoutMode,
     primaryAxisAlignItems: node.primaryAxisAlignItems,
     counterAxisAlignItems: node.counterAxisAlignItems,
     itemSpacing: node.itemSpacing,
+
+    textAlignHorizontal: node.textAlignHorizontal,
+    textAlignVertical: node.textAlignVertical,
+    letterSpacingValue: node.letterSpacing?.value,
+    letterSpacingUnit: node.letterSpacing?.unit,
   },
   box: {
     width: node.width,
     height: node.height,
-    parentLayoutMode: node.parentLayoutMode,
-    parentNodeType: node.parentNodeType,
+    parentLayoutMode: node.parent?.layoutMode,
+    parentNodeType: node.parent?.type,
     layoutMode: node.layoutMode,
     layoutGrow: node.layoutGrow,
     layoutAlign: node.layoutAlign,
@@ -32,7 +54,7 @@ const jsonProcess = (node: any) => ({
     strokes: node.strokes,
     effects: node.effects,
     strokeWeight: node.strokeWeight,
-    topLeftRadius: node.topLeftRadius,
+    topLeftRadius: node.topLeftRadius, 
     topRightRadius: node.topRightRadius,
     bottomRightRadius: node.bottomRightRadius,
     bottomLeftRadius: node.bottomLeftRadius,
@@ -41,10 +63,13 @@ const jsonProcess = (node: any) => ({
     node.children ?
       node.children.map((child: any) => {
         return jsonProcess(child);
-      }) : null
+      }) : null 
   )
 })
 
-console.log('selectLayer:');
-console.log(selectLayer);
-console.log(JSON.stringify(jsonProcess(selectLayer)));
+console.log(jsonProcess(selectLayer));
+figma.showUI(__html__)
+figma.ui.postMessage(jsonProcess(selectLayer));
+
+
+

@@ -1,17 +1,223 @@
-<h2>Rectangle Creator</h2>
-<p>Count: <input id="count" value="5"></p>
-<button id="create">Create</button>
-<button id="cancel">Cancel</button>
-<script>
+<script src="https://cdn.jsdelivr.net/npm/file-saver"></script>
+<body>
+  <h2>Upload CSV File</h2>
 
-document.getElementById('create').onclick = () => {
-  const textbox = document.getElementById('count');
-  const count = parseInt(textbox.value, 10);
-  parent.postMessage({ pluginMessage: { type: 'create-rectangles', count } }, '*')
-}
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" id="fileInput">
+    <br><br>
+    <button type="submit">Upload</button>
+  </form>
 
-document.getElementById('cancel').onclick = () => {
-  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
-}
+  <button id="requestButton">Generate Project</button>
+  
+  <script>
+    document.querySelector('form').addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent the form from submitting normally
+      
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+      
+      const formData = new FormData();
+      formData.append('csv_file', file);
+       
+      let back_code;
+      try {
+        const response = await fetch('http://localhost:8000/upload_csv', {
+          method: 'POST',
+          body: formData
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to upload file');
+        }
+        
+        const back_meta = await response.json();
+        console.log('back_meta:', back_meta);
+        
+        try {
+          const response = await fetch('http://localhost:8001/springboot', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(back_meta)
+          });
+    
+          if (!response.ok) {
+            throw new Error('Failed to send back_meta to springboot');
+          }
+    
+          back_code = await response.json();
+          console.log('back_code:', back_code);
+        } catch (error) {
+          console.error('Error sending back_meta to springboot:', error);
+        }
+      } catch (error) {
+        console.error('Error uploading file:', error);
+      }
 
-</script>
+      let meta_data;
+          try {
+            const response = await fetch('http://localhost:3000/figma', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+  
+            meta_data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data);
+            console.log('meta_data');
+            console.log(meta_data);
+          } catch (error) {
+              console.error('Error:', error);
+          }
+
+          let html_css_data;
+          try {
+            const response = await fetch('http://localhost:3001/todo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(meta_data)
+            });
+  
+            html_css_data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data);
+            console.log('html_css_data');
+            console.log(html_css_data);
+          } catch (error) {
+              console.error('Error:', error);
+          }
+
+          let csv_file
+          const code_obj = {
+            "html_css_code": html_css_data,
+            "java_code": back_code
+          }
+          try {
+            const response = await fetch('http://localhost:3002/download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(code_obj)
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error('Failed to download zip file');
+                }
+                // Parse the filename from the content-disposition header
+                const contentDisposition = response.headers.get('content-disposition');
+                const match = contentDisposition && contentDisposition.match(/filename="(.+)"/);
+                const filename = match && match[1] ? match[1] : 'download.zip';
+
+                // Start the download
+                response.blob().then((blob) => {
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = filename;
+                  document.body.appendChild(a);
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                  document.body.removeChild(a);
+                });
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+          } catch (error) {
+              console.error('Error:', error);
+          }
+    });
+  </script>
+
+
+  <script>
+    
+      let data;
+      onmessage = (event) => {
+        data = event.data.pluginMessage
+        console.log("got data from the UI")
+      }
+            
+      document.getElementById('requestButton').addEventListener('click', async () => {
+        let meta_data;
+          try {
+            const response = await fetch('http://localhost:3000/figma', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            });
+  
+            meta_data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data);
+            console.log('meta_data');
+            console.log(meta_data);
+          } catch (error) {
+              console.error('Error:', error);
+          }
+
+          let html_css_data;
+          try {
+            const response = await fetch('http://localhost:3001/todo', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(meta_data)
+            });
+  
+            html_css_data = await response.json();
+            document.getElementById('response').textContent = JSON.stringify(data);
+            console.log('html_css_data');
+            console.log(html_css_data);
+          } catch (error) {
+              console.error('Error:', error);
+          }
+
+          let csv_file
+          
+          try {
+            const response = await fetch('http://localhost:3002/download', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(html_css_data)
+            })
+              .then((response) => {
+                if (!response.ok) {
+                  throw new Error('Failed to download zip file');
+                }
+                // Parse the filename from the content-disposition header
+                const contentDisposition = response.headers.get('content-disposition');
+                const match = contentDisposition && contentDisposition.match(/filename="(.+)"/);
+                const filename = match && match[1] ? match[1] : 'download.zip';
+
+                // Start the download
+                response.blob().then((blob) => {
+                  const url = window.URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = filename;
+                  document.body.appendChild(a);
+                  a.click();
+                  window.URL.revokeObjectURL(url);
+                  document.body.removeChild(a);
+                });
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+          } catch (error) {
+              console.error('Error:', error);
+          }
+      });
+  </script>
+</body>

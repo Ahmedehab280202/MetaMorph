@@ -6,12 +6,16 @@ import multer, { MulterError } from 'multer';
 import { LucidCsv } from './models/types';
 import DiagramNode from './models/DiagramNode';
 
-
 const app = express();
-const PORT = 8000;
+const PORT = 3004;
 
 app.use(cors());
 const upload = multer({ dest: 'uploads/' });
+app.use(express.json()); 
+
+app.post('/name', upload.none(), (req: Request, res: Response) => {
+    res.send(req.body.name)
+  });
 
 app.post('/upload_csv', upload.single('csv'), (req: Request, res: Response) => {
   if (!req.file) {
@@ -40,15 +44,19 @@ app.post('/lucid/convert', upload.single('csv'), (req: Request, res: Response) =
 
   const results: LucidCsv[] = [];
   fs.createReadStream(filePath)
-      .pipe(csvParser())
-      .on('data', (data) => results.push(data))
-      .on('end', () => {
-          // Delete the uploaded file after parsing
-          fs.unlinkSync(filePath);
-          res.json(new DiagramNode(results));
-      });
+    .pipe(csvParser())
+    .on('data', (data) => results.push(data))
+    .on('end', () => {
+        // Delete the uploaded file after parsing
+        fs.unlinkSync(filePath);
+        res.json(new DiagramNode(results));
+    });
+});
+
+app.post('/lucid', (req: Request, res: Response) => {
+    res.send(new DiagramNode(req.body))
 });
 
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Backend Standardization is running on port ${PORT}`);
 });

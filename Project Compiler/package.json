@@ -19,7 +19,11 @@
     "typescript": "^5.3.3"
   },
   "dependencies": {
+    "@types/multer": "^1.4.11",
     "archiver": "^7.0.0",
-    "cors": "^2.8.5"
+    "axios": "^1.6.8",
+    "cors": "^2.8.5",
+    "csv-parser": "^3.0.0",
+    "multer": "^1.4.5-lts.1"
   }
 }

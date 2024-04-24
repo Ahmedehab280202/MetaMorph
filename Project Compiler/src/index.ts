@@ -1,20 +1,55 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
-import SpringBootApp from './Java/SpringBootApp';
-import { HtmlCssNode } from './types';
 import archiver from 'archiver';
 import path from 'path';
 import cors from 'cors';
+import multer from 'multer';
+import csvParser from 'csv-parser';
 
+import SpringBootApp from './Java/SpringBootApp';
+import MetaProject from './MetaProject';
 
-const app = express();
 const port = 3002;
-app.use(express.json());
+const app = express();
+const upload = multer({ dest: 'uploads/' });
+
+app.use(express.json()); 
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send(req.body);
+
+app.get('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {
+  if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+  }
+
+  const raw_ui_data= JSON.parse(req.body.raw_ui_data)
+  const raw_uml_data= await MetaProject.parseCsv(req.file.path)
+  const meta_ui_data= await MetaProject.getMetaUiData(raw_ui_data)
+  const meta_uml_data= await MetaProject.getMetaUmlData(raw_uml_data)
+  const html_code= await MetaProject.getHtmlCode(meta_ui_data)
+  const css_code= await MetaProject.getCssCode(meta_ui_data)
+  const java_code= await MetaProject.getJavaCode(meta_uml_data)
+
+  const meta_project = new MetaProject(
+    raw_ui_data,
+    raw_uml_data,
+    meta_ui_data,
+    meta_uml_data,
+    html_code,
+    css_code,
+    java_code,
+  )
+
+  res.send(meta_project);
 });
+
+app.get('/figma-api',upload.none(), async (req:Request, res:Response) => {
+  const figma_token = req.body['X-Figma-Token']
+  const file_url = req.body['file_url']
+
+  const raw_ui_data = await MetaProject.getRawUiData(file_url, figma_token)
+  res.send(raw_ui_data)
+})
 
 /* app.get('/generate', (req: Request, res: Response) => {
   const body: HtmlCssNode = req.body
@@ -85,5 +120,5 @@ app.post('/download', async (req: Request, res: Response) => {
 })
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Project Compiler running at http://localhost:${port}`);
 });
