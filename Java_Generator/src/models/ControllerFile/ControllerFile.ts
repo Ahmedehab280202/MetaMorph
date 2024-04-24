@@ -33,7 +33,7 @@ import com.meta.service.*;
     }
     @PutMapping("/{id}")
     public void update${this.class_name}(@PathVariable Integer id, @RequestBody ${this.class_name} ${this.class_name}) {
-        ${this.class_name}Service.update${this.class_name}(id, task);${this.class_name}
+        ${this.class_name}Service.update${this.class_name}(id, this.class_name);${this.class_name}
     }
     @DeleteMapping("/{id}")
     public void deleteTask(@PathVariable Integer id) {
