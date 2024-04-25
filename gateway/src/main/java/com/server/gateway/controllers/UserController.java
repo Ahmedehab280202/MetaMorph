@@ -64,14 +64,14 @@ public class UserController {
             User user_obj = this.user_service.getUserById(Userid);
             if (user_obj != null) {
                 String username = body.get("username");
-                String first_name = body.get("first_name");
-                String last_name = body.get("last_name");
+                String firstname = body.get("firstname");
+                String lastname = body.get("lastname");
                 String email = body.get("email");
                 String password = body.get("password");
                 String passwordHashed = this.pass_encoder.encode(password);
 
-                user_obj.setFirst_name(first_name);
-                user_obj.setLast_name(last_name);
+                user_obj.setFirstname(firstname);
+                user_obj.setLastname(lastname);
                 user_obj.setEmail(email);
                 user_obj.setUsername(username);
                 user_obj.setPassword(passwordHashed);

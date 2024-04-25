@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,30 +31,39 @@ public class AuthController {
     @Autowired
     JwtService jwt_service;
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody Map<String,String> body){
+    public ResponseEntity register(@RequestBody Map<String, String> body) {
+
+        System.out.println(body);
+        
         String username = body.get("username");
-        String first_name = body.get("first_name");
-        String last_name = body.get("last_name");
+        String firstname = body.get("firstname");
+        String lastname = body.get("lastname");
         String email = body.get("email");
         String password = body.get("password");
+
+        if (username == null || firstname == null || lastname == null || email == null || password == null) {
+            Map<String, String> errorResponse = new HashMap<>();
+            errorResponse.put("error", "All fields are required");
+            return ResponseEntity.badRequest().body(errorResponse);
+        }
+
         String passwordHashed = this.pass_encoder.encode(password);
 
         User user = new User();
         user.setUsername(username);
-        user.setFirst_name(first_name);
-        user.setLast_name(last_name);
+        user.setFirstname(firstname);
+        user.setLastname(lastname);
         user.setEmail(email);
         user.setPassword(passwordHashed);
 
         this.user_repo.save(user);
 
         String token = this.jwt_service.generateToken(user.getId());
-        Map res = new HashMap<>();
+        Map<String, String> res = new HashMap<>();
         res.put("token", token);
-        return new ResponseEntity<>(res, HttpStatus.CREATED);
-
-        // return new ResponseEntity<>(user,HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }// bdal ma byrga3 eldata bta3et eluser hyrga3 token.
 
     @PostMapping("/login")
