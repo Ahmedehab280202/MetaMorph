@@ -1,8 +1,7 @@
 export class RegisterModel {
-    constructor(firstname, lastname, phonenumber, email, username, password) {
+    constructor(firstname, lastname, email, username, password) {
         firstname = this.firstname;
         lastname = this.lastname;
-        phonenumber = this.phonenumber;
         email = this.email;
         username = this.username;
         password = this.password;

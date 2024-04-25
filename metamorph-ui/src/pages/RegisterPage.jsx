@@ -7,64 +7,61 @@ import '../CSS/register.css';
 function RegisterPage() {
 
   const [values,setValues] = useState({
-    Firstname:"",
-    Lastname:"",
-    PhoneNumber:"",
-    Email:"",
-    Username:"",
-    Password:"",
+    firstname:"",
+    lastname:"",
+    email:"",
+    username:"",
+    password:"",
   })
 
   const inputs = [
     {
       id:1,
-      name: "Firstname",
-      input_name: "Firstname",
+      name: "firstname",
+      input_name: "firstname",
       input_type: "text",
-      placeholder: "Enter your Firstname"
+      placeholder: "Enter your firstname"
     },
     {
       id:2,
-      name: "Lastname",
-      input_name: "Lastname",
+      name: "lastname",
+      input_name: "lastname",
       input_type: "text",
-      placeholder: "Enter your Lastname"
+      placeholder: "Enter your lastname"
     },
+
     {
       id:3,
-      name: "PhoneNumber",
-      input_name: "PhoneNumber",
+      name: "email",
+      input_name: "email",
       input_type: "text",
-      placeholder: "Enter your PhoneNumber"
+      placeholder: "Enter your email"
     },
     {
       id:4,
-      name: "Email",
-      input_name: "Email",
+      name: "username",
+      input_name: "username",
       input_type: "text",
-      placeholder: "Enter your Email"
+      placeholder: "Enter your username"
     },
     {
       id:5,
-      name: "Username",
-      input_name: "Username",
+      name: "password",
+      input_name: "password",
       input_type: "text",
-      placeholder: "Enter your Username"
-    },
-    {
-      id:6,
-      name: "Password",
-      input_name: "Password",
-      input_type: "text",
-      placeholder: "Enter your Password"
+      placeholder: "Enter your password"
     },
   ]
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { Firstname, Lastname, PhoneNumber, Email, Username, Password } = values;
-    
-    const registerData = new RegisterModel(Firstname, Lastname, PhoneNumber, Email, Username, Password);
+    var { firstname, lastname, email, username, password } = values;
+    console.log("values before submit:", values);
+    const registerData = values;
+
+    console.log("registerData",registerData);
+
+    console.log("handel submit wslet lehnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!")
 
     try {
       const response = await register(registerData);
