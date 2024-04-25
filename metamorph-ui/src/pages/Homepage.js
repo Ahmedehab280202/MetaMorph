@@ -1,12 +1,12 @@
-import HomeNavBar from "../components/homecomponents/homenavbar.jsx" 
-import HomePageBody from "../components/homecomponents/homepagebody.jsx"
+import HomePageBody from "../components/homepagebody.jsx"
+import HomeNavBar from "../components/homenavbar.jsx"
 import '../CSS/homepage.css';
 
 function HomePage() {
     return(
         <div className="home-page-container">
             <HomeNavBar />
-            <HomePageBody />
+            {/* <HomePageBody /> */}
         </div>
     )
 }

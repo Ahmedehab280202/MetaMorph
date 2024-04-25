@@ -1,0 +1,7 @@
+.project_wrapper {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+    flex-direction: column;
+    margin-top: 20px;
+}

@@ -1,9 +1,9 @@
-import '../../CSS/homepage.css';
-import figma from '../../assists/figma.png';
-import csv from '../../assists/csvimage.png';
-import github from '../../assists/github.png';
-import fullstack from '../../assists/fullstack.png';
-import Logo from '../../assists/Logo.png';
+import '../CSS/homepage.css';
+import figma from '../assists/figma.png';
+import csv from '../assists/csvimage.png';
+import github from '../assists/github.png';
+import fullstack from '../assists/fullstack.png';
+import Logo from '../assists/Logo.png';
 
 function HomePageBody() {
     return(

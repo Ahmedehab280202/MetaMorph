@@ -1,0 +1,12 @@
+.workspace_dashboard {
+  position: fixed;
+  top: 0;
+  left: 260px; /* Width of the sidebar */
+  width: calc(100% - 260px); /* Calculating the remaining width */
+  height: 100vh; /* Taking the whole screen height */
+  background-color: #ffffff; /* Example background color */
+  overflow-y: auto; /* Allowing vertical scrolling if content overflows */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
