@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { LoginModel } from "../models/AuthModel";
+import { login } from "../services/AuthService";
 import "../CSS/homepage.css";
+
+import FormInput from "./FormInput";
 
 function HomeNavBar() {
   const [modal, setModal] = useState(false);
@@ -8,6 +12,43 @@ function HomeNavBar() {
   const toggleModal = () => {
     setModal(!modal);
   };
+
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (username === "" || password === "") {
+      console.log("Please fill all the fields");
+      return;
+    } else {
+      console.log("before pressing login debug")
+      const logindata = new LoginModel(username, password);
+
+      console.log("login data:", logindata);
+      toggleModal();
+      try{
+        console.log("test before executing the login service !")
+        const response = await login(logindata);
+        console.log('response elhandle submit:',response)
+
+        localStorage.setItem("token",response.data.token)
+        // console.log("the token :", token)
+
+        // localStorage.setItem("user",)
+        // const user_test = JSON.stringify(logindata.username);
+        const user_test = JSON.stringify(logindata.username);
+        console.log(user_test);
+
+      }catch(error){
+        console.error('Registration error:', error);
+      }
+    }
+
+  };
+
 
   return (
     <>
@@ -42,27 +83,36 @@ function HomeNavBar() {
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <h2>Login</h2>
-            <form action="#">
-              <div class="input_box">
+            <div className="modal-header">
+              <h2>Login</h2>
+            </div>
+            <form action="#" className="login-form" onSubmit={handleSubmit}>
+              <div className="input_box">
+                <label for="username">
+                  <b>Username</b>
+                </label>
                 <input
-                  type="username"
-                  placeholder="Enter your username"
-                  required
+                  type="text"
+                  placeholder="Enter Username"
+                  name="username"
+                  onChange={(e) => setUsername(e.target.value)}
                 />
-                <i class="uil uil-envelope-alt username"></i>
               </div>
-              <div class="input_box">
+              <div className="input_box">
+                <label for="psw">
+                  <b>Password</b>
+                </label>
                 <input
                   type="password"
-                  placeholder="Enter your password"
-                  required
+                  placeholder="Enter Password"
+                  name="psw"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
-                <i class="uil uil-lock password"></i>
-                <i class="uil uil-eye-slash pw_hide"></i>
               </div>
-              <button class="button">Login</button>
-              <div class="login_signup">
+              <div className="button-container">
+                <button className="form-button">Login</button>
+              </div>
+              <div className="login_signup">
                 Don't have an account?{" "}
                 <Link to="/register" className="" id="form-open">
                   Signup

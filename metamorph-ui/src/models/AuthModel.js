@@ -10,7 +10,7 @@ export class RegisterModel {
 
 export class LoginModel {
     constructor(username, password) {
-        username = this.username;
-        password = this.password;
+        this.username = username;
+        this.password = password;
     }
 }

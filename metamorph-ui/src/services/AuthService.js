@@ -20,7 +20,7 @@ export const register = async (registerModel) => {
         const response = await axios.post(`${baseUrl}/register`, data, { headers });
         return response.data; // Make sure response.data contains the required information
     } catch (error) {
-        console.log("Error from try catch:", error);
+        console.log("Error from register service try catch:", error);
         return error.response.data; // Return a consistent error format
     }
 };
@@ -37,7 +37,7 @@ export const login = async (LoginModel) => {
         let response = await axios.post(`${baseUrl}/login`, data, { headers });
         return response;
     } catch (error) {
-        console.log("Error from try catch:", error);
+        console.log("Error from login service try catch:", error);
         return error.response.data;
     }
 };

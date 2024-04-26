@@ -65,13 +65,8 @@ function RegisterPage() {
 
     try {
       const response = await register(registerData);
-      console.log(response);
+      console.log('response elhandle submit:',response);
 
-      if (response.success) {
-        alert('Registration successful!'); 
-      } else {
-        alert('Registration failed: ' + response.message); 
-      }
     } catch (error) {
       console.error('Registration error:', error);
     }
