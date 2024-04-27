@@ -11,7 +11,232 @@
   <button id="requestButton">Generate Project</button>
   
   <script>
+    const rest_api_process = (node, parentLayoutMode, parentNodeType) => ({
+      id: node.id,
+      name: node.name,
+      node_type: node.type,
+      text_content: node.characters,
+      box: {
+        width: node.absoluteBoundingBox.width,
+        height: node.absoluteBoundingBox.height,
+        parentLayoutMode: parentLayoutMode,
+        parentNodeType: parentNodeType,
+        layoutMode: node.layoutMode,
+        layoutGrow: node.layoutGrow || 0,
+        layoutAlign: node.layoutAlign || 'INHERIT',
+        primaryAxisSizingMode: node.primaryAxisSizingMode,
+        counterAxisSizingMode: node.counterAxisSizingMode,
+        paddingLeft: node.paddingLeft || 0,
+        paddingTop: node.paddingTop || 0,
+        paddingRight: node.paddingRight || 0,
+        paddingBottom: node.paddingBottom || 0,
+      },
+      layout: {
+        x: node.absoluteBoundingBox.x,
+        y: node.absoluteBoundingBox.y,
+
+        layoutMode: node.layoutMode,
+        primaryAxisAlignItems: node.primaryAxisAlignItems || "MIN",
+        counterAxisAlignItems: node.counterAxisAlignItems || "MIN",
+        itemSpacing: node.itemSpacing || 0,
+
+        textAlignHorizontal: node.style?.textAlignHorizontal,
+        textAlignVertical: node.style?.textAlignVertical,
+        letterSpacingValue: node.style?.letterSpacing,
+        letterSpacingUnit: "PIXEL",
+      },
+      design: {
+        fills: node.fills,
+        strokes: node.strokes,
+        effects: node.effects,
+        strokeWeight: node.strokeWeight,
+        topLeftRadius: node.rectangleCornerRadii?.[0] || node.cornerRadius || 0, 
+        topRightRadius: node.rectangleCornerRadii?.[1] || node.cornerRadius || 0,
+        bottomRightRadius: node.rectangleCornerRadii?.[2] || node.cornerRadius || 0,
+        bottomLeftRadius: node.rectangleCornerRadii?.[3] || node.cornerRadius || 0,
+      },
+      typography: {
+        textCase: node.style?.textCase || "ORIGINAL",
+        fontFamily: node.style?.fontFamily,
+        fontStyle: "Regular",
+        isItalic: false,
+        fontSize: node.style?.fontSize,
+        textDecoration: node.style?.textDecoration || "NONE",
+        lineHeightValue: (
+          node.style?.lineHeightUnit == "FONT_SIZE_%"
+          ? node.style?.lineHeightPercentFontSize
+          : node.style?.lineHeightUnit == "PIXELS"
+          ? node.style?.lineHeightPx
+          : undefined
+        ),
+        lineHeightUnit: (
+          node.style?.lineHeightUnit == "FONT_SIZE_%"
+          ? "PERCENT"
+          : node.style?.lineHeightUnit == "PIXELS"
+          ? "PIXELS"
+          : "AUTO"
+        ),
+        paragraphIndent: node.style?.paragraphIndent || 0
+      },
+      children: (
+        node.children ?
+          node.children.map((child) => {
+            return rest_api_process(child, node.layoutMode, node.type);
+          }) : null 
+      )
+    })
+  </script>
+
+  <script>
+    const plugin_api_process = (node) => ({
+      id: node.id,
+      name: node.name,
+      node_type: node.type,
+      text_content: node.characters,
+      box: {
+        width: node.width,
+        height: node.height,
+        parentLayoutMode: node.parent?.layoutMode,
+        parentNodeType: node.parent?.type,
+        layoutMode: node.layoutMode,
+        layoutGrow: node.layoutGrow,
+        layoutAlign: node.layoutAlign,
+        primaryAxisSizingMode: node.primaryAxisSizingMode,
+        counterAxisSizingMode: node.counterAxisSizingMode,
+        paddingLeft: node.paddingLeft,
+        paddingTop: node.paddingTop,
+        paddingRight: node.paddingRight,
+        paddingBottom: node.paddingBottom,
+      },
+      layout: {
+        x: node.x,
+        y: node.y,
+    
+        layoutMode: node.layoutMode,
+        primaryAxisAlignItems: node.primaryAxisAlignItems,
+        counterAxisAlignItems: node.counterAxisAlignItems,
+        itemSpacing: node.itemSpacing,
+    
+        textAlignHorizontal: node.textAlignHorizontal,
+        textAlignVertical: node.textAlignVertical,
+        letterSpacingValue: node.letterSpacing?.value,
+        letterSpacingUnit: node.letterSpacing?.unit,
+      },
+      design: {
+        fills: node.fills,
+        strokes: node.strokes,
+        effects: node.effects,
+        strokeWeight: node.strokeWeight,
+        topLeftRadius: node.topLeftRadius, 
+        topRightRadius: node.topRightRadius,
+        bottomRightRadius: node.bottomRightRadius,
+        bottomLeftRadius: node.bottomLeftRadius,
+      },
+      typography: {
+        textCase: node.textCase,
+        fontFamily: node.fontName?.family,
+        fontStyle: node.fontName?.style,
+        isItalic: node.fontName?.style.includes("Italic"),
+        fontSize: node.fontSize,
+        textDecoration: node.textDecoration,
+        lineHeightValue: node.lineHeight?.value,
+        lineHeightUnit: node.lineHeight?.unit,
+        paragraphIndent: node.paragraphIndent
+      },
+      children: (
+        node.children ?
+          node.children.map((child) => {
+            return plugin_api_process(child);
+          }) : null 
+      )
+    })
+  </script>
+
+  <script>
+    const getRawUiData = async (file_url, figma_token) => {
+      const match = file_url.match(/\/file\/([^\/?]+)/);
+      const file_key = match ? match[1] : null;
+  
+      const url = `https://api.figma.com/v1/files/${file_key}`;
+      const headers = {
+          'X-Figma-Token': figma_token,
+      };
+  
+      try {
+          const response = await fetch(url, {
+              method: 'GET',
+              headers: headers,
+          });
+  
+          if (response.ok) {
+              const data = await response.json();
+              const node = data["document"]["children"].find((node) => node["type"] == "CANVAS")["children"][0];
+              return rest_api_process(node, undefined, "PAGE");
+          } else {
+              throw new Error('Failed to fetch data');
+          }
+      } catch (error) {
+          console.error('Error:', error);
+          throw error;
+      }
+    }
+
+    
+    
+    /*let ui_data;
+    onmessage = (event) => {
+      ui_data = event.data.pluginMessage
+      console.log("ui_data:",ui_data)
+    }*/
+
     document.querySelector('form').addEventListener('submit', async (event) => {
+      event.preventDefault(); // Prevent the form from submitting normally
+      const fileInput = document.getElementById('fileInput');
+      const file = fileInput.files[0];
+
+      const file_url = 'https://www.figma.com/file/QnJuPFNmNIRBhU5u7NVhov/Student-Portal?type=design&node-id=1%3A2&mode=design&t=NRNJt0nOr1t3Kmrk-1'
+      const str= 'figd_m9ZptarESsEQ4JZSG-IS2oSFvw0xJEVeHGkwrqea'
+      getRawUiData(file_url, figma_token).then(async (raw_ui_data) => {
+        console.log('raw_ui_data:', raw_ui_data);
+
+        const formData = new FormData();
+        formData.append('raw_uml_data', file);
+        formData.append('raw_ui_data', JSON.stringify(raw_ui_data));
+
+        try {
+          const response = await fetch('http://localhost:3002/', {
+              method: 'POST',
+              body: formData
+          });
+  
+          if (response.ok) {
+              const blob = await response.blob();
+              const url = window.URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = 'download.zip';
+              document.body.appendChild(a);
+              a.click();
+              window.URL.revokeObjectURL(url);
+              document.body.removeChild(a);
+          } else {
+              console.error('Failed to download zip file:', response.status, response.statusText);
+          }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+      })
+    });
+  </script>
+
+  <script>
+    
+  
+  </script>
+
+  <script>
+
+    /*document.querySelector('form').addEventListener('submit', async (event) => {
       event.preventDefault(); // Prevent the form from submitting normally
       
       const fileInput = document.getElementById('fileInput');
@@ -138,11 +363,11 @@
 
   <script>
     
-      let data;
+      /*let data;
       onmessage = (event) => {
         data = event.data.pluginMessage
-        console.log("got data from the UI")
-      }
+        console.log("ui_data:",data)
+      }*/
             
       document.getElementById('requestButton').addEventListener('click', async () => {
         let meta_data;

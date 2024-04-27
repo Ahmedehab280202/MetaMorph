@@ -1,8 +1,8 @@
 "use strict";
 const selectLayer = figma.currentPage.selection[0];
 
-console.log('selectLssayer:');
-console.log(selectLayer);
+/* console.log('selectLssayer:');
+console.log(selectLayer); */
 
 const jsonProcess = (node: any) => ({
   id: node.id,
@@ -67,9 +67,12 @@ const jsonProcess = (node: any) => ({
   )
 })
 
-console.log(jsonProcess(selectLayer));
+console.log('select_layer:',jsonProcess(selectLayer));
 figma.showUI(__html__)
 figma.ui.postMessage(jsonProcess(selectLayer));
 
 
 
+/* 
+
+*/

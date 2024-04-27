@@ -8,11 +8,18 @@ const PropNode_1 = __importDefault(require("./PropNode"));
 class ClassNode {
     constructor(lucid_node) {
         this.id = lucid_node.Id;
-        this.name = lucid_node["Text Area 1"];
+        this.type = (lucid_node["Text Area 1"].includes("<<Interface>>")
+            ? "Interface"
+            : lucid_node["Name"]);
+        this.name = (this.type == "Interface"
+            ? lucid_node["Text Area 1"].replace("<<Interface>>", "").trim()
+            : lucid_node["Text Area 1"].trim());
         this.prop_nodes = (this.newLineSlicer(lucid_node["Text Area 2"])
             .map(prop_string => new PropNode_1.default(prop_string)));
         this.method_nodes = (this.newLineSlicer(lucid_node["Text Area 3"])
             .map(method_string => new MethodNode_1.default(method_string)));
+        this.parent_node = null;
+        this.relationships = [];
     }
     newLineSlicer(inputString) {
         const pattern = /(?:[\u200b\n])(.*?)(?=\n|$)/g;

@@ -1,4 +1,5 @@
 import ClassNode from "./ClassNode"
+import RelationshipNode from "./RelationshipNode"
 import { LucidCsv } from "./types"
 
 export default class DiagramNode {
@@ -22,6 +23,7 @@ export default class DiagramNode {
     let class_nodes = class_arr
 
     rel_arr.forEach(line => {
+
       let relashionshipType = (
         line['Source Arrow'] == "None" && line['Destination Arrow'] == "None"
         ? 'Association' :
@@ -34,21 +36,21 @@ export default class DiagramNode {
         "Undefined"
       )
 
-      let source_class = class_arr.find(node => node.id == line["Line Source"])
-      let dest_class = class_arr.find(node => node.id == line["Line Destination"])
+      let source_class = class_arr.find(node => node.id == line["Line Source"]);
+      let dest_class = class_arr.find(node => node.id == line["Line Destination"]);
+      let source_index = source_class ? class_arr.indexOf(source_class) : null
+      let dest_index = dest_class ? class_arr.indexOf(dest_class) : null
 
-      if (relashionshipType == 'Association') {
-        class_nodes.find(node => node.id == line["Line Source"])?.relashionships.push({'Association': dest_class?.name})
-        class_nodes.find(node => node.id == line["Line Destination"])?.relashionships.push({'Association': source_class?.name})
-      } else if (relashionshipType == 'Aggregation') {
-        class_nodes.find(node => node.id == line["Line Destination"])?.relashionships.push({'Aggregation': source_class?.name})
-      } else if (relashionshipType == 'Composition') {
-        class_nodes.find(node => node.id == line["Line Destination"])?.relashionships.push({'Composition': source_class?.name})
-      } else if (relashionshipType == 'Generalization') {
-        if (dest_class?.type == "Interface") {
-          class_nodes.find(node => node.id == line["Line Source"])?.relashionships.push({'Implements': dest_class?.name})
-        } else {
-          class_nodes.find(node => node.id == line["Line Source"])?.relashionships.push({'Inheitance': dest_class?.name})
+      if (source_index != null && dest_index != null) {
+        if (relashionshipType == 'Association') {
+          class_nodes[source_index].relationships.push( new RelationshipNode('Association', dest_class?.name || '') )
+          class_nodes[dest_index].relationships.push( new RelationshipNode('Association', source_class?.name || '') )
+        } else if (relashionshipType == 'Aggregation') {
+          class_nodes[dest_index].relationships.push( new RelationshipNode('Aggregation', source_class?.name || ''))
+        } else if (relashionshipType == 'Composition') {
+          class_nodes[dest_index].relationships.push( new RelationshipNode('Composition', source_class?.name || ''))
+        } else if (relashionshipType == 'Generalization' && dest_class) {
+          class_nodes[source_index].parent_node = dest_class
         }
       }
     })

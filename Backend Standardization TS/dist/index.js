@@ -10,9 +10,13 @@ const fs_1 = __importDefault(require("fs"));
 const multer_1 = __importDefault(require("multer"));
 const DiagramNode_1 = __importDefault(require("./models/DiagramNode"));
 const app = (0, express_1.default)();
-const PORT = 8000;
+const PORT = 3004;
 app.use((0, cors_1.default)());
 const upload = (0, multer_1.default)({ dest: 'uploads/' });
+app.use(express_1.default.json());
+app.post('/name', upload.none(), (req, res) => {
+    res.send(req.body.name);
+});
 app.post('/upload_csv', upload.single('csv'), (req, res) => {
     if (!req.file) {
         return res.status(400).json({ message: 'No file uploaded' });
@@ -43,6 +47,9 @@ app.post('/lucid/convert', upload.single('csv'), (req, res) => {
         res.json(new DiagramNode_1.default(results));
     });
 });
+app.post('/lucid', (req, res) => {
+    res.send(new DiagramNode_1.default(req.body));
+});
 app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
+    console.log(`Backend Standardization is running on port ${PORT}`);
 });

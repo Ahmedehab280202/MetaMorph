@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 
 
-app.get('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {
+app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {
   if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
   }
@@ -40,7 +40,47 @@ app.get('/', upload.single('raw_uml_data'), async (req: Request, res: Response) 
     java_code,
   )
 
-  res.send(meta_project);
+  /* res.send(meta_project); */
+
+  const folderName = 'MyGenApp';
+  const dirPath = path.join('./src', folderName);
+
+  const outputZip = 'src/MyGenApp.zip';
+  const output = fs.createWriteStream(outputZip);
+  const archive = archiver('zip', {
+    zlib: { level: 9 } // Set compression level to maximum
+  });
+
+  archive.pipe(output);
+  archive.directory(dirPath, folderName);
+  await archive.finalize();
+
+  // Listen for 'close' event on the output stream 
+  output.on('close', () => {
+    console.log('Zip file created successfully.');
+
+    // Set the content type and attachment header
+    res.set('Content-Type', 'application/zip');
+    res.set('Content-Disposition', `attachment; filename=MyGenApp.zip`);
+
+    // Send the zip file as the response
+    res.sendFile('MyGenApp.zip', { root: __dirname }, (err) => {
+      if (err) {
+        console.error('Error sending file:', err);
+        res.status(500).end();
+      } else {
+        console.log('File sent successfully.');
+        // Delete the zip file after sending
+        fs.unlink(outputZip, (err) => {
+          if (err) {
+            console.error('Error deleting file:', err);
+          } else {
+            console.log('File deleted successfully.');
+          }
+        });
+      }
+    });
+  });
 });
 
 app.get('/figma-api',upload.none(), async (req:Request, res:Response) => {
@@ -79,11 +119,9 @@ app.post('/download', async (req: Request, res: Response) => {
     zlib: { level: 9 } // Set compression level to maximum
   });
 
-
   archive.pipe(output);
   archive.directory(dirPath, folderName);
   await archive.finalize();
-
 
   // Listen for 'close' event on the output stream 
   output.on('close', () => {

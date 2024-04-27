@@ -24,5 +24,5 @@ app.post('/figma', (req: Request, res: Response) => {
 });
 
 app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+  console.log(`Meta Standardization is listening on port ${port}`);
 });

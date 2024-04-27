@@ -46,5 +46,5 @@ app.post('/project', (req,res) => {
 })
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}`);
+  console.log(`Html-Css Generator running at http://localhost:${port}`);
 });

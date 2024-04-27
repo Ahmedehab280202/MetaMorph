@@ -15,7 +15,6 @@ type LucidCsv = {
   'Text Area 3': String,
   'Comments': String,
 }
-
 export {
   LucidCsv
 }

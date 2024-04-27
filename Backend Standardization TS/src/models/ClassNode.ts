@@ -1,14 +1,16 @@
 import MethodNode from "./MethodNode"
 import PropNode from "./PropNode"
+import RelationshipNode from "./RelationshipNode"
 import { LucidCsv } from "./types"
 
 export default class ClassNode {
   readonly id: String
   readonly type: String
   readonly name: String
+  public parent_node: ClassNode | null
   readonly prop_nodes: PropNode[]
   readonly method_nodes: MethodNode[]
-  public relashionships: Object[]
+  public relationships: RelationshipNode[]
 
   constructor(lucid_node: LucidCsv) {
     this.id = lucid_node.Id
@@ -30,7 +32,8 @@ export default class ClassNode {
       this.newLineSlicer(lucid_node["Text Area 3"])
         .map(method_string => new MethodNode(method_string))
     )
-    this.relashionships = []
+    this.parent_node = null
+    this.relationships = []
   }
 
   newLineSlicer(inputString: String): String[] {

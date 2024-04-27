@@ -1,0 +1,41 @@
+Id,Name,Shape Library,Page ID,Contained By,Group,Line Source,Line Destination,Source Arrow,Destination Arrow,Status,Text Area 1,Text Area 2,Text Area 3,Comments
+1,Document,,,,,,,,,Draft,diagram,,,
+3,Class,UML,2,,,,,,,,Person,"​+ name: String
++ gender: String
++ phone_number: String",,
+4,Class,UML,2,,,,,,,,Student,"​+ code: String
++ faculty: Faculty
++ courses: Array<Course>",,
+5,Class,UML,2,,,,,,,,Faculty,"​+ name: String
++ students: Array<Student>
++ staff: Array<Staff>
++ professors: Array<Staff>",,
+6,Class,UML,2,,,,,,,,Course,"​+ name: String
++ code: String
++ credit_hours: Int
++ lectures: Array<Lecture>",,
+7,Class,UML,2,,,,,,,,Lecture,"​+ start_time: String
++ end_time: String
++ day_of_week: String
++ room: String
++ instructor: Professor",,
+8,Class,UML,2,,,,,,,,University,"​+ name: String
++ faculties: Array<Faculty>",,
+9,Class,UML,2,,,,,,,,Professor,"​+ expertise: String
++ faculty: Faculty",,
+10,Class,UML,2,,,,,,,,Staff,​+ position: String,,
+11,Class,UML,2,,,,,,,,<<Interface>> Exam,,​+ calcGrade(),
+12,Class,UML,2,,,,,,,,WrittenExam,,​+ calcGrade(),
+13,Class,UML,2,,,,,,,,ComputerizedExam,,​+ calcGrade(),
+14,Line,,2,,,5,4,None,None,,,,,
+15,Line,,2,,,7,6,None,Composition,,,,,
+16,Line,,2,,,4,6,None,None,,,,,
+17,Line,,2,,,5,8,None,Aggregation,,,,,
+18,Line,,2,,,10,5,None,None,,,,,
+19,Line,,2,,,9,5,None,None,,,,,
+20,Line,,2,,,9,3,None,Generalization,,,,,
+21,Line,,2,,,10,3,None,Generalization,,,,,
+22,Line,,2,,,4,3,None,Generalization,,,,,
+23,Line,,2,,,9,7,None,None,,,,,
+24,Line,,2,,,12,11,None,Generalization,,,,,
+25,Line,,2,,,13,11,None,Generalization,,,,,
