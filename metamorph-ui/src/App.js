@@ -3,8 +3,10 @@ import HomeNavBar from "./components/homenavbar";
 import HomePage from "./pages/Homepage";
 import RegisterPage from "./pages/RegisterPage";
 import WorkSpacePage from "./pages/Workspacepage";
+import AddProjectPage from "./pages/Addprojectpage";
 // import LoginForm from "./components/logincomponents/loginform";
 import LoginModal from "./components/LoginModal";
+import FileUploader from "./components/workspacecomponents/FileUploader";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import FileUploader from "./FileUploader";
 import "../../CSS/workspace_styling/middlecontent.css";
 
 const MiddleContent = () => {
@@ -7,6 +8,13 @@ const MiddleContent = () => {
   const toggleModal = () => {
     setModal(!modal);
   };
+
+  const [file, setFile] = useState();
+
+  function handleFile(event) {
+    setFile(event.target.files[0]);
+    console.log(file);
+  }
 
   return (
     <div className="dashboard_middle_content">
@@ -37,45 +45,64 @@ const MiddleContent = () => {
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
-          <div className="modal-content">
-            <h2>Hello Modal</h2>
-            <div className="content-wrapper">
-              <div className="left-content">
-                <h4>Generate Front End code</h4>
-                <div className="input-box">
-                  <span className="details">Figma Url</span>
-                  <input
-                    type="text"
-                    placeholder="Enter the Figma Url"
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Figma token</span>
-                  <input
-                    type="text"
-                    placeholder="Enter Figma access token"
-                    required
-                  />
-                </div>
-                <div className="input-box">
-                  <span className="details">Project Name</span>
-                  <input
-                    type="text"
-                    placeholder="Enter Project Name"
-                    required
-                  />
-                </div>
+          <div
+            className="modal-content"
+            style={{
+              position: "absolute",
+              background: "#f1f1f1",
+              padding: "14px 28px",
+              borderRadius: "3px",
+              width: "750px", // Set width to 700px
+              height: "550px", // Set height to 500px
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div className="create-project-input-wrapper">
+              <div className="create-project-header">
+                <h2>Create Project</h2>
               </div>
-              <div className="vertical-line"></div>
-              <div className="right-content">
-                <h4>Generate Back End code</h4>
-                
-              </div>
+              {/* men awel hena tmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam */}
+              <form action="" className="create-project-form">
+                <div className="create-project-inputs">
+                  <div className="input_box">
+                    <label for="project name">
+                      <b>project name</b>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter project name"
+                      name="projectname"
+                    />
+                  </div>
+                  <div className="input_box">
+                    <label for="figmalink">
+                      <b>figma link</b>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter figma link"
+                      name="figmalink"
+                    />
+                  </div>
+                  <div className="input_box">
+                    <label for="figma token">
+                      <b>figma token</b>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Enter figma token"
+                      name="username"
+                    />
+                  </div>
+                </div>
+                  <FileUploader />
+              </form>
             </div>
-            <button className="close-modal" onClick={toggleModal}>
-              X
-            </button>
+            <span className="close-modal" onClick={toggleModal}>
+              &times;
+            </span>
           </div>
         </div>
       )}

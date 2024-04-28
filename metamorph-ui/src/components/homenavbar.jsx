@@ -35,9 +35,10 @@ function HomeNavBar() {
         console.log('response elhandle submit:',response)
 
         localStorage.setItem("token",response.data.token)
+        localStorage.setItem("user_name",JSON.stringify(logindata.username))
         // console.log("the token :", token)
 
-        // localStorage.setItem("user",)
+        // localStorage.setItem("user",JSON.stringify(logindata.username)
         // const user_test = JSON.stringify(logindata.username);
         const user_test = JSON.stringify(logindata.username);
         console.log(user_test);
@@ -49,6 +50,8 @@ function HomeNavBar() {
 
   };
 
+  var user = JSON.parse(localStorage.getItem("user_name"));
+  console.log(user)
 
   return (
     <>
