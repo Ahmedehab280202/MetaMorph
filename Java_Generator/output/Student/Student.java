@@ -11,14 +11,8 @@ public class Student extends Person{
     public Faculty faculty;
     public Array<Course> courses;
 
-
-
     public Student() {
-    }    public Student(String code, String name, String gender, String phone_number) {
-      super(name,gender,phone_number)
-      this.code = code
     }
-
     public String getCode() {
       return code;
     }
@@ -29,7 +23,6 @@ public class Student extends Person{
       return courses;
     }
 
-
     public void setCode(String code) {
       this.code = code;
     }
@@ -39,5 +32,6 @@ public class Student extends Person{
     public void setCourses(Array<Course> courses) {
       this.courses = courses;
     }
+
 
 }

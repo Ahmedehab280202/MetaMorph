@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+    * {
+        box-sizing: border-box;
+        margin: 0px;
+    }
+
+.main {
+    /* Box Dimensions */
+    width: 100%;
+    height: 1024px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+    background: rgba(255.0, 255.0, 255.0, 1.0);
+    border-radius: 2px 2px 4px 2px;
+
+}
+
+.main .Frame1 {
+    /* Box Dimensions */
+    width: 100%;
+    height: 100px;
+    padding: 0px 10px 0px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+    background: rgba(171.1, 62.0, 62.0, 1.0);
+    
+}
+
+.main .Frame1 .University_Name {
+    /* Box Dimensions */
+    width: 315px;
+    height: 36px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 40px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(255.0, 255.0, 255.0, 1.0);
+    
+}
+.main .mainsection {
+    /* Box Dimensions */
+    width: 100%;
+    height: 100%;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .sidebar {
+    /* Box Dimensions */
+    width: 223px;
+    height: 100%;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .sidebar .Frame4 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .sidebar .Frame4 .Home {
+    /* Box Dimensions */
+    width: 65px;
+    height: 30px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(61.6, 61.6, 61.6, 1.0);
+    
+}
+.main .mainsection .sidebar .Frame5 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .sidebar .Frame5 .Courses {
+    /* Box Dimensions */
+    width: 84px;
+    height: 30px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(61.6, 61.6, 61.6, 1.0);
+    
+}
+.main .mainsection .sidebar .Frame6 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .sidebar .Frame6 .Schedule {
+    /* Box Dimensions */
+    width: 98px;
+    height: 30px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(61.6, 61.6, 61.6, 1.0);
+    
+}
+.main .mainsection .sidebar .Frame7 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .sidebar .Frame7 .Grades {
+    /* Box Dimensions */
+    width: 74px;
+    height: 30px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 25px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(61.6, 61.6, 61.6, 1.0);
+    
+}
+.main .mainsection .Frame8 {
+    /* Box Dimensions */
+    width: 100%;
+    height: 100%;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .Frame8 .Frame9 {
+    /* Box Dimensions */
+    width: 100%;
+    height: 51px;
+    padding: 10px 25px 10px 25px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .Frame8 .Frame9 .HomePage {
+    /* Box Dimensions */
+    width: 98px;
+    height: 24px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 0.5);
+    
+}
+.main .mainsection .Frame8 .Frame10 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 64px 10px 64px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .Frame8 .Frame10 .WelcometoStudentPortal {
+    /* Box Dimensions */
+    width: 403px;
+    height: 42px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 35px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 1.0);
+    
+}
+.main .mainsection .Frame8 .Frame11 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 10px 29px 10px 29px;
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .Frame8 .Frame11 .Frame12 {
+    /* Box Dimensions */
+    width: 100%;
+    height: auto;
+    padding: 16px 25px 16px 25px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+
+.main .mainsection .Frame8 .Frame11 .Frame12 .StudentInformation {
+    /* Box Dimensions */
+    width: 264px;
+    height: 36px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 30px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 1.0);
+    
+}
+.main .mainsection .Frame8 .Frame11 .Frame12 .Frame13 {
+    /* Box Dimensions */
+    width: 100%;
+    height: 5px;
+    padding: 10px 10px 10px 10px;
+    /* Layout */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    /* Typography */
+    font-family: 'undefined';
+    font-weight: 400;
+    font-size: undefinedpx;
+    text-transform: none;
+    /* Design Properties */
+        
+}
+.main .mainsection .Frame8 .Frame11 .Frame12 .Code:2020/06862 {
+    /* Box Dimensions */
+    width: 157px;
+    height: 24px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 1.0);
+    
+}
+.main .mainsection .Frame8 .Frame11 .Frame12 .Name:AhmedEhab {
+    /* Box Dimensions */
+    width: 167px;
+    height: 24px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 1.0);
+    
+}
+.main .mainsection .Frame8 .Frame11 .Frame12 .Faculty:ComputerScience {
+    /* Box Dimensions */
+    width: 223px;
+    height: 24px;
+    padding: 0px 0px 0px 0px;
+    /* Layout */
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    /* Typography */
+    font-family: 'Inria Sans';
+    font-weight: 400;
+    font-size: 20px;
+    text-transform: none;
+    /* Design Properties */
+    color: rgba(0.0, 0.0, 0.0, 1.0);
+    
+}
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Generation -->
+<div class='main'>
+    <div class='Frame1'>
+        <div class='University_Name'>University_Name</div>
+    </div>
+    <div class='mainsection'>
+        <div class='sidebar'>
+            <div class='Frame4'>
+                <div class='Home'>Home</div>
+            </div>
+            <div class='Frame5'>
+                <div class='Courses'>Courses</div>
+            </div>
+            <div class='Frame6'>
+                <div class='Schedule'>Schedule</div>
+            </div>
+            <div class='Frame7'>
+                <div class='Grades'>Grades</div>
+            </div>
+        </div>
+        <div class='Frame8'>
+            <div class='Frame9'>
+                <div class='HomePage'>Home Page</div>
+            </div>
+            <div class='Frame10'>
+                <div class='WelcometoStudentPortal'>Welcome to Student Portal</div>
+            </div>
+            <div class='Frame11'>
+                <div class='Frame12'>
+                    <div class='StudentInformation'>Student Information</div>
+                    <div class='Frame13'></div>
+                    <div class='Code:2020/06862'>Code: 2020/06862</div>
+                    <div class='Name:AhmedEhab'>Name: Ahmed Ehab</div>
+                    <div class='Faculty:ComputerScience'>Faculty: Computer Science</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <!-- Dynamic Generation -->
+</body>
+</html>

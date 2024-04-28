@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-public class Person {
+public class Person  {
     @Id
     @GeneratedValue
     private UUID id;
@@ -11,16 +11,8 @@ public class Person {
     public String gender;
     public String phone_number;
 
-
-
     public Person() {
-    }    public Person(String name, String gender, String phone_number) {
-      
-      this.name = name
-      this.gender = gender
-      this.phone_number = phone_number
     }
-
     public String getName() {
       return name;
     }
@@ -31,7 +23,6 @@ public class Person {
       return phone_number;
     }
 
-
     public void setName(String name) {
       this.name = name;
     }
@@ -41,5 +32,6 @@ public class Person {
     public void setPhone_number(String phone_number) {
       this.phone_number = phone_number;
     }
+
 
 }

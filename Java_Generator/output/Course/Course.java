@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-public class Course {
+public class Course  {
     @Id
     @GeneratedValue
     private UUID id;
@@ -12,17 +12,8 @@ public class Course {
     public Int credit_hours;
     public Array<Lecture> lectures;
 
-
-
     public Course() {
-    }    public Course(String name, String code, Int credit_hours, Array<Lecture> lectures) {
-      
-      this.name = name
-      this.code = code
-      this.credit_hours = credit_hours
-      this.lectures = lectures
     }
-
     public String getName() {
       return name;
     }
@@ -36,7 +27,6 @@ public class Course {
       return lectures;
     }
 
-
     public void setName(String name) {
       this.name = name;
     }
@@ -49,5 +39,6 @@ public class Course {
     public void setLectures(Array<Lecture> lectures) {
       this.lectures = lectures;
     }
+
 
 }

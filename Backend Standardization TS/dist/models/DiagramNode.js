@@ -13,9 +13,9 @@ class DiagramNode {
             .map(node => new ClassNode_1.default(node)));
         this.class_nodes = this.relashionshipIterator(csv_arr.filter(node => node.Name == 'Line'), this.class_nodes);
     }
-    relashionshipIterator(rel_arr, class_arr) {
+    relashionshipIterator(lines, class_arr) {
         let class_nodes = class_arr;
-        rel_arr.forEach(line => {
+        lines.forEach(line => {
             let relashionshipType = (line['Source Arrow'] == "None" && line['Destination Arrow'] == "None"
                 ? 'Association' :
                 line['Source Arrow'] == "None" && line['Destination Arrow'] == "Aggregation"
@@ -31,20 +31,25 @@ class DiagramNode {
             let dest_index = dest_class ? class_arr.indexOf(dest_class) : null;
             if (source_index != null && dest_index != null) {
                 if (relashionshipType == 'Association') {
-                    class_nodes[source_index].relationships.push(new RelationshipNode_1.default('Association', dest_class?.name || ''));
-                    class_nodes[dest_index].relationships.push(new RelationshipNode_1.default('Association', source_class?.name || ''));
+                    class_nodes[source_index]
+                        .relationships.push(new RelationshipNode_1.default('Association', dest_class?.name || ''));
+                    class_nodes[dest_index]
+                        .relationships.push(new RelationshipNode_1.default('Association', source_class?.name || ''));
                 }
                 else if (relashionshipType == 'Aggregation') {
-                    class_nodes[dest_index].relationships.push(new RelationshipNode_1.default('Aggregation', source_class?.name || ''));
+                    class_nodes[dest_index]
+                        .relationships.push(new RelationshipNode_1.default('Aggregation', source_class?.name || ''));
                 }
                 else if (relashionshipType == 'Composition') {
-                    class_nodes[dest_index].relationships.push(new RelationshipNode_1.default('Composition', source_class?.name || ''));
+                    class_nodes[dest_index]
+                        .relationships.push(new RelationshipNode_1.default('Composition', source_class?.name || ''));
                 }
                 else if (relashionshipType == 'Generalization' && dest_class) {
-                    class_nodes[source_index].parent_node = dest_class;
+                    class_nodes[source_index].setParentNode(dest_class);
                 }
             }
         });
+        class_nodes.forEach(node => node.updateConstructor());
         return class_nodes;
     }
 }

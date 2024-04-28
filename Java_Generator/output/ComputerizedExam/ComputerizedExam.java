@@ -8,12 +8,11 @@ public class ComputerizedExam implements Exam{
     @GeneratedValue
     private UUID id;
     
-
-
     public ComputerizedExam() {
     }
 
 
-
-
+    public  calcGrade() {
+      // Implement here...
+    }
 }

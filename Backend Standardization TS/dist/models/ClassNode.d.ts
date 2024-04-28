@@ -1,15 +1,21 @@
+import { LucidCsv, NodeType } from "../types";
+import ConstructionNode from "./ConstructionNode";
+import DeclarationNode from "./DeclarationNode";
 import MethodNode from "./MethodNode";
 import PropNode from "./PropNode";
 import RelationshipNode from "./RelationshipNode";
-import { LucidCsv } from "./types";
 export default class ClassNode {
-    readonly id: String;
-    readonly type: String;
-    readonly name: String;
+    id: String;
+    type: NodeType;
+    name: String;
+    declaration: DeclarationNode;
+    construction: ConstructionNode;
     parent_node: ClassNode | null;
-    readonly prop_nodes: PropNode[];
-    readonly method_nodes: MethodNode[];
+    prop_nodes: PropNode[];
+    method_nodes: MethodNode[];
     relationships: RelationshipNode[];
     constructor(lucid_node: LucidCsv);
     newLineSlicer(inputString: String): String[];
+    setParentNode(parent_node: ClassNode): void;
+    updateConstructor(): void;
 }

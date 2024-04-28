@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-public class Lecture {
+public class Lecture  {
     @Id
     @GeneratedValue
     private UUID id;
@@ -13,17 +13,8 @@ public class Lecture {
     public String room;
     public Professor instructor;
 
-
-
     public Lecture() {
-    }    public Lecture(String start_time, String end_time, String day_of_week, String room) {
-      
-      this.start_time = start_time
-      this.end_time = end_time
-      this.day_of_week = day_of_week
-      this.room = room
     }
-
     public String getStart_time() {
       return start_time;
     }
@@ -40,7 +31,6 @@ public class Lecture {
       return instructor;
     }
 
-
     public void setStart_time(String start_time) {
       this.start_time = start_time;
     }
@@ -56,5 +46,6 @@ public class Lecture {
     public void setInstructor(Professor instructor) {
       this.instructor = instructor;
     }
+
 
 }

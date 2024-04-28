@@ -3,7 +3,7 @@ import cors from 'cors';
 import csvParser from 'csv-parser';
 import fs from 'fs';
 import multer, { MulterError } from 'multer';
-import { LucidCsv } from './models/types';
+import { LucidCsv } from './types';
 import DiagramNode from './models/DiagramNode';
 
 const app = express();

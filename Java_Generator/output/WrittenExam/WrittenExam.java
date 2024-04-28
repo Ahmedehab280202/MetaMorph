@@ -8,12 +8,11 @@ public class WrittenExam implements Exam{
     @GeneratedValue
     private UUID id;
     
-
-
     public WrittenExam() {
     }
 
 
-
-
+    public  calcGrade() {
+      // Implement here...
+    }
 }

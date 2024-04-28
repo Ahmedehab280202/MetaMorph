@@ -3,7 +3,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-public class Faculty {
+public class Faculty  {
     @Id
     @GeneratedValue
     private UUID id;
@@ -12,14 +12,8 @@ public class Faculty {
     public Array<Staff> staff;
     public Array<Staff> professors;
 
-
-
     public Faculty() {
-    }    public Faculty(String name) {
-      
-      this.name = name
     }
-
     public String getName() {
       return name;
     }
@@ -33,7 +27,6 @@ public class Faculty {
       return professors;
     }
 
-
     public void setName(String name) {
       this.name = name;
     }
@@ -46,5 +39,6 @@ public class Faculty {
     public void setProfessors(Array<Staff> professors) {
       this.professors = professors;
     }
+
 
 }
