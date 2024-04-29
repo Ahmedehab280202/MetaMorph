@@ -8,6 +8,7 @@ import csvParser from 'csv-parser';
 
 import SpringBootApp from './Java/SpringBootApp';
 import MetaProject from './MetaProject';
+import { HtmlCssNode } from './types';
 
 const port = 3002;
 const app = express();
@@ -89,6 +90,21 @@ app.get('/figma-api',upload.none(), async (req:Request, res:Response) => {
 
   const raw_ui_data = await MetaProject.getRawUiData(file_url, figma_token)
   res.send(raw_ui_data)
+})
+
+app.get('/debug/backend',async (req:Request, res:Response) => {
+  const raw_uml_data = req.body
+  const meta_uml_data = await MetaProject.getMetaUmlData(raw_uml_data)
+  const java_code = await MetaProject.getJavaCode(meta_uml_data)
+
+  const demo_html_css: HtmlCssNode = {
+    'html': '',
+    'css': ''
+  }
+  const spring_app = new SpringBootApp(__dirname, demo_html_css, java_code)
+  spring_app.execute()
+
+  res.send(java_code)
 })
 
 /* app.get('/generate', (req: Request, res: Response) => {

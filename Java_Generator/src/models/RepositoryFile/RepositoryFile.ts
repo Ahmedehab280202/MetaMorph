@@ -7,15 +7,13 @@ export default class ModelFile {
     }
     toString() {
         return (`
-package com.meta.repository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import com.meta.model.*;
-import java.util.Optional;
-    @Repository
-    public interface ${this.class_name}Repository extends JpaRepository<${this.class_name}, Integer> {
+package com.meta.${this.class_name.toLowerCase()};
+import java.util.UUID;
+import org.springframework.data.repository.CrudRepository;
+
+    public interface ${this.class_name}Repository extends CrudRepository<${this.class_name}, UUID> {
     }
-    `
+`
         )
     }
 }

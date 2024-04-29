@@ -9,9 +9,8 @@ export default class MyAppFile {
       '\n'+
       'import org.springframework.boot.SpringApplication;\n'+
       'import org.springframework.boot.autoconfigure.SpringBootApplication;\n'+
-      'import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;\n'+
       '\n'+
-      '@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class }, scanBasePackages = "com.meta.repository")\n'+
+      '@SpringBootApplication\n'+
       `public class  ${app_name}{\n`+
       '\n'+
       '    public static void main(String[] args) {\n'+

@@ -13,22 +13,16 @@ export default class SpringBootApp {
   readonly myAppFile: MyAppFile
   readonly template_file: TemplateFile
   readonly static_file: StaticFile
-  readonly controllerFile: string
-  readonly serviceFile: string
-  readonly modelFile: string
-  readonly repoFile: string
+  readonly entities: JavaSpringNode[]
 
-  constructor(gen_path: string, front_code: HtmlCssNode, back_code: JavaSpringNode) {
+  constructor(gen_path: string, front_code: HtmlCssNode, entity_nodes: JavaSpringNode[]) {
     this.name = 'MyGenApp'
     this.gen_path = gen_path
     this.pomFile = new PomFile()
     this.myAppFile = new MyAppFile(this.name)
     this.static_file = new StaticFile(front_code)
     this.template_file = new TemplateFile(front_code)
-    this.controllerFile = back_code.controller
-    this.serviceFile = back_code.service
-    this.modelFile = back_code.model
-    this.repoFile = back_code.repository
+    this.entities = entity_nodes
   }
 
   execute() {
@@ -42,16 +36,16 @@ export default class SpringBootApp {
     this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com`)
     this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta`)
     this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${this.myAppFile.file_name}`,this.myAppFile.content)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta/controller`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/controller/TaskController.java`,this.controllerFile)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta/service`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/service/TaskService.java`,this.serviceFile)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta/repository`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/repository/TaskRepository.java`,this.repoFile)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta/model`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/model/Task.java`,this.modelFile)
+    this.entities.forEach(entity => {
+      this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}`)
+      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}.java`,entity.model_file)
+      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}Controller.java`,entity.controller_file)
+      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}Service.java`,entity.service_file)
+      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}Repository.java`,entity.repository_file)
+    })
     /* static */
     this.mkdir(`${this.gen_path}/${this.name}/src/main/resources`)
+    this.writeFile(`${this.gen_path}/${this.name}/src/main/resources/application.properties`,`spring.application.name=${this.name}`)
     this.mkdir(`${this.gen_path}/${this.name}/src/main/resources/static`)
     this.writeFile(`${this.gen_path}/${this.name}/src/main/resources/static/${this.static_file.file_name}`,this.static_file.content)
     this.mkdir(`${this.gen_path}/${this.name}/src/main/resources/templates`)

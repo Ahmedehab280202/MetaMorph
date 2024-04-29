@@ -37,23 +37,29 @@ export default class ModelFile {
     if (this.type == 'interface') {
       return new ModelInterface(this.class_name, this.method_nodes).toString()
     }
-
    return(
       [
-        `package com.meta.model;`,
-        `import jakarta.persistence.*;`,
-        `import lombok.*;`,
+        `package com.meta.${this.class_name.toLowerCase()};`,
+        `${this.parent_node ? `import com.meta.${this.parent_node.name.toLowerCase()}.*;` : ''}`,
+        `${this.relationships.map(rel => `import com.meta.${rel.class_name.toLowerCase()}.*;`).join('\n')}`,
+        `import java.util.UUID;`,
+        `import org.hibernate.annotations.JdbcTypeCode;`,
+        `import org.hibernate.type.SqlTypes;`,
+        `import java.util.ArrayList;`,
+        `import jakarta.persistence.Entity;`,
+        `import jakarta.persistence.GeneratedValue;`,
+        `import jakarta.persistence.Id;`,
         ``,
         `@Entity`,
         `public class ${this.declaration.name} ${this.declaration.extension} ${this.declaration.parent_name || ''}{`,
         `    @Id`,
         `    @GeneratedValue`,
         `    private UUID id;`,
-        `    ${this.prop_nodes.map(prop => new ModelProp(prop).toString()).join('    ')}`,
+        `    ${this.prop_nodes.map(prop => new ModelProp(prop,this.relationships).toString()).join('    ')}`,
         `${new ModelConstructor(this.construction).toString()}`,
         `${this.prop_nodes.map(prop => new ModelGetMethod(prop).toString()).join('')}`,
         `${this.prop_nodes.map(prop => new ModelSetMethod(prop).toString()).join('')}`,
-        `${this.method_nodes.map(method => new ModelMethod(method).toString()).join('')}`,
+        `${this.method_nodes.map(method => new ModelMethod(method,this.parent_node?.method_nodes || []).toString()).join('')}`,
         `}`
       ].join('\n')
     )

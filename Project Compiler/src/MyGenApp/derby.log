@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Mon Apr 29 18:35:58 EET 2024:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.16.1.1 - (1901046): instance a816c00e-018f-2ab6-9000-00000204f978 
+on database directory memory:C:\Users\Lenovo\Desktop\Grad Project\master\MetaMorph\Project Compiler\src\MyGenApp\efe6d2c0-3514-4045-9b47-8d21b3fb5831 with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e 
+Loaded from file:/C:/Users/Lenovo/.m2/repository/org/apache/derby/derby/10.16.1.1/derby-10.16.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=17.0.7+8-LTS-224
+user.dir=C:\Users\Lenovo\Desktop\Grad Project\master\MetaMorph\Project Compiler\src\MyGenApp
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''

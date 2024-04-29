@@ -2,48 +2,53 @@ import ClassNode from "metamorph-lib/Backend Standardization TS/dist/models/Clas
 
 export default class ModelFile {
     private class_name: String;
+    public class_name_lc: String;
     constructor(class_node: ClassNode) {
         this.class_name = class_node.name;
+        this.class_name_lc = class_node.name.toLowerCase();
     }
     toString() {
         return (`
-package com.meta.service;
-import org.springframework.stereotype.Service;
+package com.meta.${this.class_name_lc};
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import com.meta.repository.${this.class_name}Repository;
-import com.meta.model.${this.class_name};
+import java.util.UUID;
+
 @Service
 public class ${this.class_name}Service {
+
     @Autowired
-    private ${this.class_name}Repository ${this.class_name}Repository;
+    private ${this.class_name}Repository ${this.class_name_lc}Repository;
+
     public List<${this.class_name}> getAll${this.class_name}s() {
-        return ${this.class_name}Repository.findAll();
+        List<${this.class_name}> ${this.class_name_lc}s = new ArrayList<>();
+        ${this.class_name_lc}Repository.findAll().forEach(${this.class_name_lc}s::add);        
+        return ${this.class_name_lc}s;
     }
-    public ${this.class_name} get${this.class_name}ById(Integer id) {
-        Optional < ${this.class_name} > result = ${this.class_name}Repository.findById(id);
-        return result.orElse(null);
+
+    public ${this.class_name} get${this.class_name}(UUID id) {
+        Optional<${this.class_name}> optional${this.class_name} = ${this.class_name_lc}Repository.findById(id);
+        return optional${this.class_name}.orElse(null);
     }
-    public void create${this.class_name}(${this.class_name} ${this.class_name}) {
-        ${this.class_name}Repository.save(${this.class_name});
+
+    public void add${this.class_name}(${this.class_name} ${this.class_name_lc}) {
+        ${this.class_name_lc}Repository.save(${this.class_name_lc});
     }
-    public ${this.class_name} update${this.class_name}(Integer id, ${this.class_name} ${this.class_name}) {
-        try {
-            ${this.class_name} ${this.class_name}Found = ${this.class_name}Repository.findById(id).orElse(null);
-            if (${this.class_name}Found == null) return null;
-            ${this.class_name}Repository.save(${this.class_name});
-            return ${this.class_name};
-        }
-        catch (Exception e) {
-            return null;
-        }
+
+    public void update${this.class_name}(UUID id, ${this.class_name} ${this.class_name_lc}) {
+        ${this.class_name_lc}Repository.save(${this.class_name_lc});
     }
-    public void delete${this.class_name}(Integer id) {
-        ${this.class_name}Repository.deleteById(id);
+
+    public void delete${this.class_name}(UUID id) {
+        ${this.class_name_lc}Repository.deleteById(id);
     }
 }
-    `
+`
         )
     }
 }

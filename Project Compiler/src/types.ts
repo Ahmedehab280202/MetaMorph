@@ -4,10 +4,11 @@ type HtmlCssNode = {
 }
 
 type JavaSpringNode = {
-  "model": string,
-  "service": string,
-  "controller": string,
-  "repository": string
+  "name": string,
+  "model_file": string,
+  "service_file": string,
+  "controller_file": string,
+  "repository_file": string
 }
 
 export {JavaSpringNode, HtmlCssNode}

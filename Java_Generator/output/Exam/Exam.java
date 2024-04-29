@@ -1,3 +1,0 @@
-public interface Exam{
-    calcGrade();
-}

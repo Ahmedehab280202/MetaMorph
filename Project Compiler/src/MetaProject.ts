@@ -12,7 +12,7 @@ export default class MetaProject {
   public readonly html_code: string
   public readonly css_code: string
   public readonly java_code: JavaSpringNode[]
-  public readonly springboot_app: SpringBootApp
+  /* public readonly springboot_app: SpringBootApp */
 
   constructor(
     raw_ui_data: Object,
@@ -30,7 +30,7 @@ export default class MetaProject {
     this.html_code= html_code
     this.css_code= css_code
     this.java_code= java_code
-    this.springboot_app= new SpringBootApp(
+    /* this.springboot_app= new SpringBootApp(
       __dirname, 
       { 
         "html" : this.html_code, 
@@ -43,7 +43,7 @@ export default class MetaProject {
         "repository": this.java_code[0].repository, 
       },
     )
-    this.springboot_app.execute()
+    this.springboot_app.execute() */
   }
 
   static async getRawUiData(file_url: string, figma_token: string) {

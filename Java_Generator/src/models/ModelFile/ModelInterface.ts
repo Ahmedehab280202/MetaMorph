@@ -12,8 +12,10 @@ export default class ModelInterface{
 
   toString(){
     return [
+      `package com.meta.${this.name.toLowerCase()};`,
+      ``,
       `public interface ${this.name}{`,
-      `   ${this.method_nodes.map(method => `${method.dtype} ${method.name}();`).join(`\n`)}`,
+      `   ${this.method_nodes.map(method => `${method.dtype || 'void'} ${method.name}();`).join(`\n`)}`,
       `}`
     ].join('\n')
   }
