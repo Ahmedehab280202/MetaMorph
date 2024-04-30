@@ -22,9 +22,9 @@ public class MetaDataService {
     @Autowired
     UserRepository user_repo;
 
-    public MetaData getFrontEndCode(String raw_data) {
-        return meta_data_repo.findByDesignUrl(raw_data).orElse(null);
-    }
+    // public MetaData getFrontEndCode(String raw_data) {
+    //     return meta_data_repo.findByDesignUrl(raw_data).orElse(null);
+    // }
 
     public MetaData getDataById(Integer id) {
         return meta_data_repo.findById(id).orElse(null);

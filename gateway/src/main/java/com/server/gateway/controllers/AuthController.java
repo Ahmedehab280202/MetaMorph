@@ -35,7 +35,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody Map<String, String> body) {
 
-        System.out.println(body);
+        // System.out.println(body);
         
         String username = body.get("username");
         String firstname = body.get("firstname");
@@ -66,11 +66,17 @@ public class AuthController {
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }// bdal ma byrga3 eldata bta3et eluser hyrga3 token.
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody Map<String,String> body){
-        String username = body.get("username"); 
 
-        User user = this.user_repo.findByusername(username).orElse(null);
+        System.out.println("testing frontend data: "+body);
+
+        String email = body.get("email"); 
+
+        // User user = this.user_repo.findByusername(username).orElse(null);
+        User user = this.user_repo.findByEmail(email).orElse(null);
+        
         if(user == null){
             return new ResponseEntity<>("Not Found",HttpStatus.NOT_FOUND);
         }

@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 public interface MetaDataRepository extends JpaRepository<MetaData,Integer>{
-    public Optional<MetaData> findByDesignUrl(String design_url);
+    // public Optional<MetaData> findByDesignUrl(String design_url);
 
     // List<MetaData> findByData_ownerId(String ownerId);
 
