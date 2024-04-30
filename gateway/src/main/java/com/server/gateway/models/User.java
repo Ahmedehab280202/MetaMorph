@@ -1,9 +1,14 @@
 package com.server.gateway.models;
 
-import org.hibernate.annotations.GenericGenerator;
+import java.util.List;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -13,6 +18,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.Valid;
@@ -30,17 +37,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
-    @Column(name = "first_name")
-    @NotBlank(message = "first_name is mandatory")
-    @NotNull(message = "first_name is mandatory")
-    @Size(min = 3, max = 50, message = "the minimum amount of charachters in first_name attribute is 7 !")
-    private String first_name;
+    @Column(name = "firstname")
+    @NotBlank(message = "firstname is mandatory")
+    @NotNull(message = "firstname is mandatory")
+    @Size(min = 3, max = 50, message = "the minimum amount of charachters in firstname attribute is 7 !")
+    private String firstname;
 
-    @Column(name = "last_name")
-    @NotBlank(message = "last_name is mandatory")
-    @NotNull(message = "last_name is mandatory")
-    @Size(min = 3, max = 50, message = "the minimum amount of charachters in last_name attribute is 7 !")
-    private String last_name;
+    @Column(name = "lastname")
+    @NotBlank(message = "lastname is mandatory")
+    @NotNull(message = "lastname is mandatory")
+    @Size(min = 3, max = 50, message = "the minimum amount of charachters in lastname attribute is 7 !")
+    private String lastname;
 
     @Column(name = "email")
     @NotBlank(message = "email is mandatory")
@@ -63,18 +70,31 @@ public class User {
     @JsonBackReference
     private WorkSpace work_space;
 
+    @ManyToOne
+    @JoinColumn(name = "project_id", referencedColumnName = "proj_id") // Specify the name of the foreign key column
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private ProjectArtifact proj_artifact;
+
+    @OneToMany(mappedBy = "data_owner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    List<MetaData> user_data;
+
     public User() {
     }
 
-    public User(String id, String first_name, String last_name, String email, String username, String password , WorkSpace work_space) {
+    public User(String id, String firstname, String lastname, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact, List<MetaData> user_data) {
         this.id = id;
-        this.first_name = first_name;
-        this.last_name = last_name;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
         this.username = username;
         this.password = password;
         this.work_space = work_space;
+        this.proj_artifact = proj_artifact;
+        this.user_data = user_data;
     }
+    
 
     public String getId() {
         return this.id;
@@ -84,20 +104,20 @@ public class User {
         this.id = id;
     }
 
-    public String getFirst_name() {
-        return this.first_name;
+    public String getFirstname() {
+        return this.firstname;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLast_name() {
-        return this.last_name;
+    public String getLastname() {
+        return this.lastname;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -131,7 +151,22 @@ public class User {
     public void setWork_space(WorkSpace work_space) {
         this.work_space = work_space;
     }
-    
+
+    public ProjectArtifact getProj_artifact() {
+        return this.proj_artifact;
+    }
+
+    public void setProj_artifact(ProjectArtifact proj_artifact) {
+        this.proj_artifact = proj_artifact;
+    }
+
+    public List<MetaData> getUser_data() {
+        return this.user_data;
+    }
+
+    public void setUser_data(List<MetaData> user_data) {
+        this.user_data = user_data;
+    }
 
 }
 

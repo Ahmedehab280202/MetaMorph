@@ -65,22 +65,37 @@ public class WorkSpaceController {
         }
     }
 
+    @GetMapping("/{workspaceID}/project")
+    public ResponseEntity<Integer> getProjectsByWorkspaceId(@PathVariable int workspaceID) {
+        try {
+            // Call the service method to get the project count
+            int projectCount = workspace_service.getProjectCountByWorkspaceId(workspaceID);
+            return new ResponseEntity<>(projectCount, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<String> createWorkSpace(@Valid @RequestBody Map<String, String> request_body) {
         try {
-            String name = request_body.get("name");
-            String description = request_body.get("description");
-            int project_limit = Integer.parseInt(request_body.get("project_limit"));
-    
             // Retrieve the currently logged-in user
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             User loggedInUser = (User) authentication.getPrincipal();
+
+            // Check if the user already has a workspace
+            if (loggedInUser.getWork_space() != null) {
+                return ResponseEntity.badRequest().body("User already has a workspace.");
+            }
+
+
+            String name = request_body.get("name");
+            String description = request_body.get("description");
     
             // Create a new workspace
             WorkSpace work_space = new WorkSpace();
             work_space.setName(name);
             work_space.setDescription(description);
-            work_space.setProject_limit(project_limit);
     
             // Set the workspace owner
             work_space.setWorkspace_owner(loggedInUser);
@@ -107,7 +122,6 @@ public class WorkSpaceController {
             if(work_space != null){
                 work_space.setName((String) request_body.get("name"));
                 work_space.setDescription((String) request_body.get("description"));
-                work_space.setProject_limit(Integer.parseInt((String) request_body.get("project_limit")));
                 workspace_service.createOrUpdate(work_space);
                 return new ResponseEntity<>("WorkSpace with ID: " + workspaceID + " is updated successfully", HttpStatus.CREATED);
             }else {

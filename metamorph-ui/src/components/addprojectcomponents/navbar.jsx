@@ -1,4 +1,4 @@
-import '../../CSS/app.css';
+import '../../CSS/figma.css';
 import backicon from '../../assists/back button.png';
 
 function NavBar() {

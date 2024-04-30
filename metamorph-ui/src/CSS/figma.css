@@ -134,15 +134,18 @@
 
 .addfigmaurl {
     top: 121px;
-    left: 0px;
-    width: 720px;
-    height: 903px;
+    left: 50px;
+    width: 650px;
+    height: 703px;
     display: flex;
     overflow: hidden;
     position: absolute;
     align-items: flex-start;
     flex-shrink: 0;
     background-color: rgb(255, 255, 255);
+    border-color: #000000;
+    border: 2px solid #000000; /* Border properties */
+    border-radius: 50px;
   }
   .group19 {
     top: 153.9998779296875px;
@@ -154,9 +157,10 @@
     align-items: flex-start;
     flex-shrink: 1;
   }
-  .text {
-    top: 80px;
-    left: 80px;
+
+  .text1{
+    top: 70px;
+    left: 76px;
     color: rgba(1, 0, 1, 1);
     width: 345px;
     height: auto;
@@ -170,14 +174,14 @@
     font-stretch: normal;
     text-decoration: none;
   }
-  .text2 {
-    top: 146.00006103515625px;
-    left: 76px;
+  .text3 {
+    top: 132.0000457763672px;
+    left: 78px;
     color: rgb(0, 0, 0);
     width: 345px;
     height: auto;
     position: absolute;
-    font-size: 16px;
+    font-size: 18px;
     font-style: Semi Bold;
     text-align: center;
     font-family: Inter;

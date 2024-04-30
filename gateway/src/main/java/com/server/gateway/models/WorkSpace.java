@@ -41,8 +41,6 @@ public class WorkSpace {
     @OneToMany(mappedBy = "work_space",  cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<ProjectArtifact> projects;
 
-    private int project_limit;
-
     @OneToOne(mappedBy = "work_space", orphanRemoval = true)
     @JsonManagedReference
     private User workspace_owner;
@@ -52,12 +50,11 @@ public class WorkSpace {
     }
 
 
-    public WorkSpace(int id, String name, String description, List<ProjectArtifact> projects, int project_limit , User workspace_owner) {
+    public WorkSpace(int id, String name, String description, List<ProjectArtifact> projects, User workspace_owner) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.projects = projects;
-        this.project_limit = project_limit;
         this.workspace_owner = workspace_owner;
     }
 
@@ -94,13 +91,6 @@ public class WorkSpace {
         this.projects = projects;
     }
 
-    public int getProject_limit() {
-        return this.project_limit;
-    }
-
-    public void setProject_limit(int project_limit) {
-        this.project_limit = project_limit;
-    }
 
     public User getWorkspace_owner() {
         return this.workspace_owner;

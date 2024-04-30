@@ -1,0 +1,86 @@
+.project_card {
+  padding: 8px;
+  display: flex;
+  margin: 0px;
+  box-sizing: border-box;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: geometricprecision;
+  border-width: 0px;
+  border-style: solid;
+  scrollbar-width: thin;
+}
+
+.card_avatar {
+  height: 48px;
+  width: 48px;
+  flex-shrink: 0;
+  background-color: #f2f2f2;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border-radius: 4px;
+  border: 1px solid #d9d9d9;
+}
+
+.card_icon_logo {
+  display: inline-flex;
+  -webkit-box-align: center;
+  align-items: center;
+  box-sizing: border-box;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: geometricprecision;
+  border-width: 0px;
+  border-style: solid;
+  scrollbar-width: thin;
+}
+
+.card_content {
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-left: 16px;
+  box-sizing: border-box;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: geometricprecision;
+  border-width: 0px;
+  border-style: solid;
+  scrollbar-width: thin;
+}
+
+.card_content_header {
+  margin-bottom: 4px;
+  font-weight: 500;
+  box-sizing: border-box;
+  -webkit-font-smoothing: subpixel-antialiased;
+  text-rendering: geometricprecision;
+  border-width: 0px;
+  border-style: solid;
+  scrollbar-width: thin;
+}
+
+.projects_details {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.edit_details {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
+}
+
+.details_dot {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
+  padding: 0px 8px;
+}
+
+.creation_date {
+  font-size: 13px;
+  color: #808080;
+  white-space: nowrap;
+}

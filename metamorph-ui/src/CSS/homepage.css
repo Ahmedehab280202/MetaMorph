@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav {
+  height: 80px;
+  width: 100%;
+  margin: 0 auto;
+  background: purple;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.nav-logo-details {
+  height: 38px;
+  display: flex;
+  align-items: center;
+}
+.nav_logo_icon {
+  font-size: 30px;
+  color: #fff;
+  height: 50px;
+  min-width: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.nav_items-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo_name {
+  font-size: 22px;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s ease;
+  transition-delay: 0.1s;
+}
+
+.nav_item {
+  list-style: none;
+}
+
+.nav_items {
+  list-style: none; /* Remove default list marker */
+  /* width: 10px; */
+  display: flex;
+}
+
+.nav_item {
+  margin-right: 25px;
+}
+
+.nav_link {
+  color: #fff;
+  margin-right: 15px;
+}
+
+/* .nav_link:hover {
+  color: #d9d9d9;
+} */
+
+.button {
+  padding: 6px 24px;
+  border: 2px solid #fff;
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #fff;
+  background: purple;
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.modal-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+.login-form {
+  height: 365px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.input_box {
+  height: 57px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.input_box input {
+  height: 45px;
+  width: 95%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.form-button {
+  display: flex;
+  height: 35px;
+  width: 35%;
+  margin: 18px 0;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: purple;
+}
+
+.login-modal-header {
+  color: purple;
+}
