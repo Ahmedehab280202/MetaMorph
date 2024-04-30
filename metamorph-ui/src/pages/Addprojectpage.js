@@ -1,7 +1,7 @@
 import AddCsv from '../components/addprojectcomponents/addcsv';
 import Addfigma from '../components/addprojectcomponents/addfigmaurl';
 import NavBar from '../components/addprojectcomponents/navbar';
-import '../CSS/app.css';
+import '../CSS/figma.css';
 
 function AddProjectPage() {
     return (

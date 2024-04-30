@@ -4,7 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+import org.apache.tomcat.util.http.parser.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,14 +22,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.server.gateway.models.AppArtifact;
+import com.server.gateway.models.FileArtifact;
 import com.server.gateway.models.ProjectArtifact;
+import com.server.gateway.models.User;
 import com.server.gateway.models.WorkSpace;
 import com.server.gateway.services.ProjectArtifactService;
 import com.server.gateway.services.WorkSpaceService;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
 import jakarta.validation.Valid;
 
 import org.springframework.validation.FieldError;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @RequestMapping("projectartifact")
@@ -66,21 +81,74 @@ public class ProjectArtifactController {
         }
     }
 
+    @GetMapping("{projId}/apps")
+    public ResponseEntity getAppsByprojectId(@PathVariable int projId) {
+        try {
+            ProjectArtifact proj_arti = proj_arti_service.getProjById(projId);
+            if (proj_arti != null) {
+                List<AppArtifact> appArtifacts = proj_arti_service.getAppsByProjectId(projId);
+
+                if (appArtifacts != null) {
+                    return new ResponseEntity<>(appArtifacts, HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("there is no apps in this project", HttpStatus.NOT_FOUND);
+                }
+            } else {
+                return new ResponseEntity<>("there is no project with id " + projId, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("error getting the Project of id " + projId + " " + e.getMessage());
+        }
+    }
+
+    @GetMapping("{projId}/collaborators")
+    public ResponseEntity getCollaboratorsByProjectId(@PathVariable int projId) {
+        try {
+            ProjectArtifact proj_arti = proj_arti_service.getProjById(projId);
+            if (proj_arti != null) {
+                List<User> collaborators = proj_arti_service.getCollaboratorsByProjectId(projId);
+
+                if (collaborators != null) {
+                    return new ResponseEntity<>(collaborators, HttpStatus.OK);
+                } else {
+                    return new ResponseEntity<>("No collaborators found !", HttpStatus.NOT_FOUND);
+                }
+            } else {
+                return new ResponseEntity<>("there is no project with id " + projId, HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("error getting the Project of id " + projId + " " + e.getMessage());
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity createProjjectArtifact(@Valid @RequestBody Map<String, String> request_body) {
         try {
-            String name = request_body.get("name");
-            int work_space_id = Integer.parseInt(request_body.get("work_space_id"));
+            // Retrieve the currently logged-in user
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User loggedInUser = (User) authentication.getPrincipal();
 
-            WorkSpace work_space = work_space_Service.getWorkSpaceById(work_space_id);
-            if (work_space == null) {
-                return ResponseEntity.badRequest().body("WorkSpace with ID " + work_space_id + " not found");
+            // Check if the user has a workspace
+            WorkSpace workSpace = loggedInUser.getWork_space();
+            if (workSpace == null) {
+                return ResponseEntity.badRequest()
+                        .body("User does not have a workspace. Please create a workspace first.");
             }
 
+            // Retrieve the project count for the workspace
+            int existingProjectsCount = work_space_Service.getProjectCountByWorkspaceId(workSpace.getId());
+            if (existingProjectsCount >= 3) {
+                return ResponseEntity.badRequest().body("Maximum number of projects reached for this workspace.");
+            }
+
+            String name = request_body.get("name");
+
+            // Create a new project artifact
             ProjectArtifact proj_artifact = new ProjectArtifact();
             proj_artifact.setName(name);
-            proj_artifact.setWork_space(work_space);
+            proj_artifact.setWork_space(workSpace);
 
+            // Save the project artifact
             ProjectArtifact created_proj_artifact = proj_arti_service.createOrUpdate(proj_artifact);
             return new ResponseEntity<>(created_proj_artifact, HttpStatus.CREATED);
         } catch (Exception e) {
@@ -89,7 +157,7 @@ public class ProjectArtifactController {
     }
 
     @PutMapping("{projId}")
-    public ResponseEntity /*<ProjectArtifact>*/  updateProjectArtifact(
+    public ResponseEntity /* <ProjectArtifact> */ updateProjectArtifact(
             @Valid @RequestBody Map<String, String> request_body, @PathVariable int projId) {
         try {
             ProjectArtifact proj_arti = proj_arti_service.getProjById(projId);
