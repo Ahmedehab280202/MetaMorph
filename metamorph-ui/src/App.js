@@ -6,7 +6,8 @@ import WorkSpacePage from "./pages/Workspacepage";
 import AddProjectPage from "./pages/Addprojectpage";
 // import LoginForm from "./components/logincomponents/loginform";
 import LoginModal from "./components/LoginModal";
-import FileUploader from "./components/workspacecomponents/FileUploader";
+import CsvUploaderDemo from "./components/workspacecomponents/CsvUploaderDemo";
+import FigmaUploaderDemo from "./components/workspacecomponents/FigmaUploaderDemo";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -16,10 +17,13 @@ function App() {
                 <Routes>
                     <Route path="/" element={<HomePage />}/>
                     <Route path="/register" element={<RegisterPage />} />
+                    <Route path="/workspace" element={<WorkSpacePage />} />
                     <Route path="*" element={<h1> PAGE NOT FOUND</h1>} />
                 </Routes>
             </Router>
-            {/* <WorkSpacePage /> */}
+            {/* <WorkSpacePage />  */}
+            {/* <CsvUploaderDemo /> */}
+            {/* <FigmaUploaderDemo /> */}
         </div>
     );
 }

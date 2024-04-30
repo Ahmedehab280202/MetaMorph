@@ -18,10 +18,10 @@ export const register = async (registerModel) => {
         };
 
         const response = await axios.post(`${baseUrl}/register`, data, { headers });
-        return response.data; // Make sure response.data contains the required information
+        return response.data; 
     } catch (error) {
         console.log("Error from register service try catch:", error);
-        return error.response.data; // Return a consistent error format
+        return error.response.data; 
     }
 };
 

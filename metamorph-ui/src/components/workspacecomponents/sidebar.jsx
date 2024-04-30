@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { PiButterfly } from "react-icons/pi";
 import { MdWorkspacesFilled } from "react-icons/md";
 import { GrResources } from "react-icons/gr";
@@ -12,6 +13,8 @@ const Sidebar = () => {
   const [showWorkspaceSubMenu, setShowWorkspaceSubMenu] = useState(false);
   const [showResourcesSubMenu, setShowResourcesSubMenu] = useState(false);
 
+  let navigate = useNavigate();
+
   const toggleWorkspaceSubMenu = (e) => {
     e.preventDefault();
     setShowWorkspaceSubMenu(!showWorkspaceSubMenu);
@@ -21,6 +24,12 @@ const Sidebar = () => {
     e.preventDefault();
     setShowResourcesSubMenu(!showResourcesSubMenu);
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/");
+  };
+
 
   return (
     <div className="sidebar">
@@ -80,10 +89,10 @@ const Sidebar = () => {
               <FaRegUserCircle className='user_icon profile'/>
             </div>
             <div className="name-job">
-              <div className="profile_name">Ali Ismail</div>
+              <div className="profile_name">{localStorage.getItem('user_name')}</div>
               <div className="job">Software Engineer</div>
             </div>
-            <TbLogout2 className='logout_icon profile'/>
+            <TbLogout2 className='logout_icon profile' onClick={handleLogout}/>
           </div>
         </li>
       </ul>

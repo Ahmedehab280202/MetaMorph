@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import FileUploader from "./FileUploader";
+import CreateProjectWrapper from "./CreateProjectWrapper";
+import csvtojson from 'csvtojson';
+
 import "../../CSS/workspace_styling/middlecontent.css";
 
 const MiddleContent = () => {
@@ -9,12 +11,22 @@ const MiddleContent = () => {
     setModal(!modal);
   };
 
-  const [file, setFile] = useState();
+  // const [jsonData, setJsonData] = useState(null);
+  
 
-  function handleFile(event) {
-    setFile(event.target.files[0]);
-    console.log(file);
-  }
+  // const handleUpload = () => {
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.readAsText(file);
+  //     reader.onload = async (event) => {
+  //       const csvData = event.target.result;
+  //       const jsonArray = await csvtojson().fromString(csvData);
+  //       setJsonData(jsonArray);
+  //     };
+  //   }
+  // };
+
+
 
   return (
     <div className="dashboard_middle_content">
@@ -53,53 +65,13 @@ const MiddleContent = () => {
               padding: "14px 28px",
               borderRadius: "3px",
               width: "750px", // Set width to 700px
-              height: "550px", // Set height to 500px
+              height: "593px", // Set height to 500px
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
             }}
           >
-            <div className="create-project-input-wrapper">
-              <div className="create-project-header">
-                <h2>Create Project</h2>
-              </div>
-              {/* men awel hena tmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam */}
-              <form action="" className="create-project-form">
-                <div className="create-project-inputs">
-                  <div className="input_box">
-                    <label for="project name">
-                      <b>project name</b>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter project name"
-                      name="projectname"
-                    />
-                  </div>
-                  <div className="input_box">
-                    <label for="figmalink">
-                      <b>figma link</b>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter figma link"
-                      name="figmalink"
-                    />
-                  </div>
-                  <div className="input_box">
-                    <label for="figma token">
-                      <b>figma token</b>
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Enter figma token"
-                      name="username"
-                    />
-                  </div>
-                </div>
-                  <FileUploader />
-              </form>
-            </div>
+            <CreateProjectWrapper />
             <span className="close-modal" onClick={toggleModal}>
               &times;
             </span>

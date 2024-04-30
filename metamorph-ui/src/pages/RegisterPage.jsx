@@ -1,10 +1,13 @@
 import React,{useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 import { RegisterModel } from '../models/AuthModel'
 import { register } from '../services/AuthService'
 import FormInput from '../components/FormInput';
 import '../CSS/register.css';
 
 function RegisterPage() {
+
+  let navigate = useNavigate()
 
   const [values,setValues] = useState({
     firstname:"",
@@ -65,6 +68,7 @@ function RegisterPage() {
 
     try {
       const response = await register(registerData);
+      navigate("/")
       console.log('response elhandle submit:',response);
 
     } catch (error) {
@@ -79,7 +83,7 @@ function RegisterPage() {
   console.log(values)
 
   return (
-    <div className="container">
+    <div className="register-container">
       <div className="title">Registration</div>
       <div className="content">
         <form action="#" onSubmit={handleSubmit}>

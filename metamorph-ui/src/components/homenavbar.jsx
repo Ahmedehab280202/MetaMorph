@@ -1,5 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { PiButterfly } from "react-icons/pi";
+
 import { LoginModel } from "../models/AuthModel";
 import { login } from "../services/AuthService";
 import "../CSS/homepage.css";
@@ -9,14 +12,14 @@ import FormInput from "./FormInput";
 function HomeNavBar() {
   const [modal, setModal] = useState(false);
 
+  let navigate = useNavigate();
+
   const toggleModal = () => {
     setModal(!modal);
   };
 
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,69 +27,69 @@ function HomeNavBar() {
       console.log("Please fill all the fields");
       return;
     } else {
-      console.log("before pressing login debug")
+      console.log("before pressing login debug");
       const logindata = new LoginModel(username, password);
 
       console.log("login data:", logindata);
       toggleModal();
-      try{
-        console.log("test before executing the login service !")
+      try {
+        console.log("test before executing the login service !");
         const response = await login(logindata);
-        console.log('response elhandle submit:',response)
+        console.log("response elhandle submit:", response);
 
-        localStorage.setItem("token",response.data.token)
-        localStorage.setItem("user_name",JSON.stringify(logindata.username))
-        // console.log("the token :", token)
+        if (response.status === 200) {
+          localStorage.setItem("token", response.data.token);
+          localStorage.setItem("user_name", JSON.stringify(logindata.username));
+          navigate("/workspace"); // Navigate to workspace dashboard upon successful login
+        } else {
+          console.log("An error occurred while trying to login");
+        }
 
         // localStorage.setItem("user",JSON.stringify(logindata.username)
         // const user_test = JSON.stringify(logindata.username);
         const user_test = JSON.stringify(logindata.username);
         console.log(user_test);
-
-      }catch(error){
-        console.error('Registration error:', error);
+      } catch (error) {
+        console.error("Registration error:", error);
       }
     }
-
   };
 
   var user = JSON.parse(localStorage.getItem("user_name"));
-  console.log(user)
+  console.log(user);
 
   return (
     <>
-      <header className="header">
-        <nav className="nav">
-          <a href="#" className="nav_logo">
-            MetaMorph
-          </a>
-          <ul className="nav_items">
-            <li className="nav_item">
-              <a href="#" className="nav_link">
-                Home
-              </a>
-              <a href="#" className="nav_link">
-                Product
-              </a>
-              <a href="#" className="nav_link">
-                Services
-              </a>
-              <a href="#" className="nav_link">
-                Contact
-              </a>
-            </li>
-          </ul>
-          <button className="button" id="form-open" onClick={toggleModal}>
-            Login
-          </button>
-        </nav>
-      </header>
-
+      <nav className="nav">
+        <div className="nav-logo-details">
+          <PiButterfly className="nav_logo_icon" />
+          <span className="logo_name">MetaMorph</span>
+        </div>
+        <ul className="nav_items-list">
+          <li className="nav_item">
+            <a href="#" className="nav_link">
+              Home
+            </a>
+            <a href="#" className="nav_link">
+              Product
+            </a>
+            <a href="#" className="nav_link">
+              Services
+            </a>
+            <a href="#" className="nav_link">
+              Contact
+            </a>
+          </li>
+        </ul>
+        <button className="button" id="form-open" onClick={toggleModal}>
+          Login
+        </button>
+      </nav>
       {modal && (
         <div className="modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
-            <div className="modal-header">
+            <div className="login-modal-header">
               <h2>Login</h2>
             </div>
             <form action="#" className="login-form" onSubmit={handleSubmit}>
@@ -122,9 +125,9 @@ function HomeNavBar() {
                 </Link>
               </div>
             </form>
-            <button className="close-modal" onClick={toggleModal}>
-              X
-            </button>
+            <span className="close-modal" onClick={toggleModal}>
+              &times;
+            </span>
           </div>
         </div>
       )}
