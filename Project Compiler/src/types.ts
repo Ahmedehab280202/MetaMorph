@@ -1,4 +1,5 @@
 type HtmlCssNode = {
+  "name" : string
   "html" : string
   "css" : string
 }

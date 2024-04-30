@@ -5,11 +5,13 @@ import HtmlFactory from './factories/HtmlFactory';
 import HtmlNode from './models/HtmlNode';
 import HtmlTree from './models/HtmlTree';
 import CssNode from './models/CssNode';
+import bodyParser from 'body-parser';
 
 const app = express();
 const port = 3005;
 
-app.use(express.json());
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.get('', (req,res) => {
   res.send(req.body)
@@ -31,18 +33,15 @@ app.post('/css', (req,res) => {
 })
 
 app.post('/project', (req,res) => {
-  const body: BaseNode = req.body
+  const nodes: BaseNode[] = req.body
 
-  const html_node: HtmlNode = HtmlFactory.BaseNodeConvertor(body)
-  const html_tree: HtmlTree = new HtmlTree(html_node)
-  const css_node: CssNode = new CssNode(body, false)
+  const response_body = nodes.map(node => ({
+    "name": node.name,
+    "html": new HtmlTree(HtmlFactory.BaseNodeConvertor(node)).code,
+    "css": new CssNode(node, false).toString()
+  }))
 
-  const obj = {
-    "html": html_tree.code,
-    "css": css_node.toString()
-  }
-
-  res.send(obj)
+  res.send(response_body)
 })
 
 app.listen(port, () => {

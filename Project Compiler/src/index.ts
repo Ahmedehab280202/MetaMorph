@@ -4,6 +4,7 @@ import archiver from 'archiver';
 import path from 'path';
 import cors from 'cors';
 import multer from 'multer';
+import bodyParser from 'body-parser';
 import csvParser from 'csv-parser';
 
 import SpringBootApp from './Java/SpringBootApp';
@@ -14,11 +15,26 @@ const port = 3002;
 const app = express();
 const upload = multer({ dest: 'uploads/' });
 
-app.use(express.json()); 
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
+app.post('/project/code', async (req: Request, res: Response) => {
+  const meta_ui_data=  await MetaProject.getMetaUiData(req.body.raw_ui_data)
+  const html_css_code= await MetaProject.getHtmlCssCode(meta_ui_data)
 
-app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {
+  const meta_uml_data = await MetaProject.getMetaUmlData(req.body.raw_uml_data)
+  const java_code= await MetaProject.getJavaCode(meta_uml_data)
+
+  const response_body = {
+    "html_css_code": html_css_code,
+    "java_code": java_code
+  }
+  res.send(response_body)
+})
+
+
+/* app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {
   if (!req.file) {
       return res.status(400).json({ message: 'No file uploaded' });
   }
@@ -41,7 +57,6 @@ app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response)
     java_code,
   )
 
-  /* res.send(meta_project); */
 
   const folderName = 'MyGenApp';
   const dirPath = path.join('./src', folderName);
@@ -82,7 +97,7 @@ app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response)
       }
     });
   });
-});
+}); */
 
 app.get('/figma-api',upload.none(), async (req:Request, res:Response) => {
   const figma_token = req.body['X-Figma-Token']
@@ -92,7 +107,7 @@ app.get('/figma-api',upload.none(), async (req:Request, res:Response) => {
   res.send(raw_ui_data)
 })
 
-app.get('/debug/backend',async (req:Request, res:Response) => {
+/* app.get('/debug/backend',async (req:Request, res:Response) => {
   const raw_uml_data = req.body
   const meta_uml_data = await MetaProject.getMetaUmlData(raw_uml_data)
   const java_code = await MetaProject.getJavaCode(meta_uml_data)
@@ -105,7 +120,7 @@ app.get('/debug/backend',async (req:Request, res:Response) => {
   spring_app.execute()
 
   res.send(java_code)
-})
+}) */
 
 /* app.get('/generate', (req: Request, res: Response) => {
   const body: HtmlCssNode = req.body

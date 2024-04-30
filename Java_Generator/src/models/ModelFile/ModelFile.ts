@@ -52,11 +52,24 @@ export default class ModelFile {
         ``,
         `@Entity`,
         `public class ${this.declaration.name} ${this.declaration.extension} ${this.declaration.parent_name || ''}{`,
-        `    @Id`,
-        `    @GeneratedValue`,
-        `    private UUID id;`,
+        `${!this.parent_node ?
+        `    @Id\n`+
+        `    @GeneratedValue\n`+
+        `    private UUID id;\n`
+        : ''}`,
         `    ${this.prop_nodes.map(prop => new ModelProp(prop,this.relationships).toString()).join('    ')}`,
         `${new ModelConstructor(this.construction).toString()}`,
+
+        `${!this.parent_node ?
+          `    public UUID getId() {\n`+
+          `      return id;\n`+
+          `    }\n`+
+          '\n'+
+          `    public void setId(UUID id) {\n`+
+          `      this.id = id;\n`+
+          `    }\n`
+        : ''}`,
+
         `${this.prop_nodes.map(prop => new ModelGetMethod(prop).toString()).join('')}`,
         `${this.prop_nodes.map(prop => new ModelSetMethod(prop).toString()).join('')}`,
         `${this.method_nodes.map(method => new ModelMethod(method,this.parent_node?.method_nodes || []).toString()).join('')}`,

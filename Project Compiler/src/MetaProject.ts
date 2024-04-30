@@ -2,33 +2,20 @@ import axios from 'axios';
 import fs from 'fs';
 import csvParser from 'csv-parser';
 import SpringBootApp from './Java/SpringBootApp';
-import { JavaSpringNode } from './types';
+import { HtmlCssNode, JavaSpringNode } from './types';
 
 export default class MetaProject {
-  public readonly raw_ui_data: Object
-  public readonly raw_uml_data: Object
-  public readonly meta_ui_data: Object
-  public readonly meta_uml_data: Object
-  public readonly html_code: string
-  public readonly css_code: string
+  public readonly html_css_code: HtmlCssNode[]
   public readonly java_code: JavaSpringNode[]
   /* public readonly springboot_app: SpringBootApp */
 
   constructor(
-    raw_ui_data: Object,
-    raw_uml_data: Object,
-    meta_ui_data: Object,
-    meta_uml_data: Object,
-    html_code: string,
-    css_code: string,
+    html_css_code: HtmlCssNode[],
     java_code: JavaSpringNode[]
   ){
-    this.raw_ui_data= raw_ui_data
-    this.raw_uml_data= raw_uml_data
-    this.meta_ui_data= meta_ui_data
-    this.meta_uml_data= meta_uml_data
-    this.html_code= html_code
-    this.css_code= css_code
+    /* const meta_ui_data = MetaProject.getMetaUiData(raw_ui_data)
+    const meta_uml_data = MetaProject.getMetaUmlData(raw_uml_data) */
+    this.html_css_code= html_css_code
     this.java_code= java_code
     /* this.springboot_app= new SpringBootApp(
       __dirname, 
@@ -55,16 +42,92 @@ export default class MetaProject {
         'X-Figma-Token': figma_token,
     };
 
+    const rest_api_process = (node: any, parentLayoutMode: any, parentNodeType: any) => ({
+      id: node.id,
+      name: node.name,
+      node_type: node.type,
+      text_content: node.characters,
+      box: {
+        width: node.absoluteBoundingBox.width,
+        height: node.absoluteBoundingBox.height,
+        parentLayoutMode: parentLayoutMode,
+        parentNodeType: parentNodeType,
+        layoutMode: node.layoutMode,
+        layoutGrow: node.layoutGrow || 0,
+        layoutAlign: node.layoutAlign || 'INHERIT',
+        primaryAxisSizingMode: node.primaryAxisSizingMode,
+        counterAxisSizingMode: node.counterAxisSizingMode,
+        paddingLeft: node.paddingLeft || 0,
+        paddingTop: node.paddingTop || 0,
+        paddingRight: node.paddingRight || 0,
+        paddingBottom: node.paddingBottom || 0,
+      },
+      layout: {
+        x: node.absoluteBoundingBox.x,
+        y: node.absoluteBoundingBox.y,
+
+        layoutMode: node.layoutMode,
+        primaryAxisAlignItems: node.primaryAxisAlignItems || "MIN",
+        counterAxisAlignItems: node.counterAxisAlignItems || "MIN",
+        itemSpacing: node.itemSpacing || 0,
+
+        textAlignHorizontal: node.style?.textAlignHorizontal,
+        textAlignVertical: node.style?.textAlignVertical,
+        letterSpacingValue: node.style?.letterSpacing,
+        letterSpacingUnit: "PIXEL",
+      },
+      design: {
+        fills: node.fills,
+        strokes: node.strokes,
+        effects: node.effects,
+        strokeWeight: node.strokeWeight,
+        topLeftRadius: node.rectangleCornerRadii?.[0] || node.cornerRadius || 0, 
+        topRightRadius: node.rectangleCornerRadii?.[1] || node.cornerRadius || 0,
+        bottomRightRadius: node.rectangleCornerRadii?.[2] || node.cornerRadius || 0,
+        bottomLeftRadius: node.rectangleCornerRadii?.[3] || node.cornerRadius || 0,
+      },
+      typography: {
+        textCase: node.style?.textCase || "ORIGINAL",
+        fontFamily: node.style?.fontFamily,
+        fontStyle: "Regular",
+        isItalic: false,
+        fontSize: node.style?.fontSize,
+        textDecoration: node.style?.textDecoration || "NONE",
+        lineHeightValue: (
+          node.style?.lineHeightUnit == "FONT_SIZE_%"
+          ? node.style?.lineHeightPercentFontSize
+          : node.style?.lineHeightUnit == "PIXELS"
+          ? node.style?.lineHeightPx
+          : undefined
+        ),
+        lineHeightUnit: (
+          node.style?.lineHeightUnit == "FONT_SIZE_%"
+          ? "PERCENT"
+          : node.style?.lineHeightUnit == "PIXELS"
+          ? "PIXELS"
+          : "AUTO"
+        ),
+        paragraphIndent: node.style?.paragraphIndent || 0
+      },
+      children: (
+        node.children ?
+          node.children.map((child: any) => {
+            return rest_api_process(child, node.layoutMode, node.type);
+          }) : null 
+      )
+    })
+
     try {
       const response = await axios.get(url, { headers });
-      const raw_ui_data = response.data["document"]["children"].find((node: any) => node["type"] == "CANVAS")["children"]
+      let raw_ui_data: Object[] = response.data["document"]["children"].find((node: any) => node["type"] == "CANVAS")["children"]
+      raw_ui_data = raw_ui_data.map(node => rest_api_process(node, undefined, "PAGE"))
       return raw_ui_data;
     } catch (error) {
         console.error('Error:', error);
     }
   }
 
-  static async getMetaUiData(raw_ui_data: Object) {
+  static async getMetaUiData(raw_ui_data: any) {
     try {
       const response = await axios.post('http://localhost:3003/figma',raw_ui_data);
       return response.data;
@@ -73,7 +136,7 @@ export default class MetaProject {
     }
   }
 
-  static async getMetaUmlData(raw_uml_data: Object) {
+  static async getMetaUmlData(raw_uml_data: any) {
     try {
       const response = await axios.post('http://localhost:3004/lucid',raw_uml_data);
       return response.data;
@@ -82,18 +145,9 @@ export default class MetaProject {
     }
   }
 
-  static async getHtmlCode(meta_ui_data: Object) {
+  static async getHtmlCssCode(meta_ui_data: any) {
     try {
-      const response = await axios.post('http://localhost:3005/html',meta_ui_data);
-      return response.data;
-    } catch (error) {
-        console.error('Error:', error);
-    }
-  }
-
-  static async getCssCode(meta_ui_data: Object) {
-    try {
-      const response = await axios.post('http://localhost:3005/css',meta_ui_data);
+      const response = await axios.post('http://localhost:3005/project',meta_ui_data);
       return response.data;
     } catch (error) {
         console.error('Error:', error);
