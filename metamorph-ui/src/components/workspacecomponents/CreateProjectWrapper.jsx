@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai";
-import { RawDataModel } from "../../models/MetaDataModel.js";
+import { RawDataModel } from "../../models/MetadataModel";
 import csvtojson from "csvtojson";
 import axios from "axios";
 import "../../CSS/workspace_styling/createprojectwrapper.css";

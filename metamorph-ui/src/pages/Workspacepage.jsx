@@ -3,7 +3,7 @@
 // import Workspacebody from "../components/workspacecomponents/workspacebody";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../components/workspacecomponents/Sidebar";
+import Sidebar from "../components/workspacecomponents/sidebar";
 import Dashboard from "../components/workspacecomponents/Dashboard";
 import "../CSS/workspace.css";
 
