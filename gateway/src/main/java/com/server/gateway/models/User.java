@@ -77,13 +77,14 @@ public class User {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private ProjectArtifact proj_artifact;
 
-    @OneToMany(mappedBy = "data_owner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
-    List<MetaData> user_data;
+    // @OneToMany(mappedBy = "data_owner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    // List<MetaData> user_data;
 
     public User() {
     }
 
-    public User(String id, String firstname, String lastname, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact, List<MetaData> user_data) {
+
+    public User(String id, String firstname, String lastname, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -92,9 +93,8 @@ public class User {
         this.password = password;
         this.work_space = work_space;
         this.proj_artifact = proj_artifact;
-        this.user_data = user_data;
     }
-    
+   
 
     public String getId() {
         return this.id;
@@ -160,13 +160,13 @@ public class User {
         this.proj_artifact = proj_artifact;
     }
 
-    public List<MetaData> getUser_data() {
-        return this.user_data;
-    }
+    // public List<MetaData> getUser_data() {
+    //     return this.user_data;
+    // }
 
-    public void setUser_data(List<MetaData> user_data) {
-        this.user_data = user_data;
-    }
+    // public void setUser_data(List<MetaData> user_data) {
+    //     this.user_data = user_data;
+    // }
 
 }
 

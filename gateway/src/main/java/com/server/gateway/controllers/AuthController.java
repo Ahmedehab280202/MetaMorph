@@ -70,7 +70,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody Map<String,String> body){
 
-        System.out.println("testing frontend data: "+body);
+        // System.out.println("testing frontend data: "+body);
 
         String email = body.get("email"); 
 
