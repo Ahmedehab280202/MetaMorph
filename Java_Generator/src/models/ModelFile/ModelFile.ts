@@ -52,7 +52,7 @@ export default class ModelFile {
         ``,
         `@Entity`,
         `public class ${this.declaration.name} ${this.declaration.extension} ${this.declaration.parent_name || ''}{`,
-        `${!this.parent_node ?
+        `${!(this.parent_node?.type === 'class') ?
         `    @Id\n`+
         `    @GeneratedValue\n`+
         `    private UUID id;\n`

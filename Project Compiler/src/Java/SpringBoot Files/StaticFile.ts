@@ -7,7 +7,7 @@ export default class StaticFile {
   readonly content: string
 
   constructor(code_node: HtmlCssNode) {
-    this.file_name = 'index.html'
+    this.file_name = `${code_node.name}.html`
     this.html = code_node.html
     this.css = code_node.css
     this.content = (
@@ -32,9 +32,9 @@ export default class StaticFile {
       `</head>\n`+
       `<body>\n`+
       `\n`+
-      `  <!-- Dynamic Generation -->\n`+
+      `<!-- Dynamic Generation -->\n`+
       `${this.html}\n`+
-      `  <!-- Dynamic Generation -->\n`+
+      `<!-- Dynamic Generation -->\n`+
       `</body>\n`+
       `</html>`
     )

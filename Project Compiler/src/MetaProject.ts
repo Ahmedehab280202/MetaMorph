@@ -13,8 +13,6 @@ export default class MetaProject {
     html_css_code: HtmlCssNode[],
     java_code: JavaSpringNode[]
   ){
-    /* const meta_ui_data = MetaProject.getMetaUiData(raw_ui_data)
-    const meta_uml_data = MetaProject.getMetaUmlData(raw_uml_data) */
     this.html_css_code= html_css_code
     this.java_code= java_code
     /* this.springboot_app= new SpringBootApp(

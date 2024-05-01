@@ -33,6 +33,12 @@ app.post('/project/code', async (req: Request, res: Response) => {
   res.send(response_body)
 })
 
+app.post('/project/zip', async (req: Request, res: Response) => {
+  const spring_app = new SpringBootApp(__dirname,req.body.html_css_code, req.body.java_code)
+
+  res.send('/project/zip')
+})
+
 
 /* app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {
   if (!req.file) {

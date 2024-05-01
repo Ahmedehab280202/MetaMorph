@@ -1,3 +1,4 @@
+import Utils from "../utils";
 
 export default class HtmlNode {
   readonly type: string;
@@ -8,7 +9,7 @@ export default class HtmlNode {
 
   constructor(type: string, class_name: string, content: string, children_nodes: Array<HtmlNode>) {
     this.type = type
-    this.class_name = class_name
+    this.class_name = Utils.sanitizeClassName(class_name)
     this.content = content
     this.children_nodes = children_nodes
     this.is_parent = children_nodes.length > 0 ? true : false;
@@ -35,4 +36,7 @@ export default class HtmlNode {
       )
     }
   }
+
+  
+
 }

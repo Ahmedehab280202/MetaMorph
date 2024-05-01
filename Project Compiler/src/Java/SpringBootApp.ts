@@ -11,44 +11,50 @@ export default class SpringBootApp {
   readonly gen_path: string
   readonly pomFile: PomFile
   readonly myAppFile: MyAppFile
-  readonly template_file: TemplateFile
-  readonly static_file: StaticFile
+  readonly static_pages: StaticFile[]
   readonly entities: JavaSpringNode[]
 
-  constructor(gen_path: string, front_code: HtmlCssNode, entity_nodes: JavaSpringNode[]) {
+  constructor(gen_path: string, htmlcss_nodes: HtmlCssNode[], entity_nodes: JavaSpringNode[]) {
     this.name = 'MyGenApp'
     this.gen_path = gen_path
     this.pomFile = new PomFile()
     this.myAppFile = new MyAppFile(this.name)
-    this.static_file = new StaticFile(front_code)
-    this.template_file = new TemplateFile(front_code)
+    this.static_pages = htmlcss_nodes.map(node => new StaticFile(node))
     this.entities = entity_nodes
+    this.execute()
   }
 
   execute() {
+    const base_path = `${this.gen_path}/${this.name}`
+    this.rmdir(`${base_path}`)
     /* root */
-    this.mkdir(`${this.gen_path}/${this.name}`)
-    this.writeFile(`${this.gen_path}/${this.name}/${this.pomFile.file_name}`,this.pomFile.content)
+    this.mkdir(`${base_path}`)
+    this.writeFile(`${base_path}/${this.pomFile.file_name}`,this.pomFile.content)
     /* java */
-    this.mkdir(`${this.gen_path}/${this.name}/src`)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main`)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java`)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com`)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${this.myAppFile.file_name}`,this.myAppFile.content)
+    this.mkdir(`${base_path}/src`)
+    this.mkdir(`${base_path}/src/main`)
+    this.mkdir(`${base_path}/src/main/java`)
+    this.mkdir(`${base_path}/src/main/java/com`)
+    this.mkdir(`${base_path}/src/main/java/com/meta`)
+    this.writeFile(`${base_path}/src/main/java/com/meta/${this.myAppFile.file_name}`,this.myAppFile.content)
+    /* entities */
     this.entities.forEach(entity => {
-      this.mkdir(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}`)
-      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}.java`,entity.model_file)
-      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}Controller.java`,entity.controller_file)
-      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}Service.java`,entity.service_file)
-      this.writeFile(`${this.gen_path}/${this.name}/src/main/java/com/meta/${entity.name.toLowerCase()}/${entity.name}Repository.java`,entity.repository_file)
+      const entity_path = `${base_path}/src/main/java/com/meta/${entity.name.toLowerCase()}`
+      this.mkdir(`${entity_path}`)
+      this.writeFile(`${entity_path}/${entity.name}.java`,entity.model_file)
+      if (entity.controller_file) this.writeFile(`${entity_path}/${entity.name}Controller.java`,entity.controller_file)
+      if (entity.service_file)    this.writeFile(`${entity_path}/${entity.name}Service.java`,entity.service_file)
+      if (entity.repository_file) this.writeFile(`${entity_path}/${entity.name}Repository.java`,entity.repository_file)
     })
     /* static */
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/resources`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/resources/application.properties`,`spring.application.name=${this.name}`)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/resources/static`)
-    this.writeFile(`${this.gen_path}/${this.name}/src/main/resources/static/${this.static_file.file_name}`,this.static_file.content)
-    this.mkdir(`${this.gen_path}/${this.name}/src/main/resources/templates`)
+    this.mkdir(`${base_path}/src/main/resources`)
+    this.writeFile(`${base_path}/src/main/resources/application.properties`,`spring.application.name=${this.name}`)
+    this.mkdir(`${base_path}/src/main/resources/static`)
+    this.static_pages.forEach(page => {
+      console.log(page.file_name);
+      this.writeFile(`${base_path}/src/main/resources/static/${page.file_name}`,page.content)
+    })
+    this.mkdir(`${base_path}/src/main/resources/templates`)
   }
 
   mkdir(dir_path: string) {
@@ -59,16 +65,7 @@ export default class SpringBootApp {
     } catch (err) {
       console.error('Error creating folder:' + dir_path, err);
     }
-  
-    /* fs.mkdirSync(dir_path, (err) => {
-      if (err) {
-        console.error('Error creating folder:'+ dir_path, err);
-        return;
-      }
-      console.log('Folder created successfully:'+ dir_path);
-    }); */
   }
-
   writeFile(file_path: string, file_content: string) {
     try {
       fs.writeFileSync(file_path,file_content);
@@ -76,13 +73,16 @@ export default class SpringBootApp {
     } catch (err) {
       console.error('Error creating folder:' + file_path, err);
     }
-
-    /* fs.writeFile(file_path, file_content, (err) => {
-      if (err) {
-        console.error('Error creating file:' + file_path, err);
-        return;
-      }
-      console.log('File created successfully:' + file_path);
-    }); */
   }
+  rmdir(dir_path: string) {
+    if (fs.existsSync(dir_path)) {
+      try {
+        fs.rmSync(dir_path, { recursive: true });
+        console.log('Folder removed successfully:' + dir_path);
+      } catch (err) {
+        console.error('Error removing folder:' + dir_path, err);
+      }
+    }
+  }
+
 }

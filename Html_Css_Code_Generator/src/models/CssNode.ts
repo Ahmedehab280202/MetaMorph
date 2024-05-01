@@ -3,6 +3,7 @@ import CssBox from "./CssBox"
 import CssLayout from "./CssLayout"
 import CssDesign from "./CssDesign"
 import CssStyling from "./CssStyling"
+import Utils from "../utils"
 
 export default class CssNode {
   readonly class_name: string
@@ -15,13 +16,13 @@ export default class CssNode {
   readonly children_nodes: Array<CssNode>
 
   constructor(node: BaseNode, is_child: Boolean) {
-    this.class_name = node.name;
+    this.class_name = Utils.sanitizeClassName(node.name);
     this.is_child = is_child
     this.box = new CssBox(node.box, node.node_type, this.is_child)
     this.layout = new CssLayout(node.layout)
     this.design = new CssDesign(node.design, node.node_type)
     this.styling = (
-      node.typography ?
+      node.node_type == 'TEXT' && node.typography ?
         new CssStyling(node.typography) :
       ''
     )
