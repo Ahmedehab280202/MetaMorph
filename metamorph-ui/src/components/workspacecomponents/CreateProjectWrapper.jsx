@@ -27,6 +27,7 @@ const CreateProjectWrapper = () => {
     setFile(selectedFile);
     setFileName(selectedFile ? selectedFile.name : "No selected File");
   };
+  
   const handleDragOver = (event) => {
     event.preventDefault();
   };
