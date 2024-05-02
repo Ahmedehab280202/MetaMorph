@@ -12,8 +12,8 @@ export const createProject = async (metaDataModel) => {
             projectName: metaDataModel.projectName,
             figmaToken: metaDataModel.figmaToken,
             fileUrl: metaDataModel.fileUrl,
-            // raw_ui_data: metaDataModel.raw_ui_data,
-            // raw_uml_data: metaDataModel.raw_uml_data,
+            raw_ui_data: metaDataModel.raw_ui_data,
+            raw_uml_data: metaDataModel.raw_uml_data,
         };
 
         const headers = {
