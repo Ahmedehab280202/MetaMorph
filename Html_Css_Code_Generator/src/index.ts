@@ -1,6 +1,6 @@
 import express from 'express';
 import { Request, Response } from 'express';
-import BaseNode from 'meta-standardization/dist/models/Nodes/BaseNode'
+import BaseNode from 'metamorph-lib/Meta Standardization/dist/models/Nodes/BaseNode'
 import HtmlFactory from './factories/HtmlFactory';
 import HtmlNode from './models/HtmlNode';
 import HtmlTree from './models/HtmlTree';

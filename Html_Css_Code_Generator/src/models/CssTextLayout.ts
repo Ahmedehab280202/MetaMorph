@@ -1,5 +1,5 @@
 
-import TextLayout from "meta-standardization/dist/models/Layout/TextLayout";
+import TextLayout from "metamorph-lib/Meta Standardization/dist/models/Layout/TextLayout";
 import TextAlign from "./CssProperties/TextAlign";
 import AlignItemsText from "./CssProperties/AlignItemsText";
 

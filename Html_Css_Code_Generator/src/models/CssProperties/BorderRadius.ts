@@ -1,4 +1,4 @@
-import Border from "meta-standardization/dist/models/Design/Border"
+import Border from "metamorph-lib/Meta Standardization/dist/models/Design/Border"
 
 export default class BorderRadius {
   readonly top_left: number

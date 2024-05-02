@@ -1,4 +1,4 @@
-import LTRB from "meta-standardization/dist/models/BoxModel/LTRB"
+import LTRB from "metamorph-lib/Meta Standardization/dist/models/BoxModel/LTRB"
 
 export default class Padding {
   readonly left : number

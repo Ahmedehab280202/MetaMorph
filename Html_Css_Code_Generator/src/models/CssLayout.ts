@@ -1,9 +1,9 @@
-import Layout from "meta-standardization/dist/models/Layout/Layout";
+import Layout from "metamorph-lib/Meta Standardization/dist/models/Layout/Layout";
 import Display from "./CssProperties/Display"
 import CssLinearLayout from "./CssLinearLayout";
 import CssTextLayout from "./CssTextLayout";
-import LinearLayout from "meta-standardization/dist/models/Layout/LinearLayout";
-import TextLayout from "meta-standardization/dist/models/Layout/TextLayout";
+import LinearLayout from "metamorph-lib/Meta Standardization/dist/models/Layout/LinearLayout";
+import TextLayout from "metamorph-lib/Meta Standardization/dist/models/Layout/TextLayout";
 
 export default class CssLayout {
   readonly display: Display;

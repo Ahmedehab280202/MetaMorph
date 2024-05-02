@@ -66,7 +66,7 @@ export type FigmaBox = {
 export type FigmaDesign = {
   fills: ReadonlyArray<Paint>
   strokes: ReadonlyArray<Paint>
-  effects: ReadonlyArray<Shadow | Blur>
+  effects: /* ReadonlyArray<Shadow | Blur> | */ []
 
   strokeWeight: number
   topLeftRadius: number

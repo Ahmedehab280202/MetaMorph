@@ -1,8 +1,8 @@
-import BoxModel from "meta-standardization/dist/models/BoxModel/BoxModel";
+import BoxModel from "metamorph-lib/Meta Standardization/dist/models/BoxModel/BoxModel";
 import Width from "./CssProperties/Width";
 import Height from "./CssProperties/Height";
 import Padding from "./CssProperties/Padding";
-import { NodeType } from "meta-standardization/dist/types/types";
+import { NodeType } from "metamorph-lib/Meta Standardization/dist/types/types";
 
 export default class CssBox {
   readonly width: Width

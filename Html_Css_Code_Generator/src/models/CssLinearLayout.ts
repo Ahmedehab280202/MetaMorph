@@ -1,5 +1,5 @@
 
-import LinearLayout from "meta-standardization/dist/models/Layout/LinearLayout";
+import LinearLayout from "metamorph-lib/Meta Standardization/dist/models/Layout/LinearLayout";
 import FlexDirection from "./CssProperties/FlexDirection";
 import JustifyContent from "./CssProperties/JustifyContent";
 import AlignItems from "./CssProperties/AlignItems";

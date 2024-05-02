@@ -1,6 +1,6 @@
-import { RGB } from "./RGBA";
+import { RGBA } from "./RGBA";
 export default class SolidPaint {
     readonly type: 'SOLID';
-    readonly color: RGB;
-    constructor(type: 'SOLID', color: RGB);
+    readonly color: RGBA;
+    constructor(type: 'SOLID', color: RGBA);
 }

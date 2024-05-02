@@ -1,4 +1,4 @@
-import { LayoutMode } from "meta-standardization/dist/types/types";
+import { LayoutMode } from "metamorph-lib/Meta Standardization/dist/types/types";
 import { DisplayType } from "../../types";
 
 export default class Display {

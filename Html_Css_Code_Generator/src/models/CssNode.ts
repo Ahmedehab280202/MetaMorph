@@ -1,4 +1,4 @@
-import BaseNode from "meta-standardization/dist/models/Nodes/BaseNode"
+import BaseNode from "metamorph-lib/Meta Standardization/dist/models/Nodes/BaseNode"
 import CssBox from "./CssBox"
 import CssLayout from "./CssLayout"
 import CssDesign from "./CssDesign"
@@ -44,7 +44,7 @@ export default class CssNode {
       return ( 
         output + '\n'
         + '\n'
-        + this.children_nodes?.map(child_node => child_node.toString(`${parent_class}.${this.class_name} `)).join('\n')
+        + this.children_nodes?.map(child_node => child_node.toString(`${parent_class}.${this.class_name} > `)).join('\n')
       )
     } else {
       return output

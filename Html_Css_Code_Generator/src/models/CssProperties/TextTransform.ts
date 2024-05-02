@@ -1,4 +1,4 @@
-import Font from "meta-standardization/dist/models/Typography/Font"
+import Font from "metamorph-lib/Meta Standardization/dist/models/Typography/Font"
 
 export default class TextTransform {
   readonly value: 'uppercase' | 'lowercase' | 'capitalize' | 'none'

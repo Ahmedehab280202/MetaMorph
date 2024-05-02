@@ -1,4 +1,4 @@
-import Typography from "meta-standardization/dist/models/Typography/Typography";
+import Typography from "metamorph-lib/Meta Standardization/dist/models/Typography/Typography";
 import FontFamily from "./CssProperties/FontFamily";
 import FontSize from "./CssProperties/FontSize";
 import FontWeight from "./CssProperties/FontWeight";

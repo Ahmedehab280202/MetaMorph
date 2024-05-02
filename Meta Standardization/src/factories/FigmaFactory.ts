@@ -211,8 +211,8 @@ export default class FigmaFactory implements IFactory {
           node.bottomLeftRadius
         )
       ),
-      node.effects.filter(effect_node => effect_node.type == 'DROPSHADOW' || effect_node.type ==  'INNERSHADOW')  as Shadow[],
-      node.effects.filter(effect_node => effect_node.type == 'LAYER_BLUR' || effect_node.type ==  'BACKGROUND_BLUR')  as Blur[],
+      node.effects.filter((effect_node: any) => effect_node.type == 'DROP_SHADOW' || effect_node.type ==  'INNER_SHADOW')/* .map(node => node as Shadow) */,
+      node.effects.filter((effect_node: any) => effect_node.type == 'LAYER_BLUR' || effect_node.type ==  'BACKGROUND_BLUR')/*   as Blur[] */,
     )
   }
 

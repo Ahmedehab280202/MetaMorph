@@ -5,12 +5,14 @@ import StaticFile from './SpringBoot Files/StaticFile';
 import { HtmlCssNode, JavaSpringNode } from '../types';
 import ControllerFile from './SpringBoot Files/ControllerFile';
 import TemplateFile from './SpringBoot Files/TemplateFile';
+import WebMvcConfigFile from './SpringBoot Files/WebMvcConfigFile';
 
 export default class SpringBootApp {
   readonly name: string
   readonly gen_path: string
   readonly pomFile: PomFile
   readonly myAppFile: MyAppFile
+  readonly webmvcconfig: WebMvcConfigFile
   readonly static_pages: StaticFile[]
   readonly entities: JavaSpringNode[]
 
@@ -19,6 +21,7 @@ export default class SpringBootApp {
     this.gen_path = gen_path
     this.pomFile = new PomFile()
     this.myAppFile = new MyAppFile(this.name)
+    this.webmvcconfig = new WebMvcConfigFile()
     this.static_pages = htmlcss_nodes.map(node => new StaticFile(node))
     this.entities = entity_nodes
     this.execute()
@@ -37,6 +40,7 @@ export default class SpringBootApp {
     this.mkdir(`${base_path}/src/main/java/com`)
     this.mkdir(`${base_path}/src/main/java/com/meta`)
     this.writeFile(`${base_path}/src/main/java/com/meta/${this.myAppFile.file_name}`,this.myAppFile.content)
+    this.writeFile(`${base_path}/src/main/java/com/meta/${this.webmvcconfig.file_name}`,this.webmvcconfig.content)
     /* entities */
     this.entities.forEach(entity => {
       const entity_path = `${base_path}/src/main/java/com/meta/${entity.name.toLowerCase()}`

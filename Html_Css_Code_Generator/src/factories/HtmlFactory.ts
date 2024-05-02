@@ -1,4 +1,4 @@
-import BaseNode from "meta-standardization/dist/models/Nodes/BaseNode";
+import BaseNode from "metamorph-lib/Meta Standardization/dist/models/Nodes/BaseNode";
 import HtmlNode from "../models/HtmlNode";
 
 export default class HtmlFactory {

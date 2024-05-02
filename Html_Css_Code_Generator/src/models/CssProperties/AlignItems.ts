@@ -1,4 +1,4 @@
-import Axis from 'meta-standardization/dist/models/Layout/Axis'
+import Axis from 'metamorph-lib/Meta Standardization/dist/models/Layout/Axis'
 import { AlignItemsType } from "../../types";
 
 export default class AlignItems {

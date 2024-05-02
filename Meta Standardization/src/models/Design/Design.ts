@@ -9,7 +9,7 @@ export default class Design {
   readonly shadow : ReadonlyArray<Shadow>
   readonly blur: ReadonlyArray<Blur>
 
-  constructor(background : ReadonlyArray<Paint>, border : Border, shadow : ReadonlyArray<Shadow>, blur: ReadonlyArray<Blur>){
+  constructor(background : ReadonlyArray<Paint>, border : Border, shadow : ReadonlyArray<Shadow> | [], blur: ReadonlyArray<Blur>){
     this.background = background
     this.border = border
     this.shadow = shadow

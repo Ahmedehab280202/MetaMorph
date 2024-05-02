@@ -1,4 +1,4 @@
-import { NodeType } from "meta-standardization/dist/types/types"
+import { NodeType } from "metamorph-lib/Meta Standardization/dist/types/types"
 
 export default class Background {
   readonly name: 'background' | 'color'

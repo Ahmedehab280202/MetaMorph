@@ -1,6 +1,6 @@
-import Dimension from "meta-standardization/dist/models/BoxModel/Dimension"
+import Dimension from "metamorph-lib/Meta Standardization/dist/models/BoxModel/Dimension"
 import { HeightUnit } from "../../types"
-import { NodeType } from "meta-standardization/dist/types/types"
+import { NodeType } from "metamorph-lib/Meta Standardization/dist/types/types"
 
 export default class Height {
   readonly value: number | 'auto'

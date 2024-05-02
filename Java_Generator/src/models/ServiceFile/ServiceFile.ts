@@ -41,6 +41,7 @@ public class ${this.class_name}Service {
     }
 
     public void update${this.class_name}(UUID id, ${this.class_name} ${this.class_name_lc}) {
+        ${this.class_name_lc}.setId(id);
         ${this.class_name_lc}Repository.save(${this.class_name_lc});
     }
 
