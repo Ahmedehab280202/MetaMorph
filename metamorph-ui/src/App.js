@@ -18,6 +18,7 @@ function App() {
                     <Route path="/" element={<HomePage />}/>
                     <Route path="/register" element={<RegisterPage />} />
                     <Route path="/workspace" element={<WorkSpacePage />} />
+                    <Route path="" />
                     <Route path="*" element={<h1> PAGE NOT FOUND</h1>} />
                 </Routes>
             </Router>
