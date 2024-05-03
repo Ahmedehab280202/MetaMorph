@@ -6,8 +6,8 @@ const ProjectSection = () => {
   return (
     <div className='projects_section'>
       <Project />
-      <Project />
-      <Project />
+      {/* <Project />
+      <Project /> */}
     </div>
   )
 }

@@ -1,0 +1,16 @@
+.view-code-page-wrapper {
+  display: flex;
+}
+
+.code-view-body {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.code-inspection {
+  width: 923px;
+  height: 16px;
+  margin-top: 64px;
+  height: 678px;
+}

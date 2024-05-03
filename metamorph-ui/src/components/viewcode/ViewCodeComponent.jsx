@@ -4,11 +4,16 @@ import { NavDropdown, Button, Image } from 'react-bootstrap';
 import Download from '../../assists/download.png';
 import GitHub from '../../assists/github.png';
 
+import '../../CSS/code_view/viewcodecomponent.css'
+
 function ViewCodeComponent() {
     
     const staticHtml ='<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>'
     const staticCss = 'body {\n  background-color: lightblue;\n}\nh1 {\n  color: white;\n  text-align: center;\n}\np {\n  font-family: verdana;\n  font-size: 20px;\n}'
     
+    // const [staticHtml, setStaticHtml] = useState("");
+    // const [staticCss, setStaticCss] = useState("");
+
     const [selectedFile, setSelectedFile] = useState(null);
 
     const handleFileSelect = (file) => {
@@ -31,7 +36,7 @@ function ViewCodeComponent() {
 
     return (
         <div>
-            <NavDropdown title="Publish Code" id="" style={{marginLeft: '950px' , marginTop: '150px'}}>
+            {/* <NavDropdown title="Publish Code" id="" style={{marginLeft: '950px' , marginTop: '150px'}}>
                  <div style={{ display: 'flex', flexDirection: 'column' }}>
                         <Button variant="" onClick={handleDownloadCode} 
                         style={{ 
@@ -54,7 +59,7 @@ function ViewCodeComponent() {
                             <Image src={GitHub} alt="GitHub" style={{ width: '15px', height: '15px', marginRight: '8px' }} /> Export to GitHub
                         </Button>
                     </div>
-            </NavDropdown>
+            </NavDropdown> */}
                 <div className="row">
                     <div className="col-2" style={{padding: '10px 30px'}}>
                         <h3 className="mb-4">Files:</h3>
@@ -65,7 +70,7 @@ function ViewCodeComponent() {
                                     type="button"
                                     className={`list-group-item list-group-item-action ${selectedFile === file ? 'active' : ''}`}
                                     onClick={() => handleFileSelect(file)}
-                                    style={{ fontSize: '20px', padding: '10px 10px', height:'50px', width:'200px'}}> {/* Adjusted button size */}
+                                    style={{ fontSize: '20px', padding: '10px 10px', height:'50px', width:'200px'}}> Adjusted button size
                                     {file.name}
                                 </button>
                             ))}
@@ -75,6 +80,7 @@ function ViewCodeComponent() {
                          <h2 className="mb-4" style={{ fontSize: '30px' }}>Generated Code</h2>
                         <CodeEditor code={selectedFile ? selectedFile.code : 'No code'} style={{ fontSize: '24px' }} />
                     </div>
+
                  </div>   
         </div>
     );

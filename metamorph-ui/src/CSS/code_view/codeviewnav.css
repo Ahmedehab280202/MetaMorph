@@ -1,0 +1,72 @@
+.navbar {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  background-color: #363636;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-view-nav-buttons {
+  display: flex;
+  gap: 16px;
+  margin: 0px 16px;
+}
+
+.code-view-project-name-container {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 50px;
+  position: relative;
+  cursor: pointer;
+  padding: 0px 16px;
+  color: #ededed;
+}
+
+.nav_logo_icon {
+  font-size: 30px;
+  color: #fff;
+  height: 40px;
+  min-width: 50px;
+  text-align: center;
+  line-height: 50px;
+}
+
+.project-title-wrapper {
+    margin-left: 180px
+}
+
+.export-btn {
+  padding: 0px 8px;
+  height: 24px;
+  width: auto;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.export-btn-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.export-btn-text {
+  color: #d9d9d9;
+}
+
+.publish-btn {
+  padding: 0px 8px;
+  height: 24px;
+  width: auto;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.publish-btn-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
