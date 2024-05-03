@@ -19,18 +19,27 @@
 }
 
 .publishButton {
+    display: flex; 
+    align-items: center;
     border-color: white;
     border: 2px solid;
     margin-top: -15px;
     padding: 6px 24px;
     border: 2px solid #fff;
-    border-radius: 6px;
+    border-radius: 5px;
     cursor: pointer;
     color: #fff;
     background: purple;
     font-size: 14px;
     padding-bottom: 10px;
     padding-top: 10px;
+}
+
+
+.downicon {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
 }
 
 .dropdown-content {
@@ -64,7 +73,6 @@
     margin-left: 5px;
 }
 
-
 .fileList {
     padding: 10px 30px;
     height: 100vh;
@@ -72,7 +80,7 @@
     background: #1d1b31;
     color: white;
     margin-bottom: 8px;
-    margin-top: 125px;
+    margin-top: 125px; 
 }
 
 .fileList ul {

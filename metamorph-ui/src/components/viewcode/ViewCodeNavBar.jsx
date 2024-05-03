@@ -3,7 +3,7 @@ import { PiButterfly } from 'react-icons/pi';
 import { useNavigate } from 'react-router-dom';
 import DownloadIcon from '../../assists/download.png';
 import GitHubIcon from '../../assists/github.png';
-
+import Downarrow from '../../assists/downarrow.png';
 function ViewCodeNavBar() {
     const navigate = useNavigate();
     const [isOpen, setIsOpen] = useState(false);
@@ -66,6 +66,7 @@ function ViewCodeNavBar() {
             </div>
             <div className="dropdown" ref={dropdownRef}>
                 <button className="publishButton" onClick={toggleDropdown}>
+                    <img src={Downarrow} alt="Downarrow" className="downicon" />
                     Publish Code
                 </button>
                 {isOpen && (
