@@ -1,41 +1,44 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { FaUserCircle } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
 import { HiDocumentDuplicate } from "react-icons/hi2";
 import { IoLayersOutline } from "react-icons/io5";
 import { FaFileAlt } from "react-icons/fa";
+import { getFrontEndData } from "../../services/FrontEndCodeService";
 import CodeEditor from "./CodeEditor";
 import "../../CSS/code_view/utilitysidebar.css";
 
 const ViewCodeSideUtilityBar = () => {
-  const staticHtml =
-    "<!DOCTYPE html>\n<html>\n<head>\n<title>Page Title</title>\n</head>\n<body>\n\n<h1>This is a Heading</h1>\n<p>This is a paragraph.</p>\n\n</body>\n</html>";
-  const staticCss =
-    "body {\n  background-color: lightblue;\n}\nh1 {\n  color: white;\n  text-align: center;\n}\np {\n  font-family: verdana;\n  font-size: 20px;\n}";
 
-  // const [staticHtml, setStaticHtml] = useState("");
-  // const [staticCss, setStaticCss] = useState("");
-
+  const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  useEffect(() => {
+    const projectName = "metamorphtest"; // Adjust this according to your project
+    getFrontEndData(projectName).then((response) => {
+      const htmlFiles = response.data
+        .filter((data) => data.htmlCode)
+        .map((data) => ({
+          name: "Index.html",
+          code: data.htmlCode,
+        }));
+  
+      const cssFiles = response.data
+        .filter((data) => data.CssCode)
+        .map((data) => ({
+          name: "style.css",
+          code: data.CssCode,
+        }));
+  
+      setFiles([...htmlFiles, ...cssFiles]);
+    });
+  }, []);
 
   const handleFileSelect = (file) => {
     setSelectedFile(file);
   };
-
-  const handleDownloadCode = () => {
-    // Logic for downloading code
-  };
-
-  const handleExportToGitHub = () => {
-    // Logic for exporting code to GitHub
-  };
-
-  // files array
-  const files = [
-    { name: "Index.html", code: staticHtml },
-    { name: "Index.css", code: staticCss },
-  ];
 
   return (
     <div className="code-view-page-body">
@@ -80,14 +83,15 @@ const ViewCodeSideUtilityBar = () => {
                     height: "30px",
                     width: "150px",
                     display: "flex",
-                    alignItems: "center"
+                    alignItems: "center",
                   }}
                 >
                   {" "}
                   {/* button */}
-                  <div><FaFileAlt /></div>
+                  <div>
+                    <FaFileAlt />
+                  </div>
                   <span>{file.name}</span>
-                  
                 </button>
               ))}
             </div>
@@ -118,8 +122,6 @@ const ViewCodeSideUtilityBar = () => {
         </div>
       </div>
       <div className="code-inspection-view">
-
-        
         <h2 className="mb-4" style={{ fontSize: "30px" }}>
           Generated Code
         </h2>
