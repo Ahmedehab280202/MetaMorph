@@ -50,7 +50,6 @@ public class MetaDataController {
     @PostMapping("/project")
     public ResponseEntity<String> createProject(@RequestBody Map<String, Object> request_body) {
 
-        
 
         try {
             // Extract data from the request body
@@ -77,9 +76,8 @@ public class MetaDataController {
             // Handle response from the second API
             if (response.getStatusCode().is2xxSuccessful()) {
                 // Extract and handle response data if needed
-                String responseData = response.getBody();
 
-                // System.out.println(responseData);
+                String responseData = response.getBody();
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 Map<String, Object> jsonMap = objectMapper.readValue(responseData,
@@ -96,10 +94,28 @@ public class MetaDataController {
                     cssCode.append(code.get("css")).append("\n");
                 }
 
-                String javaCodeString = java_code.stream()
-                        .map(map -> "Name: " + map.get("name") + "\nModel File:\n" + map.get("model_file")
-                                + "\nController File:\n" + map.get("controller_file"))
-                        .collect(Collectors.joining("\n\n"));
+                StringBuilder models = new StringBuilder();
+                StringBuilder controllers = new StringBuilder();
+                StringBuilder services = new StringBuilder();
+                StringBuilder repositories = new StringBuilder();
+
+                
+
+                for (Map<String, Object> code : java_code) {
+                    models.append(code.get("model_file")).append("\n");
+                    controllers.append(code.get("controller_file")).append("\n");
+                    services.append(code.get("service_file")).append("\n");
+                    repositories.append(code.get("repository_file")).append("\n");
+                }
+
+                // System.out.println("the standardized data below");
+                // System.out.println(controllers);
+
+
+                // String javaCodeString = java_code.stream()
+                //         .map(map -> "Name: " + map.get("name") + "\nModel File:\n" + map.get("model_file")
+                //                 + "\nController File:\n" + map.get("controller_file"))
+                //         .collect(Collectors.joining("\n\n"));
 
                 // System.out.println("test mateeeeeeen mateeeeeeen !");
                 // System.out.println(htmlCode.toString());
@@ -111,8 +127,12 @@ public class MetaDataController {
                 meta_data.setFigmaToken(figmaToken);
                 meta_data.setHtml_code(htmlCode.toString());
                 meta_data.setCss_code(cssCode.toString());
+                meta_data.setModels(models.toString());
+                meta_data.setService(services.toString());
+                meta_data.setRepository(repositories.toString());
+                meta_data.setController(controllers.toString());
                 // meta_data.getJava_code(javaCodeString);
-                meta_data.setJava_code(javaCodeString);
+                // meta_data.setJava_code(javaCodeString);
                 this.meta_repo.save(meta_data);
 
                 return ResponseEntity.ok("Project created successfully");
@@ -138,6 +158,10 @@ public class MetaDataController {
                     projectDetails.put("projectName", projectData.getProjectName());
                     projectDetails.put("htmlCode", projectData.getHtml_code());
                     projectDetails.put("CssCode", projectData.getCss_code());
+                    projectDetails.put("models", projectData.getModels());
+                    projectDetails.put("services", projectData.getService());
+                    projectDetails.put("repositories", projectData.getRepository());
+                    projectDetails.put("controllers", projectData.getController());
                     return projectDetails;
                 })
                 .collect(Collectors.toList());

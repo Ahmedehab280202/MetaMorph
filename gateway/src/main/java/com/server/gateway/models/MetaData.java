@@ -49,8 +49,20 @@ public class MetaData {
     @Column(name="css_code")
     private String css_code;
 
-    @Column(name="java_code")
-    private String java_code;
+    // @Column(name="java_code")
+    // private String java_code;
+
+    @Column(name = "models")
+    private String models;
+
+    @Column(name = "service")
+    private String service;
+
+    @Column(name = "repository")
+    private String repository;
+
+    @Column(name = "controller")
+    private String controller;
 
     // private String
 
@@ -66,14 +78,17 @@ public class MetaData {
     }
 
 
-    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_code, String css_code, String java_code) {
+    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_code, String css_code, String models, String service, String repository, String controller) {
         this.id = id;
         this.projectName = projectName;
         this.figmaToken = figmaToken;
         this.fileUrl = fileUrl;
         this.html_code = html_code;
         this.css_code = css_code;
-        this.java_code = java_code;
+        this.models = models;
+        this.service = service;
+        this.repository = repository;
+        this.controller = controller;
     }
 
 
@@ -125,13 +140,37 @@ public class MetaData {
         this.css_code = css_code;
     }
 
-    public String getJava_code() {
-        return this.java_code;
+    public String getModels() {
+        return this.models;
     }
 
-    public void setJava_code(String java_code) {
-        this.java_code = java_code;
+    public void setModels(String models) {
+        this.models = models;
     }
 
+    public String getService() {
+        return this.service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getRepository() {
+        return this.repository;
+    }
+
+    public void setRepository(String repository) {
+        this.repository = repository;
+    }
+
+    public String getController() {
+        return this.controller;
+    }
+
+    public void setController(String controller) {
+        this.controller = controller;
+    }
+    
     
 }
