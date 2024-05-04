@@ -16,7 +16,7 @@ const ViewCodeSideUtilityBar = () => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
-    const projectName = "metamorphtest"; // Adjust this according to your project
+    const projectName = "l"; // wala hot hena esm elproject yala mtnsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaash------>!!!!!!!!!1
     getFrontEndData(projectName).then((response) => {
       const htmlFiles = response.data
         .filter((data) => data.htmlCode)
@@ -31,8 +31,36 @@ const ViewCodeSideUtilityBar = () => {
           name: "style.css",
           code: data.CssCode,
         }));
+
+      const modelFiles = response.data
+        .filter((data) => data.models)
+        .map((data) => ({
+          name: "models.java",
+          code: data.models,
+        }));
+      
+      const controllerFiles = response.data
+        .filter((data) => data.controllers)
+        .map((data) => ({
+          name: "controllers.java",
+          code: data.controllers,
+        }));
+
+      const serviceFiles = response.data
+        .filter((data) => data.services)
+        .map((data) => ({
+          name: "services.java",
+          code: data.services,
+        }));
+
+        const RepositoryFiles = response.data
+        .filter((data) => data.repositories)
+        .map((data) => ({
+          name: "repositories.java",
+          code: data.repositories,
+        }));
   
-      setFiles([...htmlFiles, ...cssFiles]);
+      setFiles([...htmlFiles, ...cssFiles, ...modelFiles, ...controllerFiles, ...serviceFiles, ...RepositoryFiles]);
     });
   }, []);
 
@@ -46,7 +74,7 @@ const ViewCodeSideUtilityBar = () => {
         <div className="utility-icons-wrapper">
           <div className="top-buttons-wrapper">
             <div className="layers-content">
-              <IoLayersOutline className="code-view-layer-component" />
+              <IoLayersOutline className="code-view-layer-component"/>
             </div>
             <div className="navigator-arrow">
               <FaArrowLeft className="code-view-navigator-arrow" />
@@ -67,7 +95,7 @@ const ViewCodeSideUtilityBar = () => {
             <span>+</span>
           </div>
           <div className="code-structure-body">
-            <h3 className="code-structure-body-header">Frontend Code:</h3>
+            <h3 className="code-structure-body-header">Project Code:</h3>
             <div className="frontend-group">
               {files.map((file, index) => (
                 <button
@@ -95,29 +123,6 @@ const ViewCodeSideUtilityBar = () => {
                 </button>
               ))}
             </div>
-            {/* <h3 className="code-structure-body-header">Backend Code:</h3>
-          <div className="frontend-group">
-            {files.map((file, index) => (
-              <button
-                key={index}
-                type="button"
-                className={`list-group-item list-group-item-action ${
-                  selectedFile === file ? "active" : ""
-                }`}
-                onClick={() => handleFileSelect(file)}
-                style={{
-                  fontSize: "15px",
-                  padding: "10px 10px",
-                  height: "30px",
-                  width: "150px",
-                }}
-              >
-                {" "}
-                 button
-                {file.name}
-              </button>
-            ))}
-          </div> */}
           </div>
         </div>
       </div>
