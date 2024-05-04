@@ -1,6 +1,7 @@
 package com.server.gateway.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,9 +50,7 @@ public class MetaDataController {
     @PostMapping("/project")
     public ResponseEntity<String> createProject(@RequestBody Map<String, Object> request_body) {
 
-        // System.out.println("elbody gy taht
-        // ahoooooooooooooooooooooooooooooooooooooooooooooooooooooooo!");
-        // System.out.println("testing frontend data: "+request_body);
+        
 
         try {
             // Extract data from the request body
@@ -66,10 +65,6 @@ public class MetaDataController {
             requestBody.put("raw_ui_data", raw_ui_data);
             requestBody.put("raw_uml_data", raw_uml_data);
 
-            // System.out.println("elrayeh leexpress AHOO gy taht
-            // ahoooooooooooooooooooooooooooooooooooooooooooooooooooooooo!");
-            // System.out.println("testing frontend data: "+requestBody);
-
             // Send request to the second API
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
@@ -83,7 +78,8 @@ public class MetaDataController {
             if (response.getStatusCode().is2xxSuccessful()) {
                 // Extract and handle response data if needed
                 String responseData = response.getBody();
-                // Object html_css_code = response.getBody("")
+
+                // System.out.println(responseData);
 
                 ObjectMapper objectMapper = new ObjectMapper();
                 Map<String, Object> jsonMap = objectMapper.readValue(responseData,
@@ -92,23 +88,31 @@ public class MetaDataController {
                 List<Map<String, Object>> html_css_code = (List<Map<String, Object>>) jsonMap.get("html_css_code");
                 List<Map<String, Object>> java_code = (List<Map<String, Object>>) jsonMap.get("java_code");
 
-                // Convert html_css_code and java_code to strings
-                String htmlCssCodeString = html_css_code.stream()
-                        .map(map -> map.get("html") + "\n" + map.get("css"))
-                        .collect(Collectors.joining("\n\n"));
+                // Extract HTML and CSS code from the list
+                StringBuilder htmlCode = new StringBuilder();
+                StringBuilder cssCode = new StringBuilder();
+                for (Map<String, Object> code : html_css_code) {
+                    htmlCode.append(code.get("html")).append("\n");
+                    cssCode.append(code.get("css")).append("\n");
+                }
 
                 String javaCodeString = java_code.stream()
                         .map(map -> "Name: " + map.get("name") + "\nModel File:\n" + map.get("model_file")
                                 + "\nController File:\n" + map.get("controller_file"))
                         .collect(Collectors.joining("\n\n"));
 
+                // System.out.println("test mateeeeeeen mateeeeeeen !");
+                // System.out.println(htmlCode.toString());
+                // System.out.println(cssCode.toString());
+
                 MetaData meta_data = new MetaData();
                 meta_data.setProjectName(projectName);
                 meta_data.setFileUrl(fileUrl);
                 meta_data.setFigmaToken(figmaToken);
+                meta_data.setHtml_code(htmlCode.toString());
+                meta_data.setCss_code(cssCode.toString());
+                // meta_data.getJava_code(javaCodeString);
                 meta_data.setJava_code(javaCodeString);
-                meta_data.setHtml_css_code(htmlCssCodeString);
-
                 this.meta_repo.save(meta_data);
 
                 return ResponseEntity.ok("Project created successfully");
@@ -119,4 +123,30 @@ public class MetaDataController {
             return new ResponseEntity<>("Failed to create project data", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/project/{projectName}")
+    public ResponseEntity<Object> getFrontEndCode(@PathVariable String projectName) {
+        List<MetaData> projectDataList = meta_repo.findByProjectName(projectName);
+
+        if (projectDataList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Map<String, Object>> responseBodyList = projectDataList.stream()
+                .map(projectData -> {
+                    Map<String, Object> projectDetails = new HashMap<>();
+                    projectDetails.put("projectName", projectData.getProjectName());
+                    projectDetails.put("htmlCode", projectData.getHtml_code());
+                    projectDetails.put("CssCode", projectData.getCss_code());
+                    return projectDetails;
+                })
+                .collect(Collectors.toList());
+
+        Map<String, Object> responseObject = new HashMap<>();
+        responseObject.put("status", "success");
+        responseObject.put("data", responseBodyList);
+
+        return ResponseEntity.ok(responseObject);
+    }
+
 }

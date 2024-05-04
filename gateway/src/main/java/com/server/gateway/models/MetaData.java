@@ -40,8 +40,14 @@ public class MetaData {
     @Column(name="fileUrl")
     private String fileUrl;
 
-    @Column(name="html_css_code")
-    private String html_css_code;
+    // @Column(name="html_css_code")
+    // private String html_css_code;
+
+    @Column(name="html_code")
+    private String html_code;
+
+    @Column(name="css_code")
+    private String css_code;
 
     @Column(name="java_code")
     private String java_code;
@@ -60,12 +66,13 @@ public class MetaData {
     }
 
 
-    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_css_code, String java_code) {
+    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_code, String css_code, String java_code) {
         this.id = id;
         this.projectName = projectName;
         this.figmaToken = figmaToken;
         this.fileUrl = fileUrl;
-        this.html_css_code = html_css_code;
+        this.html_code = html_code;
+        this.css_code = css_code;
         this.java_code = java_code;
     }
 
@@ -102,12 +109,20 @@ public class MetaData {
         this.fileUrl = fileUrl;
     }
 
-    public String getHtml_css_code() {
-        return this.html_css_code;
+    public String getHtml_code() {
+        return this.html_code;
     }
 
-    public void setHtml_css_code(String html_css_code) {
-        this.html_css_code = html_css_code;
+    public void setHtml_code(String html_code) {
+        this.html_code = html_code;
+    }
+
+    public String getCss_code() {
+        return this.css_code;
+    }
+
+    public void setCss_code(String css_code) {
+        this.css_code = css_code;
     }
 
     public String getJava_code() {
@@ -118,5 +133,5 @@ public class MetaData {
         this.java_code = java_code;
     }
 
-
+    
 }
