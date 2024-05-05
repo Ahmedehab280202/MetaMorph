@@ -64,21 +64,21 @@ public class MetaData {
     @Column(name = "controller")
     private String controller;
 
-    // private String
+    @Column(name = "responseData")
+    private String responseCodeData;
 
-
-    // @ManyToOne
-    // @JoinColumn(name = "data_owner_id", referencedColumnName = "id") // Specify the name of the foreign key column
-    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    // @JsonIdentityReference(alwaysAsId = true)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // private User data_owner;
+    @ManyToOne
+    @JoinColumn(name = "data_owner_id", referencedColumnName = "id") // Specify the name of the foreign key column
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private User dataOwner;
 
     public MetaData() {
     }
 
 
-    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_code, String css_code, String models, String service, String repository, String controller) {
+    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_code, String css_code, String models, String service, String repository, String controller, String responseCodeData, User dataOwner) {
         this.id = id;
         this.projectName = projectName;
         this.figmaToken = figmaToken;
@@ -89,6 +89,8 @@ public class MetaData {
         this.service = service;
         this.repository = repository;
         this.controller = controller;
+        this.responseCodeData = responseCodeData;
+        this.dataOwner = dataOwner;
     }
 
 
@@ -171,6 +173,21 @@ public class MetaData {
     public void setController(String controller) {
         this.controller = controller;
     }
-    
+
+    public String getResponseCodeData() {
+        return this.responseCodeData;
+    }
+
+    public void setResponseCodeData(String responseCodeData) {
+        this.responseCodeData = responseCodeData;
+    }
+
+    public User getDataOwner() {
+        return this.dataOwner;
+    }
+
+    public void setDataOwner(User dataOwner) {
+        this.dataOwner = dataOwner;
+    }
     
 }
