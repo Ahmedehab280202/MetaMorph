@@ -1,72 +1,74 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import "react-treeview/react-treeview.css";
+
 import axios from "axios";
+import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
 import { HiDocumentDuplicate } from "react-icons/hi2";
 import { IoLayersOutline } from "react-icons/io5";
 import { FaFileAlt } from "react-icons/fa";
 import { getFrontEndData } from "../../services/FrontEndCodeService";
+
 import CodeEditor from "./CodeEditor";
 import "../../CSS/code_view/utilitysidebar.css";
 
 const ViewCodeSideUtilityBar = () => {
 
+  let navigate = useNavigate();
+
   const [files, setFiles] = useState([]);
+  const [htmlFiles,setHtmlFiles] = useState([]);
+
+  const [modelFiles,setModelFiles] = useState([]);
+  const [controllerFiles,setControllerFiles] = useState([]);
+  const [repositoryFiles,setrepositroyFiles] = useState([]);
+  const [serviceFiles,setserviceFiles] = useState([]);
+
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const projectName = "l"; // wala hot hena esm elproject yala mtnsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaash------>!!!!!!!!!1
     getFrontEndData(projectName).then((response) => {
-      const htmlFiles = response.data
-        .filter((data) => data.htmlCode)
-        .map((data) => ({
-          name: "Index.html",
-          code: data.htmlCode,
-        }));
-  
-      const cssFiles = response.data
-        .filter((data) => data.CssCode)
-        .map((data) => ({
-          name: "style.css",
-          code: data.CssCode,
-        }));
 
-      const modelFiles = response.data
-        .filter((data) => data.models)
-        .map((data) => ({
-          name: "models.java",
-          code: data.models,
-        }));
+      const responseData = JSON.parse(response.data[0].responseData)
+      console.log("response",JSON.parse(response.data[0].responseData))
+
+      setHtmlFiles(responseData.html_css_code.map(obj=>({
+        name : obj.name,
+        code : obj.html+'\n\n'+obj.css,
+      })))
+      setModelFiles(responseData.java_code.map(obj=>({
+        name : obj.name,
+        code : obj.model_file,
+      })))
+      setControllerFiles(responseData.java_code.map(obj=>({
+        name : obj.name,
+        code : obj.controller_file,
+      })))
+      setserviceFiles(responseData.java_code.map(obj=>({
+        name : obj.name,
+        code : obj.service_file,
+      })))
+      setrepositroyFiles(responseData.java_code.map(obj=>({
+        name : obj.name,
+        code : obj.repository_file,
+      })))
       
-      const controllerFiles = response.data
-        .filter((data) => data.controllers)
-        .map((data) => ({
-          name: "controllers.java",
-          code: data.controllers,
-        }));
-
-      const serviceFiles = response.data
-        .filter((data) => data.services)
-        .map((data) => ({
-          name: "services.java",
-          code: data.services,
-        }));
-
-        const RepositoryFiles = response.data
-        .filter((data) => data.repositories)
-        .map((data) => ({
-          name: "repositories.java",
-          code: data.repositories,
-        }));
   
-      setFiles([...htmlFiles, ...cssFiles, ...modelFiles, ...controllerFiles, ...serviceFiles, ...RepositoryFiles]);
     });
   }, []);
+
+  
 
   const handleFileSelect = (file) => {
     setSelectedFile(file);
   };
+
+  const handleArrowicon = () => {
+    navigate("/workspace")
+  }
 
   return (
     <div className="code-view-page-body">
@@ -77,7 +79,7 @@ const ViewCodeSideUtilityBar = () => {
               <IoLayersOutline className="code-view-layer-component"/>
             </div>
             <div className="navigator-arrow">
-              <FaArrowLeft className="code-view-navigator-arrow" />
+              <FaArrowLeft className="code-view-navigator-arrow" onClick={handleArrowicon}/>
             </div>
           </div>
           <div className="bottom-buttons-wrapper">
@@ -97,7 +99,31 @@ const ViewCodeSideUtilityBar = () => {
           <div className="code-structure-body">
             <h3 className="code-structure-body-header">Project Code:</h3>
             <div className="frontend-group">
-              {files.map((file, index) => (
+              {htmlFiles.map((file, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`list-group-item list-group-item-action ${
+                    selectedFile === file ? "active" : ""
+                  }`}
+                  onClick={() => handleFileSelect(file)}
+                  style={{
+                    fontSize: "15px",
+                    padding: "10px 10px",
+                    height: "30px",
+                    width: "150px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {" "}
+                  <div>
+                    <FaFileAlt />
+                  </div>
+                  <span>{file.name}.html</span>
+                </button>
+              ))}
+              {modelFiles.map((file, index) => (
                 <button
                   key={index}
                   type="button"
@@ -119,7 +145,82 @@ const ViewCodeSideUtilityBar = () => {
                   <div>
                     <FaFileAlt />
                   </div>
-                  <span>{file.name}</span>
+                  <span>{file.name}Model.java</span>
+                </button>
+              ))}
+              {controllerFiles.map((file, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`list-group-item list-group-item-action ${
+                    selectedFile === file ? "active" : ""
+                  }`}
+                  onClick={() => handleFileSelect(file)}
+                  style={{
+                    fontSize: "15px",
+                    padding: "10px 10px",
+                    height: "30px",
+                    width: "150px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {" "}
+                  {/* button */}
+                  <div>
+                    <FaFileAlt />
+                  </div>
+                  <span>{file.name}Controller.java</span>
+                </button>
+              ))}
+              {serviceFiles.map((file, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`list-group-item list-group-item-action ${
+                    selectedFile === file ? "active" : ""
+                  }`}
+                  onClick={() => handleFileSelect(file)}
+                  style={{
+                    fontSize: "15px",
+                    padding: "10px 10px",
+                    height: "30px",
+                    width: "150px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {" "}
+                  {/* button */}
+                  <div>
+                    <FaFileAlt />
+                  </div>
+                  <span>{file.name}Service.java</span>
+                </button>
+              ))}
+              {repositoryFiles.map((file, index) => (
+                <button
+                  key={index}
+                  type="button"
+                  className={`list-group-item list-group-item-action ${
+                    selectedFile === file ? "active" : ""
+                  }`}
+                  onClick={() => handleFileSelect(file)}
+                  style={{
+                    fontSize: "15px",
+                    padding: "10px 10px",
+                    height: "30px",
+                    width: "150px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  {" "}
+                  {/* button */}
+                  <div>
+                    <FaFileAlt />
+                  </div>
+                  <span>{file.name}Repository.java</span>
                 </button>
               ))}
             </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import { MdCloudUpload, MdDelete } from "react-icons/md";
 import { AiFillFileImage } from "react-icons/ai";
@@ -9,6 +10,9 @@ import axios from "axios";
 import "../../CSS/workspace_styling/createprojectwrapper.css";
 
 const CreateProjectWrapper = () => {
+
+  let navigate = useNavigate();
+
   /* the figma design data required usestates */
   const [projectName, setProjectName] = useState("");
   const [figmaToken, setFigmaToken] = useState("");
@@ -174,42 +178,33 @@ const CreateProjectWrapper = () => {
   };
 
   useEffect(() => {
-    // Log jsonData whenever it changes
-    // console.log("eljsondata useeffect taht 2");
-    // console.log(jsonData);
-    // console.log("eljsondata fo2 2");
-    // console.log("eljsondata useeffect taht 2");
-    // console.log(console.log(JSON.stringify(rawUiData, null, 2)));
-    // console.log("eljsondata fo2 2");
-    // console.log("with rawdata men 8er JSON.stringify(rawUiData, null, 2))")
     const projectData = new RawDataModel(
-      projectName,
-      figmaToken,
-      fileUrl,
-      rawUiData.map((node)=>rest_api_process(node, undefined, "PAGE")),
-      jsonData
+        projectName,
+        figmaToken,
+        fileUrl,
+        rawUiData.map((node) => rest_api_process(node, undefined, "PAGE")),
+        jsonData
     );
-    // console.log(projectData);
-    // console.log(rawUiData);
 
-    try{
-      const response = createProject(projectData);
+    const sendProjectData = async () => {
+        try {
+            const response = await createProject(projectData);
 
-      // if(response.status == 200){
-      //   console.log('success');
-      // }else{
-      //   console.log('error in the response');
-      // }
+            console.log("response elsendProjectData useeffect createProject wrapper component:"+response);
 
-      console.log(response.data)
-    }catch(error){
-      console.log("try-catch error createprojectwrapper")
-    }
+            if (response === "Project created successfully") {
+                navigate('/codeview');
+            } else {
+                console.log('Error:', response);
+            }
+        } catch (error) {
+            console.log("try-catch error createprojectwrapper:", error);
+        }
+    };
 
-    // console.log("rawdata with JSON.stringify(rawUiData, null, 2))")
-    // const testprojectData = new rawDataModel(projectName, figmaToken, fileUrl, JSON.stringify(rawUiData, null, 2), jsonData);
-    // console.log("projectdata: ", projectData)
-  }, [jsonData]);
+    // Call the sendProjectData function
+    sendProjectData();
+}, [jsonData, navigate]);
 
   return (
     <div className="create-project-input-wrapper">
