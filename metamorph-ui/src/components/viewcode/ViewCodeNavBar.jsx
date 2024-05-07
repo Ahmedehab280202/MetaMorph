@@ -43,11 +43,11 @@ function ViewCodeNavBar() {
         </div>
       </div>
       {modal && (
-        <div className="modal">
-          <div onClick={toggleModal} className="overlay"></div>
-          <div className="modal-content">
+        <div className="publish-modal">
+          <div onClick={toggleModal} className="codeview-overlay"></div>
+          <div className="codeview-modal-content">
             <div className="login-modal-header">
-              <h2>Publish yout code on github</h2>
+              <h2>Publish your code to github Repository</h2>
             </div>
             <form action="#" className="login-form" >
               <div className="input_box">
@@ -59,7 +59,7 @@ function ViewCodeNavBar() {
                   placeholder="Github Username"
                   name="Github Username"
                 />
-              </div>
+              </div>  
               <div className="input_box">
                 <label for="Access Token">
                   <b>Access Token</b>

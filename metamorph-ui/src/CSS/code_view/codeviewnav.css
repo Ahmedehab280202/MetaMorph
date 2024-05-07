@@ -79,6 +79,10 @@ body.active-modal {
   overflow-y: hidden;
 }
 
+.publish-modal{
+  z-index: 1000;
+}
+
 .btn-modal {
   padding: 10px 20px;
   display: block;
@@ -86,7 +90,7 @@ body.active-modal {
   font-size: 18px;
 }
 
-.modal, .overlay {
+.publish-modal, .codeview-overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -96,10 +100,10 @@ body.active-modal {
   position: fixed;
 }
 
-.overlay {
-  background: rgba(49,49,49,0.8);
+.codeview-overlay {
+  background: rgba(49, 49, 49, 0.8);
 }
-.modal-content {
+.codeview-modal-content {
   position: fixed;
   top: 40%;
   left: 50%;

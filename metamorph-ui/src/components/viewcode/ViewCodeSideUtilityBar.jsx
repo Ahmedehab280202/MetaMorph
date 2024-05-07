@@ -186,10 +186,10 @@ const ViewCodeSideUtilityBar = () => {
         <h2 className="mb-4" style={{ fontSize: "30px" }}>
           Generated Code
         </h2>
-        {/* <CodeEditor
+        <CodeEditor
           code={selectedFile ? selectedFile.code : "No code"}
           style={{ fontSize: "24px" }}
-        /> */}
+        />
       </div>
     </div>
   );
