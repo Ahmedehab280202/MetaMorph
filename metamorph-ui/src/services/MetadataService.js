@@ -5,6 +5,8 @@ import { MetaDataModel } from "../models/MetaDataModel";
 
 const baseUrl = "http://localhost:8080/metadata/project";
 
+const url = "http://localhost:8080/metadata/projects/user"
+
 export const createProject = async (metaDataModel) => {
     try {
         const token = localStorage.getItem("token");
@@ -22,7 +24,7 @@ export const createProject = async (metaDataModel) => {
         };
 
         console.log("Data to be sent:", data);
-        
+
         const response = await axios.post(baseUrl, data, { headers });
 
         console.log("Response:", response.data);
@@ -34,5 +36,23 @@ export const createProject = async (metaDataModel) => {
 
         // Return the error response data
         return error.response.data;
+    }
+};
+
+export const getProjectsByUser = async () => {
+    try {
+
+        const token = localStorage.getItem("token");
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        };
+
+        const response = await axios.get(`${url}`,{headers});
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        throw new Error('Failed to fetch projects');
     }
 };

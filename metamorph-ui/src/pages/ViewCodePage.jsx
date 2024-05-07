@@ -9,14 +9,7 @@ const ViewCodePage = () => {
   return (
     <div className="view-code-page-wrapper">
       <ViewCodeNavBar />
-      {/* <div className="code-view-body"> */}
-        <ViewCodeSideUtilityBar />
-        {/* <ViewCodeComponent /> */}
-        {/* <div className="code-inspection"> */}
-          {/* <CodeEditor /> */}
-          {/* <ViewCodeComponent /> */}
-        {/* </div> */}
-      {/* </div> */}
+      <ViewCodeSideUtilityBar />
     </div>
   );
 };

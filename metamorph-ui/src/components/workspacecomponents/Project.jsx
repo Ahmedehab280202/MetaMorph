@@ -1,7 +1,7 @@
 import React from "react";
 import '../../CSS/workspace_styling/project.css';
 
-const Project = () => {
+const Project = ({ project }) => {
   return (
     <div className="project_card">
       <div className="card_avatar">
@@ -19,7 +19,7 @@ const Project = () => {
       </div>
 
       <div className="card_content">
-        <p className="card_content_header">Dark Belated Whale</p>
+        <p className="card_content_header">{project.projectName}</p>
         <div className="projects_details">
           <small className="edit_details">
             Edited 18 hours ago

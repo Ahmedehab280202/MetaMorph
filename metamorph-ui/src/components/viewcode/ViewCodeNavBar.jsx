@@ -1,48 +1,97 @@
-// import { Navbar, Container, Button } from 'react-bootstrap';
+import { useState } from "react";
 import { PiButterfly } from "react-icons/pi";
 import { FaFileExport } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
-import '../../CSS/code_view/codeviewnav.css'
+import "../../CSS/code_view/codeviewnav.css";
 
 function ViewCodeNavBar() {
-    return (
-        // <Navbar expand="lg" style={{ background: 'purple' }}>
-        //     <Button style={{padding:'10px 20px', marginTop:'15px'}} variant='light' className='ms-4'>
-        //         Back
-        //     </Button>
-        // <Container className='nav-logo-details'>
-        //   <Navbar.Brand className='logo_name' style={{padding: '10px 10px'}} href="/">
-        //     <PiButterfly size={50} className='nav_logo_icon'/>
-        //     MetaMorph
-        //   </Navbar.Brand>
-        // </Container>
-        // </Navbar>
-        <div className='navbar'>
-          <div className="code-view-logo">
-            <PiButterfly className='nav_logo_icon'/>
-          </div>
+  const [modal, setModal] = useState(false);
 
-          <div className="code-view-project-name-container">
-            <div className="project-title-wrapper">Ali Ismail's Project</div>
-          </div>
+  const toggleModal = () => {
+    setModal(!modal);
+  };
 
-          <div className="code-view-nav-buttons">
-            <button class="export-btn">
-              <div className="export-btn-container">
-                <div><FaFileExport /></div>
-                <span className=''>Export</span>
+  return (
+    <>
+      <div className="navbar">
+        <div className="code-view-logo">
+          <PiButterfly className="nav_logo_icon" />
+        </div>
+
+        <div className="code-view-project-name-container">
+          <div className="project-title-wrapper">Ali Ismail's Project</div>
+        </div>
+
+        <div className="code-view-nav-buttons">
+          <button class="export-btn">
+            <div className="export-btn-container">
+              <div>
+                <FaFileExport />
               </div>
-            </button>
+              <span className="">Export</span>
+            </div>
+          </button>
 
-            <button class="publish-btn">
-              <div className="publish-btn-container">
-                <div><FaGithub /></div>
-                <span className=''>Publish</span>
+          <button class="publish-btn" onClick={toggleModal}>
+            <div className="publish-btn-container">
+              <div>
+                <FaGithub />
               </div>
-            </button>
+              <span className="">Publish</span>
+            </div>
+          </button>
+        </div>
+      </div>
+      {modal && (
+        <div className="modal">
+          <div onClick={toggleModal} className="overlay"></div>
+          <div className="modal-content">
+            <div className="login-modal-header">
+              <h2>Publish yout code on github</h2>
+            </div>
+            <form action="#" className="login-form" >
+              <div className="input_box">
+                <label for="Github Username">
+                  <b>Github Username</b>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Github Username"
+                  name="Github Username"
+                />
+              </div>
+              <div className="input_box">
+                <label for="Access Token">
+                  <b>Access Token</b>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Access Token"
+                  name="Access Token"
+                />
+              </div>
+              <div className="input_box">
+                <label for="Repositoryname">
+                  <b>Repositoryname</b>
+                </label>
+                <input
+                  type="Repositoryname"
+                  placeholder="Enter Repositoryname"
+                  name="Repositoryname"
+                />
+              </div>
+              <div className="button-container">
+                <button className="form-button">Publish</button>
+              </div>
+            </form>
+            <span className="close-modal" onClick={toggleModal}>
+              &times;
+            </span>
           </div>
         </div>
-    );
+      )}
+    </>
+  );
 }
 
 export default ViewCodeNavBar;

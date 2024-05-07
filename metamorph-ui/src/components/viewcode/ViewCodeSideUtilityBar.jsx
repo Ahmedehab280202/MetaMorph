@@ -3,72 +3,78 @@ import { useState, useEffect } from "react";
 import "react-treeview/react-treeview.css";
 
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import { FaUserCircle } from "react-icons/fa";
 import { FaArrowLeft } from "react-icons/fa6";
 import { HiDocumentDuplicate } from "react-icons/hi2";
 import { IoLayersOutline } from "react-icons/io5";
 import { FaFileAlt } from "react-icons/fa";
+import { FaFolder } from "react-icons/fa";
+import { FaFile } from "react-icons/fa";
 import { getFrontEndData } from "../../services/FrontEndCodeService";
 
 import CodeEditor from "./CodeEditor";
 import "../../CSS/code_view/utilitysidebar.css";
 
 const ViewCodeSideUtilityBar = () => {
-
   let navigate = useNavigate();
 
   const [files, setFiles] = useState([]);
-  const [htmlFiles,setHtmlFiles] = useState([]);
+  const [htmlFiles, setHtmlFiles] = useState([]);
 
-  const [modelFiles,setModelFiles] = useState([]);
-  const [controllerFiles,setControllerFiles] = useState([]);
-  const [repositoryFiles,setrepositroyFiles] = useState([]);
-  const [serviceFiles,setserviceFiles] = useState([]);
+  const [modelFiles, setModelFiles] = useState([]);
+  const [controllerFiles, setControllerFiles] = useState([]);
+  const [repositoryFiles, setrepositroyFiles] = useState([]);
+  const [serviceFiles, setserviceFiles] = useState([]);
 
   const [selectedFile, setSelectedFile] = useState(null);
 
   useEffect(() => {
     const projectName = "l"; // wala hot hena esm elproject yala mtnsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaash------>!!!!!!!!!1
     getFrontEndData(projectName).then((response) => {
+      const responseData = JSON.parse(response.data[0].responseData);
+      console.log("response", JSON.parse(response.data[0].responseData));
 
-      const responseData = JSON.parse(response.data[0].responseData)
-      console.log("response",JSON.parse(response.data[0].responseData))
-
-      setHtmlFiles(responseData.html_css_code.map(obj=>({
-        name : obj.name,
-        code : obj.html+'\n\n'+obj.css,
-      })))
-      setModelFiles(responseData.java_code.map(obj=>({
-        name : obj.name,
-        code : obj.model_file,
-      })))
-      setControllerFiles(responseData.java_code.map(obj=>({
-        name : obj.name,
-        code : obj.controller_file,
-      })))
-      setserviceFiles(responseData.java_code.map(obj=>({
-        name : obj.name,
-        code : obj.service_file,
-      })))
-      setrepositroyFiles(responseData.java_code.map(obj=>({
-        name : obj.name,
-        code : obj.repository_file,
-      })))
-      
-  
+      setHtmlFiles(
+        responseData.html_css_code.map((obj) => ({
+          name: obj.name,
+          code: obj.html + "\n\n" + obj.css,
+        }))
+      );
+      setModelFiles(
+        responseData.java_code.map((obj) => ({
+          name: obj.name,
+          code: obj.model_file,
+        }))
+      );
+      setControllerFiles(
+        responseData.java_code.map((obj) => ({
+          name: obj.name,
+          code: obj.controller_file,
+        }))
+      );
+      setserviceFiles(
+        responseData.java_code.map((obj) => ({
+          name: obj.name,
+          code: obj.service_file,
+        }))
+      );
+      setrepositroyFiles(
+        responseData.java_code.map((obj) => ({
+          name: obj.name,
+          code: obj.repository_file,
+        }))
+      );
     });
   }, []);
-
-  
 
   const handleFileSelect = (file) => {
     setSelectedFile(file);
   };
 
   const handleArrowicon = () => {
-    navigate("/workspace")
-  }
+    navigate("/workspace");
+  };
 
   return (
     <div className="code-view-page-body">
@@ -76,10 +82,13 @@ const ViewCodeSideUtilityBar = () => {
         <div className="utility-icons-wrapper">
           <div className="top-buttons-wrapper">
             <div className="layers-content">
-              <IoLayersOutline className="code-view-layer-component"/>
+              <IoLayersOutline className="code-view-layer-component" />
             </div>
             <div className="navigator-arrow">
-              <FaArrowLeft className="code-view-navigator-arrow" onClick={handleArrowicon}/>
+              <FaArrowLeft
+                className="code-view-navigator-arrow"
+                onClick={handleArrowicon}
+              />
             </div>
           </div>
           <div className="bottom-buttons-wrapper">
@@ -96,25 +105,15 @@ const ViewCodeSideUtilityBar = () => {
             <span>Explorer</span>
             <span>+</span>
           </div>
-          <div className="code-structure-body">
-            <h3 className="code-structure-body-header">Project Code:</h3>
-            <div className="frontend-group">
+          <h3 className="code-structure-body-header">Project Code:</h3>
+          <div class="scrollbox">
+            <div class="scrollbox-inner">
               {htmlFiles.map((file, index) => (
                 <button
                   key={index}
                   type="button"
-                  className={`list-group-item list-group-item-action ${
-                    selectedFile === file ? "active" : ""
-                  }`}
+                  className={`codeview-file-button ${selectedFile === file ? 'selected' : ''}`}
                   onClick={() => handleFileSelect(file)}
-                  style={{
-                    fontSize: "15px",
-                    padding: "10px 10px",
-                    height: "30px",
-                    width: "150px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
                 >
                   {" "}
                   <div>
@@ -127,21 +126,10 @@ const ViewCodeSideUtilityBar = () => {
                 <button
                   key={index}
                   type="button"
-                  className={`list-group-item list-group-item-action ${
-                    selectedFile === file ? "active" : ""
-                  }`}
+                  className={`codeview-file-button ${selectedFile === file ? 'selected' : ''}`}
                   onClick={() => handleFileSelect(file)}
-                  style={{
-                    fontSize: "15px",
-                    padding: "10px 10px",
-                    height: "30px",
-                    width: "150px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
                 >
                   {" "}
-                  {/* button */}
                   <div>
                     <FaFileAlt />
                   </div>
@@ -152,21 +140,10 @@ const ViewCodeSideUtilityBar = () => {
                 <button
                   key={index}
                   type="button"
-                  className={`list-group-item list-group-item-action ${
-                    selectedFile === file ? "active" : ""
-                  }`}
+                  className={`codeview-file-button ${selectedFile === file ? 'selected' : ''}`}
                   onClick={() => handleFileSelect(file)}
-                  style={{
-                    fontSize: "15px",
-                    padding: "10px 10px",
-                    height: "30px",
-                    width: "150px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
                 >
                   {" "}
-                  {/* button */}
                   <div>
                     <FaFileAlt />
                   </div>
@@ -177,21 +154,10 @@ const ViewCodeSideUtilityBar = () => {
                 <button
                   key={index}
                   type="button"
-                  className={`list-group-item list-group-item-action ${
-                    selectedFile === file ? "active" : ""
-                  }`}
+                  className={`codeview-file-button ${selectedFile === file ? 'selected' : ''}`}
                   onClick={() => handleFileSelect(file)}
-                  style={{
-                    fontSize: "15px",
-                    padding: "10px 10px",
-                    height: "30px",
-                    width: "150px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
                 >
                   {" "}
-                  {/* button */}
                   <div>
                     <FaFileAlt />
                   </div>
@@ -202,21 +168,10 @@ const ViewCodeSideUtilityBar = () => {
                 <button
                   key={index}
                   type="button"
-                  className={`list-group-item list-group-item-action ${
-                    selectedFile === file ? "active" : ""
-                  }`}
+                  className={`codeview-file-button ${selectedFile === file ? 'selected' : ''}`}
                   onClick={() => handleFileSelect(file)}
-                  style={{
-                    fontSize: "15px",
-                    padding: "10px 10px",
-                    height: "30px",
-                    width: "150px",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
                 >
                   {" "}
-                  {/* button */}
                   <div>
                     <FaFileAlt />
                   </div>
@@ -231,10 +186,10 @@ const ViewCodeSideUtilityBar = () => {
         <h2 className="mb-4" style={{ fontSize: "30px" }}>
           Generated Code
         </h2>
-        <CodeEditor
+        {/* <CodeEditor
           code={selectedFile ? selectedFile.code : "No code"}
           style={{ fontSize: "24px" }}
-        />
+        /> */}
       </div>
     </div>
   );
