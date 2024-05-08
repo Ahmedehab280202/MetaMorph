@@ -40,6 +40,8 @@ function HomeNavBar() {
         if (response.status === 200) {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("email", JSON.stringify(logindata.email));
+          localStorage.setItem("firstName", response.data.firstName);
+          localStorage.setItem("lastName", response.data.lastName);
           navigate("/workspace"); // Navigate to workspace dashboard upon successful login
         } else {
           console.log("An error occurred while trying to login");
@@ -84,7 +86,7 @@ function HomeNavBar() {
         </button>
       </nav>
       {modal && (
-        <div className="modal">
+        <div className="login-modal">
           <div onClick={toggleModal} className="overlay"></div>
           <div className="modal-content">
             <div className="login-modal-header">

@@ -12,11 +12,16 @@ import { FaFileAlt } from "react-icons/fa";
 import { FaFolder } from "react-icons/fa";
 import { FaFile } from "react-icons/fa";
 import { getFrontEndData } from "../../services/FrontEndCodeService";
-
+import { useContext } from 'react';
+import { AppContext } from '../../App';
 import CodeEditor from "./CodeEditor";
+import { getProjectNameLocalStorage } from "../../services/FrontEndCodeService";
 import "../../CSS/code_view/utilitysidebar.css";
 
 const ViewCodeSideUtilityBar = () => {
+
+  const {} = useContext(AppContext);
+
   let navigate = useNavigate();
 
   const [files, setFiles] = useState([]);
@@ -29,8 +34,10 @@ const ViewCodeSideUtilityBar = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
 
+  const projectName = getProjectNameLocalStorage(); 
+
+
   useEffect(() => {
-    const projectName = "l"; // wala hot hena esm elproject yala mtnsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaash------>!!!!!!!!!1
     getFrontEndData(projectName).then((response) => {
       const responseData = JSON.parse(response.data[0].responseData);
       console.log("response", JSON.parse(response.data[0].responseData));
@@ -105,7 +112,7 @@ const ViewCodeSideUtilityBar = () => {
             <span>Explorer</span>
             <span>+</span>
           </div>
-          <h3 className="code-structure-body-header">Project Code:</h3>
+          <h3 className="code-structure-body-header">{projectName} project Code:</h3>
           <div class="scrollbox">
             <div class="scrollbox-inner">
               {htmlFiles.map((file, index) => (
@@ -183,9 +190,9 @@ const ViewCodeSideUtilityBar = () => {
         </div>
       </div>
       <div className="code-inspection-view">
-        <h2 className="mb-4" style={{ fontSize: "30px" }}>
+        {/* <h2 className="mb-4" style={{ fontSize: "30px" }}>
           Generated Code
-        </h2>
+        </h2> */}
         <CodeEditor
           code={selectedFile ? selectedFile.code : "No code"}
           style={{ fontSize: "24px" }}

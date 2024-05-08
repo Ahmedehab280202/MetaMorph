@@ -157,54 +157,41 @@ const CreateProjectWrapper = () => {
         reader.readAsText(file);
         reader.onload = async (event) => {
           const csvData = event.target.result;
-          // console.log("elraw daata");
-          // console.log(csvData);
           const jsonArray = await csvtojson().fromString(csvData);
           setJsonData(jsonArray);
-          // console.log("eljsondata taht 1!");
-          // console.log(jsonData);
-          // console.log("eljsondata fo2 1!");
         };
       }
-
-      // try{
-      //   console.log("test")
-      //   const projectData = new rawDataModel(projectName, figmaToken, fileUrl, rawUiData, jsonData);
-      //   console.log(projectData);
-      // }catch(error){
-      //   console.log("error while creating the project object !")
-      // }
     }
   };
 
   useEffect(() => {
-    const projectData = new RawDataModel(
-        projectName,
-        figmaToken,
-        fileUrl,
-        rawUiData.map((node) => rest_api_process(node, undefined, "PAGE")),
-        jsonData
-    );
-
     const sendProjectData = async () => {
-        try {
-            const response = await createProject(projectData);
-
-            console.log("response elsendProjectData useeffect createProject wrapper component:"+response);
-
-            if (response === "Project created successfully") {
-                navigate('/codeview');
-            } else {
-                console.log('Error:', response);
-            }
-        } catch (error) {
-            console.log("try-catch error createprojectwrapper:", error);
+      try {
+        const projectData = new RawDataModel(
+            projectName,
+            figmaToken,
+            fileUrl,
+            rawUiData.map((node) => rest_api_process(node, undefined, "PAGE")),
+            jsonData
+        );
+        const response = await createProject(projectData);
+  
+        console.log("response elsendProjectData useeffect createProject wrapper component:"+response);
+  
+        if (response === "Project created successfully") {
+          window.location.reload();//
+        } else {
+          console.log('Error:', response);
         }
+      } catch (error) {
+        console.log("try-catch error createprojectwrapper:", error);
+      }
     };
-
-    // Call the sendProjectData function
-    sendProjectData();
-}, [jsonData, navigate]);
+  
+    if (jsonData) {
+      sendProjectData();
+    }
+  }, [jsonData]);
 
   return (
     <div className="create-project-input-wrapper">

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { RepositoryData } from "../models/GithubPublish";
 
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "http://localhost:8080/metadata/project";
 
 export const publishRepository = async (RepositoryData) => {
     try {
@@ -17,7 +17,7 @@ export const publishRepository = async (RepositoryData) => {
             "Content-Type": "application/json",
         };
 
-        const response = await axios.post(baseUrl, data, { headers });
+        const response = await axios.post(`${baseUrl}/test`, data, { headers });
 
 
         return response.data;

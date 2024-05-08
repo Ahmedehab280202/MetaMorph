@@ -10,26 +10,31 @@ import { IoIosArrowDown } from "react-icons/io";
 import '../../CSS/workspace_styling/sidebar.css';
 
 const Sidebar = () => {
-  const [showWorkspaceSubMenu, setShowWorkspaceSubMenu] = useState(false);
-  const [showResourcesSubMenu, setShowResourcesSubMenu] = useState(false);
+
+  let firstName = localStorage.getItem('firstName');
+  let lastName = localStorage.getItem('lastName')
+
+  const [subMenuState, setSubMenuState] = useState({
+    workspace: false,
+    resources: false,
+  });
 
   let navigate = useNavigate();
 
-  const toggleWorkspaceSubMenu = (e) => {
-    e.preventDefault();
-    setShowWorkspaceSubMenu(!showWorkspaceSubMenu);
-  };
-
-  const toggleResourcesSubMenu = (e) => {
-    e.preventDefault();
-    setShowResourcesSubMenu(!showResourcesSubMenu);
+  const handleSubMenuToggle = (menu) => {
+    setSubMenuState(prevState => ({
+      ...prevState,
+      [menu]: !prevState[menu]
+    }));
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('firstName');
+    localStorage.removeItem('lastName');
+    localStorage.removeItem('projectCount');
     navigate("/");
   };
-
 
   return (
     <div className="sidebar">
@@ -40,13 +45,13 @@ const Sidebar = () => {
       <ul className="nav-links">
         <li>
           <div className="icon-link">
-            <a href="#" onClick={toggleWorkspaceSubMenu}>
+            <a href="#" onClick={() => handleSubMenuToggle('workspace')}>
               <MdWorkspacesFilled className='navlink_icon'/>
               <span className="link_name">Workspace</span>
             </a>
             <IoIosArrowDown className='arrow'/>
           </div>
-          {showWorkspaceSubMenu && (
+          {subMenuState.workspace && (
             <ul className="sub-menu">
               <li><a className="link_name" href="#">Workspace</a></li>
               <li><a href="#">My Workspace</a></li>
@@ -57,13 +62,13 @@ const Sidebar = () => {
 
         <li>
           <div className="icon-link">
-            <a href="#" onClick={toggleResourcesSubMenu}>
+            <a href="#" onClick={() => handleSubMenuToggle('resources')}>
               <GrResources className='navlink_icon'/>
               <span className="link_name">Resources</span>
             </a>
             <IoIosArrowDown className='arrow'/>
           </div>
-          {showResourcesSubMenu && (
+          {subMenuState.resources && (
             <ul className="sub-menu">
               <li><a className="link_name" href="#">Resources</a></li>
               <li><a href="#">Figma Plugin</a></li>
@@ -89,8 +94,8 @@ const Sidebar = () => {
               <FaRegUserCircle className='user_icon profile'/>
             </div>
             <div className="name-job">
-              <div className="profile_name">{localStorage.getItem('user_name')}</div>
-              <div className="job">Software Engineer</div>
+              <div className="profile_name">{firstName} {lastName}</div>
+              {/* <div className="job">Software Engineer</div> */}
             </div>
             <TbLogout2 className='logout_icon profile' onClick={handleLogout}/>
           </div>

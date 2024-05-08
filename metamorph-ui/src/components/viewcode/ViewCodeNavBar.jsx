@@ -3,13 +3,42 @@ import { PiButterfly } from "react-icons/pi";
 import { FaFileExport } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import "../../CSS/code_view/codeviewnav.css";
+import { getProjectNameLocalStorage } from "../../services/FrontEndCodeService";
+import { RepositoryData } from "../../models/GithubPublish";
+import { publishRepository } from "../../services/PublishService";
+
 
 function ViewCodeNavBar() {
+
+  const projectName = getProjectNameLocalStorage(); 
+
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
   };
+
+  const [githubUserName, setGithubUserName] = useState("");
+  const [accessToken, setAccessToken] = useState("");
+  const [repositoryName, setRepositoryName] = useState("")
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if(githubUserName === "" || accessToken === "" || repositoryName === ""){
+      console.log("Please fill all the fields");
+      return;
+    }else{
+      const publishData = new RepositoryData(githubUserName,accessToken,repositoryName);
+      console.log("publishData:", publishData)
+      try{
+        const response = await publishRepository(publishData);
+        return response;
+      }catch(error){
+        console.error("publish to github  error:", error);
+      }
+    }
+  }
 
   return (
     <>
@@ -19,7 +48,7 @@ function ViewCodeNavBar() {
         </div>
 
         <div className="code-view-project-name-container">
-          <div className="project-title-wrapper">Ali Ismail's Project</div>
+          <div className="project-title-wrapper">{projectName} Project</div>
         </div>
 
         <div className="code-view-nav-buttons">
@@ -46,10 +75,10 @@ function ViewCodeNavBar() {
         <div className="publish-modal">
           <div onClick={toggleModal} className="codeview-overlay"></div>
           <div className="codeview-modal-content">
-            <div className="login-modal-header">
+            <div className="codeview-modal-header">
               <h2>Publish your code to github Repository</h2>
             </div>
-            <form action="#" className="login-form" >
+            <form action="#" className="login-form" onSubmit={handleSubmit}>
               <div className="input_box">
                 <label for="Github Username">
                   <b>Github Username</b>
@@ -58,6 +87,7 @@ function ViewCodeNavBar() {
                   type="text"
                   placeholder="Github Username"
                   name="Github Username"
+                  onChange={(e) => setGithubUserName(e.target.value)}
                 />
               </div>  
               <div className="input_box">
@@ -68,6 +98,7 @@ function ViewCodeNavBar() {
                   type="text"
                   placeholder="Access Token"
                   name="Access Token"
+                  onChange={(e) => setAccessToken(e.target.value)}
                 />
               </div>
               <div className="input_box">
@@ -78,10 +109,11 @@ function ViewCodeNavBar() {
                   type="Repositoryname"
                   placeholder="Enter Repositoryname"
                   name="Repositoryname"
+                  onChange={(e) => setRepositoryName(e.target.value)}
                 />
               </div>
               <div className="button-container">
-                <button className="form-button">Publish</button>
+                <button className="publish-button">Publish</button>
               </div>
             </form>
             <span className="close-modal" onClick={toggleModal}>

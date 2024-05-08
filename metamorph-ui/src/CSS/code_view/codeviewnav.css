@@ -37,7 +37,7 @@
 }
 
 .project-title-wrapper {
-    margin-left: 180px
+  margin-left: 180px;
 }
 
 .export-btn {
@@ -72,14 +72,13 @@
   gap: 4px;
 }
 
-
 /*modal styling*/
 
 body.active-modal {
   overflow-y: hidden;
 }
 
-.publish-modal{
+.publish-modal {
   z-index: 1000;
 }
 
@@ -90,7 +89,8 @@ body.active-modal {
   font-size: 18px;
 }
 
-.publish-modal, .codeview-overlay {
+.publish-modal,
+.codeview-overlay {
   width: 100vw;
   height: 100vh;
   top: 0;
@@ -110,10 +110,26 @@ body.active-modal {
   transform: translate(-50%, -50%);
   line-height: 1.4;
   background: #f1f1f1;
-  padding: 14px 28px;
+  padding: 36px 28px;
   border-radius: 3px;
   max-width: 600px;
   min-width: 300px;
+  height: 441px;
+}
+
+.codeview-modal-header {
+  color: #363636;
+}
+
+.publish-button {
+  display: flex;
+  height: 35px;
+  width: 35%;
+  margin: 18px 0;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background-color: #363636;
 }
 
 .close-modal {
