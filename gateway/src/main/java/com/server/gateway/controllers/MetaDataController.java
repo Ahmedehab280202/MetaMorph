@@ -148,6 +148,17 @@ public class MetaDataController {
         }
     }
 
+    @PostMapping("/project/test")
+    public ResponseEntity<String> createTest(@RequestBody Map<String, Object> request_body) {
+        System.out.println(request_body);   
+
+        try{
+            return ResponseEntity.ok("Project created successfully");
+        }catch (Exception e){
+            return new ResponseEntity<>("Failed to publish data on github", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("/project/{projectName}")
     public ResponseEntity<Object> getFrontEndCode(@PathVariable String projectName) {
         List<MetaData> projectDataList = meta_repo.findByProjectName(projectName);
@@ -187,5 +198,7 @@ public class MetaDataController {
 
         return ResponseEntity.ok(userProjects);
     }
+
+   
 
 }
