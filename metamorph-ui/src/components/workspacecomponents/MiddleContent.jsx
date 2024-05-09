@@ -1,32 +1,18 @@
 import React, { useState } from "react";
 import CreateProjectWrapper from "./CreateProjectWrapper";
 import csvtojson from 'csvtojson';
-
+import { getProjectNumberCount } from "../../services/FrontEndCodeService";
 import "../../CSS/workspace_styling/middlecontent.css";
 
 const MiddleContent = () => {
+
+  let projectCount = getProjectNumberCount()
+
   const [modal, setModal] = useState(false);
 
   const toggleModal = () => {
     setModal(!modal);
   };
-
-  // const [jsonData, setJsonData] = useState(null);
-  
-
-  // const handleUpload = () => {
-  //   if (file) {
-  //     const reader = new FileReader();
-  //     reader.readAsText(file);
-  //     reader.onload = async (event) => {
-  //       const csvData = event.target.result;
-  //       const jsonArray = await csvtojson().fromString(csvData);
-  //       setJsonData(jsonArray);
-  //     };
-  //   }
-  // };
-
-
 
   return (
     <div className="dashboard_middle_content">
@@ -40,7 +26,7 @@ const MiddleContent = () => {
           <div className="dashboard_middle_content_details_info">
             <div className="workspace_plan_type">Free Plan</div>
             <div className="workspace_number_projects">
-              1 of 3 projects used
+              {projectCount} of 3 projects used
             </div>
           </div>
           <button className="Manage_btn">

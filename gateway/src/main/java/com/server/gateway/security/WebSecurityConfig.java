@@ -26,22 +26,20 @@ public class WebSecurityConfig { // 25.
     private AuthenticationFilter authentication_filter;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .requestMatchers("/auth/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .addFilterBefore(authentication_filter, UsernamePasswordAuthenticationFilter.class); // Assuming
-                                                                                                     // UsernamePasswordAuthenticationFilter.class
-                                                                                                     // is the class of
-                                                                                                     // Spring's default
-                                                                                                     // authentication
-                                                                                                     // filter
-        return httpSecurity.build();
-    }
+public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity.csrf().disable()
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            .and()
+            .cors() // Enable CORS support
+            .and()
+            .authorizeRequests()
+            .requestMatchers("/auth/**").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .addFilterBefore(authentication_filter, UsernamePasswordAuthenticationFilter.class); 
+
+    return httpSecurity.build();
+}
 
     @Bean
     public BCryptPasswordEncoder pass_encoder() {

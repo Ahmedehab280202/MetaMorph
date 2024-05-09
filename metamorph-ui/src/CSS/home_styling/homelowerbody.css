@@ -1,0 +1,129 @@
+.hero_bottom_container {
+  margin-top: 130px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.bottom_container_wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-bottom: 15px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+.bottom-container-header {
+  color: purple;
+  font-size: 14px;
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 1000;
+  line-height: 16px;
+  margin-bottom: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero-bottom-title {
+  color: black;
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 44px;
+  line-height: 55px;
+  font-family: Manrope;
+}
+
+.card-container-wrapper {
+  width: 100%;
+  height: 540px;
+}
+
+.card-optimizer {
+  padding: 85px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-optimizer-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 35px;
+}
+
+.card-item-container {
+  flex: 0 0 auto;
+  width: 24%;
+  display: flex;
+  padding: 36px;
+  min-width: 428px;
+  transition: 0.3s;
+  align-items: flex-start;
+  border-color: black;
+  border-width: 2px;
+  border-radius: 8px;
+  flex-direction: column;
+  background-color: purple;
+}
+
+.card-header {
+  color: white;
+  font-size: 25px;
+  /* font-style: normal;
+  font-family: Manrope;
+  font-weight: 800;
+  line-height: 26px; */
+  margin-bottom: 8px;
+}
+
+.card-body {
+  color: white;
+  font-size: 16px;
+  /* font-family: Space Grotesk;
+  line-height: 24px;*/
+  margin-bottom: 16px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  align-self: stretch;
+  margin-top: auto;
+}
+
+.card-icon {
+  margin-right: 15px;
+  height: 35px;
+  object-fit: cover;
+  color: white;
+  width: 25px;
+}
+
+.card-icon-butterfly {
+  height: 35px;
+  object-fit: cover;
+  color: white;
+  width: 37px;
+}

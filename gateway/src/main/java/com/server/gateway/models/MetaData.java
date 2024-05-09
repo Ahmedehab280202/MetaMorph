@@ -18,77 +18,79 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Entity
+@Table(name = "MetaData")
 public class MetaData {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    // // @Column(name="design_url")
-    // // @NotBlank(message = "design_url is mandatory")
-    // // @NotNull(message = "design_url is mandatory")
-    // // @Size(min = 3, max = 50, message = "the minimum amount of charachters in design_url attribute is 8 !")
-    // private String designUrl;
+    @Column(name="projectName")
+    private String projectName;
 
-    // // @Column(name="data_source")
-    // // @NotBlank(message = "data_source is mandatory")
-    // // @NotNull(message = "data_source is mandatory")
-    // // @Size(min = 3, max = 50, message = "the minimum amount of charachters in data_source attribute is 8 !")
-    // private String data_source;
-    // // @Column(name="data_type")
-    // // @NotBlank(message = "data_type is mandatory")
-    // // @NotNull(message = "data_type is mandatory")
-    // // @Size(min = 3, max = 50, message = "the minimum amount of charachters in data_type attribute is 8 !")
-    // private String data_type;
-    // // @Column(name="raw_Data")
-    // // @NotBlank(message = "raw_Data is mandatory")
-    // // @NotNull(message = "raw_Data is mandatory")
-    // // @Size(min = 3, max = 50, message = "the minimum amount of charachters in raw_Data attribute is 8 !")
-    // @Column(name = "raw_data", columnDefinition = "TEXT")
-    // private String raw_Data;
-    // // @Column(name="standardized_Data")
-    // // @NotBlank(message = "standardized_Data is mandatory")
-    // // @NotNull(message = "standardized_Data is mandatory")
-    // // @Size(min = 3, max = 50, message = "the minimum amount of charachters in standardized_Data attribute is 8 !")
-    // private String standardized_Data;
+    @Column(name="figmaToken")
+    private String figmaToken;
 
-    @Column(name="project_name")
-    private String project_name;
+    @Column(name="fileUrl")
+    private String fileUrl;
 
-    @Column(name="figma_link")
-    private String figma_link;
+    // @Column(name="html_css_code")
+    // private String html_css_code;
 
-    @Column(name="figma_token")
-    private String figma_token;
+    @Column(name="html_code")
+    private String html_code;
 
-    @Column(name = "csv_file")
-    private String csv_file;
+    @Column(name="css_code")
+    private String css_code;
 
-    // private String
+    // @Column(name="java_code")
+    // private String java_code;
 
+    @Column(name = "models")
+    private String models;
+
+    @Column(name = "service")
+    private String service;
+
+    @Column(name = "repository")
+    private String repository;
+
+    @Column(name = "controller")
+    private String controller;
+
+    @Column(name = "responseData")
+    private String responseCodeData;
 
     @ManyToOne
     @JoinColumn(name = "data_owner_id", referencedColumnName = "id") // Specify the name of the foreign key column
     @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
     @JsonIdentityReference(alwaysAsId = true)
     @OnDelete(action = OnDeleteAction.CASCADE)
-    private User data_owner;
+    private User dataOwner;
 
     public MetaData() {
     }
 
-    public MetaData(int id, String project_name, String figma_link, String figma_token,/* */ MultipartFile csv_file, User data_owner) {
+
+    public MetaData(int id, String projectName, String figmaToken, String fileUrl, String html_code, String css_code, String models, String service, String repository, String controller, String responseCodeData, User dataOwner) {
         this.id = id;
-        this.project_name = project_name;
-        this.figma_link = figma_link;
-        this.figma_token = figma_token;
-        // this.csv_file = csv_file;
-        this.data_owner = data_owner;
+        this.projectName = projectName;
+        this.figmaToken = figmaToken;
+        this.fileUrl = fileUrl;
+        this.html_code = html_code;
+        this.css_code = css_code;
+        this.models = models;
+        this.service = service;
+        this.repository = repository;
+        this.controller = controller;
+        this.responseCodeData = responseCodeData;
+        this.dataOwner = dataOwner;
     }
 
 
@@ -100,44 +102,92 @@ public class MetaData {
         this.id = id;
     }
 
-    public String getProject_name() {
-        return this.project_name;
+    public String getProjectName() {
+        return this.projectName;
     }
 
-    public void setProject_name(String project_name) {
-        this.project_name = project_name;
+    public void setProjectName(String projectName) {
+        this.projectName = projectName;
     }
 
-    public String getFigma_link() {
-        return this.figma_link;
+    public String getFigmaToken() {
+        return this.figmaToken;
     }
 
-    public void setFigma_link(String figma_link) {
-        this.figma_link = figma_link;
+    public void setFigmaToken(String figmaToken) {
+        this.figmaToken = figmaToken;
     }
 
-    public String getFigma_token() {
-        return this.figma_token;
+    public String getFileUrl() {
+        return this.fileUrl;
     }
 
-    public void setFigma_token(String figma_token) {
-        this.figma_token = figma_token;
+    public void setFileUrl(String fileUrl) {
+        this.fileUrl = fileUrl;
     }
 
-    // public MultipartFile getCsv_file() {
-    //     return this.csv_file;
-    // }
-
-    // public void setCsv_file(MultipartFile csvFile) {
-    //     this.csv_file = csvFile;
-    // }
-
-    public User getData_owner() {
-        return this.data_owner;
+    public String getHtml_code() {
+        return this.html_code;
     }
 
-    public void setData_owner(User data_owner) {
-        this.data_owner = data_owner;
+    public void setHtml_code(String html_code) {
+        this.html_code = html_code;
     }
 
+    public String getCss_code() {
+        return this.css_code;
+    }
+
+    public void setCss_code(String css_code) {
+        this.css_code = css_code;
+    }
+
+    public String getModels() {
+        return this.models;
+    }
+
+    public void setModels(String models) {
+        this.models = models;
+    }
+
+    public String getService() {
+        return this.service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getRepository() {
+        return this.repository;
+    }
+
+    public void setRepository(String repository) {
+        this.repository = repository;
+    }
+
+    public String getController() {
+        return this.controller;
+    }
+
+    public void setController(String controller) {
+        this.controller = controller;
+    }
+
+    public String getResponseCodeData() {
+        return this.responseCodeData;
+    }
+
+    public void setResponseCodeData(String responseCodeData) {
+        this.responseCodeData = responseCodeData;
+    }
+
+    public User getDataOwner() {
+        return this.dataOwner;
+    }
+
+    public void setDataOwner(User dataOwner) {
+        this.dataOwner = dataOwner;
+    }
+    
 }

@@ -65,36 +65,39 @@ public class User {
     @NotBlank(message = "password is mandatory")
     private String password;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    @JoinColumn(name = "work_space_id", referencedColumnName = "id")
-    @JsonBackReference
-    private WorkSpace work_space;
+    // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
+    // @JoinColumn(name = "work_space_id", referencedColumnName = "id")
+    // @JsonBackReference
+    // private WorkSpace work_space;
 
-    @ManyToOne
-    @JoinColumn(name = "project_id", referencedColumnName = "proj_id") // Specify the name of the foreign key column
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    private ProjectArtifact proj_artifact;
+    // @ManyToOne
+    // @JoinColumn(name = "project_id", referencedColumnName = "proj_id") // Specify the name of the foreign key column
+    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    // @JsonIdentityReference(alwaysAsId = true)
+    // @OnDelete(action = OnDeleteAction.CASCADE)
+    // private ProjectArtifact proj_artifact;
 
-    @OneToMany(mappedBy = "data_owner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "dataOwner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<MetaData> user_data;
+
+    public int getMetadataCount() {
+        return this.user_data != null ? this.user_data.size() : 0;
+    }
 
     public User() {
     }
 
-    public User(String id, String firstname, String lastname, String email, String username, String password, WorkSpace work_space, ProjectArtifact proj_artifact, List<MetaData> user_data) {
+
+    public User(String id, String firstname, String lastname, String email, String username, String password, List<MetaData> user_data) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.username = username;
         this.password = password;
-        this.work_space = work_space;
-        this.proj_artifact = proj_artifact;
         this.user_data = user_data;
     }
-    
+
 
     public String getId() {
         return this.id;
@@ -142,22 +145,6 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public WorkSpace getWork_space() {
-        return this.work_space;
-    }
-
-    public void setWork_space(WorkSpace work_space) {
-        this.work_space = work_space;
-    }
-
-    public ProjectArtifact getProj_artifact() {
-        return this.proj_artifact;
-    }
-
-    public void setProj_artifact(ProjectArtifact proj_artifact) {
-        this.proj_artifact = proj_artifact;
     }
 
     public List<MetaData> getUser_data() {

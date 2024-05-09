@@ -1,11 +1,21 @@
 package com.server.gateway.controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,10 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.server.gateway.models.MetaData;
+import com.server.gateway.models.User;
+import com.server.gateway.repositories.MetaDataRepository;
 import com.server.gateway.services.MetaDataService;
 
 import io.micrometer.common.util.StringUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/metadata")
@@ -28,155 +43,162 @@ public class MetaDataController {
     @Autowired
     MetaDataService meta_data_service;
 
-    @PostMapping("/frontend")
-    public ResponseEntity<String> createFrontEndCode(@RequestBody Map<String, String> request_body) {
+    @Autowired
+    MetaDataRepository meta_repo;
+
+    @Autowired
+    RestTemplate restTemplate;
+
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/project")
+    public ResponseEntity<String> createProject(@RequestBody Map<String, Object> request_body) {
+
         try {
-            // Extract values from request body
-            String projectName = request_body.get("project_name");
-            String figmaLink = request_body.get("figma_link");
-            String figmaToken = request_body.get("figma_token");
 
-            // Create MetaData object
-            MetaData metaData = new MetaData();
-            metaData.setProject_name(projectName);
-            metaData.setFigma_link(figmaLink);
-            metaData.setFigma_token(figmaToken);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            User loggedInUser = (User) authentication.getPrincipal();
 
-            // Save MetaData object to the database
-            meta_data_service.store(metaData);
+            int maxMetadataLimit = 3;
+            List<MetaData> userMetadata = meta_repo.findByDataOwner(loggedInUser);
+            if (userMetadata.size() >= maxMetadataLimit) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Maximum number of projects reached for " + loggedInUser.getFirstname());
+            }
 
-            return new ResponseEntity<>("Frontend code created successfully", HttpStatus.CREATED);
+            // System.out.println(request_body);
+
+            String projectName = (String) request_body.get("projectName");
+            String figmaToken = (String) request_body.get("figmaToken");
+            String fileUrl = (String) request_body.get("fileUrl");
+            Object raw_uml_data = request_body.get("raw_uml_data");
+            Object raw_ui_data = request_body.get("raw_ui_data");
+
+            Map<String, Object> requestBody = new HashMap<>();
+            requestBody.put("raw_ui_data", raw_ui_data);
+            requestBody.put("raw_uml_data", raw_uml_data);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            HttpEntity<Map<String, Object>> entity = new HttpEntity<>(requestBody, headers);
+            ResponseEntity<String> response = restTemplate.postForEntity(
+                    "http://localhost:3002/project/code",
+                    entity,
+                    String.class);
+
+            if (response.getStatusCode().is2xxSuccessful()) {
+
+                String responseData = response.getBody();
+
+                
+
+                ObjectMapper objectMapper = new ObjectMapper();
+                Map<String, Object> jsonMap = objectMapper.readValue(responseData,
+                        new TypeReference<Map<String, Object>>() {
+                        });
+                List<Map<String, Object>> html_css_code = (List<Map<String, Object>>) jsonMap.get("html_css_code");
+                List<Map<String, Object>> java_code = (List<Map<String, Object>>) jsonMap.get("java_code");
+
+                
+                // System.out.println(jsonMap);
+
+
+                // Extract HTML and CSS code from the list
+                StringBuilder htmlCode = new StringBuilder();
+                StringBuilder cssCode = new StringBuilder();
+                for (Map<String, Object> code : html_css_code) {
+                    htmlCode.append(code.get("html")).append("\n");
+                    cssCode.append(code.get("css")).append("\n");
+                }
+
+
+                StringBuilder models = new StringBuilder();
+                StringBuilder controllers = new StringBuilder();
+                StringBuilder services = new StringBuilder();
+                StringBuilder repositories = new StringBuilder();
+
+                for (Map<String, Object> code : java_code) {
+                    models.append(code.get("model_file")).append("\n");
+                    controllers.append(code.get("controller_file")).append("\n");
+                    services.append(code.get("service_file")).append("\n");
+                    repositories.append(code.get("repository_file")).append("\n");
+                }
+
+                // System.out.println(models);
+
+                MetaData meta_data = new MetaData();
+                meta_data.setProjectName(projectName);
+                meta_data.setFileUrl(fileUrl);
+                meta_data.setFigmaToken(figmaToken);
+                meta_data.setHtml_code(htmlCode.toString());
+                meta_data.setCss_code(cssCode.toString());
+                meta_data.setModels(models.toString());
+                meta_data.setService(services.toString());
+                meta_data.setRepository(repositories.toString());
+                meta_data.setController(controllers.toString());
+                meta_data.setResponseCodeData(responseData);
+                meta_data.setDataOwner(loggedInUser);
+                this.meta_repo.save(meta_data);
+
+                return ResponseEntity.ok("Project created successfully");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to process the request");
+            }
         } catch (Exception e) {
-            return new ResponseEntity<>("Failed to create frontend code", HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>("Failed to create project data", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    // @PostMapping("/backend")
-    // public ResponseEntity<String> createBackEndCode(
-    //         @RequestBody Map<String, String> requestBody,
-    //         @RequestParam("csvFile") MultipartFile csvFile) {
-    //     try {
-    //         // Check if project_name is provided in the request body
-    //         String projectName = requestBody.get("project_name");
-    //         if (StringUtils.isEmpty(projectName)) {
-    //             return new ResponseEntity<>("Project name is required", HttpStatus.BAD_REQUEST);
-    //         }
+    @PostMapping("/project/test")
+    public ResponseEntity<String> createTest(@RequestBody Map<String, Object> request_body) {
+        System.out.println(request_body);   
 
-    //         // Check if CSV file is provided
-    //         if (csvFile.isEmpty()) {
-    //             return new ResponseEntity<>("CSV file is required", HttpStatus.BAD_REQUEST);
-    //         }
+        try{
+            return ResponseEntity.ok("Project created successfully");
+        }catch (Exception e){
+            return new ResponseEntity<>("Failed to publish data on github", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-    //         // Create MetaData object
-    //         MetaData metaData = new MetaData();
-    //         metaData.setProject_name(projectName);
-    //         // metaData.setCsvFile(csvFile);
-    //         metaData.setCsv_file(csvFile);
-    //         // Save MetaData object to the database
-    //         meta_data_service.store(metaData);
+    @GetMapping("/project/{projectName}")
+    public ResponseEntity<Object> getFrontEndCode(@PathVariable String projectName) {
+        List<MetaData> projectDataList = meta_repo.findByProjectName(projectName);
 
-    //         return new ResponseEntity<>("Backend code created successfully", HttpStatus.CREATED);
-    //     } catch (Exception e) {
-    //         return new ResponseEntity<>("Failed to create backend code", HttpStatus.INTERNAL_SERVER_ERROR);
-    //     }
-    // }
+        if (projectDataList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<Map<String, Object>> responseBodyList = projectDataList.stream()
+                .map(projectData -> {
+                    Map<String, Object> projectDetails = new HashMap<>();
+                    projectDetails.put("projectName", projectData.getProjectName());
+                    projectDetails.put("htmlCode", projectData.getHtml_code());
+                    projectDetails.put("CssCode", projectData.getCss_code());
+                    projectDetails.put("models", projectData.getModels());
+                    projectDetails.put("services", projectData.getService());
+                    projectDetails.put("repositories", projectData.getRepository());
+                    projectDetails.put("controllers", projectData.getController());
+                    projectDetails.put("responseData",projectData.getResponseCodeData());
+                    return projectDetails;
+                })
+                .collect(Collectors.toList());
+
+        Map<String, Object> responseObject = new HashMap<>();
+        responseObject.put("status", "success");
+        responseObject.put("data", responseBodyList);
+
+        return ResponseEntity.ok(responseObject);
+    }
+
+    @GetMapping("/projects/user")
+    public ResponseEntity<List<MetaData>> getAllProjectsByUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User loggedInUser = (User) authentication.getPrincipal();
+
+        List<MetaData> userProjects = meta_repo.findByDataOwner(loggedInUser);
+
+        return ResponseEntity.ok(userProjects);
+    }
+
+   
+
 }
-
-// @GetMapping("{dataId}")
-// public ResponseEntity getMetaDataById(@PathVariable int dataId) {
-// try {
-// MetaData data = meta_data_service.getDataById(dataId);
-// if (data != null) {
-// return new ResponseEntity<>(data, HttpStatus.OK);
-// } else {
-// return new ResponseEntity<>("No Data found with id" + dataId, HttpStatus.OK);
-// }
-// } catch (Exception e) {
-// return ResponseEntity.badRequest().body("error getting the Data!" +
-// e.getMessage());
-// }
-// }
-// 1)predefined url of meta standrdization 'http://localhost:3000/figma' ->
-//
-
-// @GetMapping("/data")
-// public ResponseEntity getDataByLink(@RequestParam("raw_data") String
-// raw_data) {
-// try {
-// // Assuming MetaDataService has a method to retrieve data by link
-// MetaData data = meta_data_service.getFrontEndCode("raw_data");
-
-// if (data != null) {
-// // Return the data as response
-// return new ResponseEntity<>(data, HttpStatus.OK);
-// } else {
-// // Return a message if no data found for the link
-// return new ResponseEntity<>("No data found for the provided link: " +
-// raw_data, HttpStatus.NOT_FOUND);
-// }
-// } catch (Exception e) {
-// // Return an error response if an exception occurs
-// return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error: "
-// + e.getMessage());
-// }
-// }
-
-// @GetMapping("/fetchData")
-// public String getStandardizeddata() {
-// final String apiUrl =
-// "http://localhost:8080/user/3f721e43-93c3-43b5-90ec-478e5f1d64c6";
-
-// // Create a RestTemplate instance
-// RestTemplate restTemplate = new RestTemplate();
-
-// // Make a GET request to the API
-// String responseData = restTemplate.getForObject(apiUrl, String.class);
-
-// return responseData;
-// }
-
-// shelha ba3d ma t5las testing
-// @PostMapping("")
-// public ResponseEntity createMetaData(@RequestBody Map<String, String>
-// request_body) {
-// try {
-// String design_url = request_body.get("design_url");
-// String data_source = request_body.get("data_source");
-// String data_type = request_body.get("data_type");
-// String raw_data = request_body.get("raw_data");
-// String standardized_data = request_body.get("standardized_data");
-
-// MetaData meta_data_obj = new MetaData();
-
-// meta_data_obj.setDesignUrl(design_url);
-// meta_data_obj.setData_source(data_source);
-// meta_data_obj.setData_type(data_type);
-// meta_data_obj.setRaw_Data(raw_data);
-// meta_data_obj.setStandardized_Data(standardized_data);
-
-// this.meta_data_service.store(meta_data_obj);
-
-// return new ResponseEntity<>(meta_data_obj, HttpStatus.CREATED);
-// } catch (Exception e) {
-// return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-// .body("Error creating MetaData: " + e.getMessage());
-// }
-// }
-
-// @GetMapping("/store/rawdata")
-// public ResponseEntity<String> fetchRawData() {
-// String url = "https://jsonplaceholder.typicode.com/posts";
-// RestTemplate template = new RestTemplate();
-// ResponseEntity<String> responseEntity = template.getForEntity(url,
-// String.class);
-// String responseBody = responseEntity.getBody();
-
-// // Create meta data
-// MetaData meta_data = new MetaData();
-// // metaData.setRawData(responseBody);
-// meta_data.setRaw_Data(responseBody);
-// meta_data_service.store(meta_data);
-// //
-// System.out.println("tmaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaam!!!!!!!!!!!!");
-// return new ResponseEntity<>("Data saved successfully", HttpStatus.OK);
-// }

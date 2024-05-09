@@ -72,6 +72,10 @@ a {
   color: #d9d9d9;
 } */
 
+body.active-modal {
+  overflow-y: hidden;
+}
+
 .button {
   padding: 6px 24px;
   border: 2px solid #fff;
@@ -81,6 +85,20 @@ a {
   color: #fff;
   background: purple;
 }
+
+
+.login-modal{
+  z-index: 1000; /* Adjust the value as needed */
+  position: absolute; /* Ensure the modal is positioned relative to its closest positioned ancestor */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center; /* Center the modal vertically */
+  justify-content: center; /* Center the modal horizontally */ /* Adjust the value as needed */
+}
+
 
 .button:active {
   transform: scale(0.98);

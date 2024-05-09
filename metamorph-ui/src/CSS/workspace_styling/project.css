@@ -5,6 +5,7 @@
   box-sizing: border-box;
   -webkit-font-smoothing: subpixel-antialiased;
   text-rendering: geometricprecision;
+  cursor: pointer;
   border-width: 0px;
   border-style: solid;
   scrollbar-width: thin;

@@ -1,9 +1,22 @@
 import React from "react";
 import '../../CSS/workspace_styling/project.css';
+import { useNavigate } from "react-router-dom";
+import { setProjectsByUser } from '../../services/MetadataService';
+import { setProjectNameLocalStorage } from "../../services/FrontEndCodeService";
 
-const Project = () => {
+
+const Project = ({ project, onSelect, projectName  }) => {
+
+  let navigate =  useNavigate();
+
+  const handleClick = () => {
+    console.log(projectName);
+    setProjectNameLocalStorage(projectName);
+    navigate("/codeview")
+  };
+
   return (
-    <div className="project_card">
+    <div className="project_card" onClick={() => handleClick(projectName)}>
       <div className="card_avatar">
         <div className="card_icon_logo">
           <svg
@@ -19,7 +32,7 @@ const Project = () => {
       </div>
 
       <div className="card_content">
-        <p className="card_content_header">Dark Belated Whale</p>
+        <p className="card_content_header">{project.projectName}</p>
         <div className="projects_details">
           <small className="edit_details">
             Edited 18 hours ago

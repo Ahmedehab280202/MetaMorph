@@ -1,33 +1,58 @@
 import axios from "axios";
+
+// Ensure that MetaDataModel is imported properly from "../models/MetaDataModel"
 import { MetaDataModel } from "../models/MetaDataModel";
 
-const baseUrl = "http://localhost:3002/project";
+const baseUrl = "http://localhost:8080/metadata/project";
 
-export const createProject = async (MetaDataModel) => {
+const url = "http://localhost:8080/metadata/projects/user"
 
+export const createProject = async (metaDataModel) => {
     try {
+        const token = localStorage.getItem("token");
         const data = {
-            // projectName: MetaDataModel.projectName,
-            // figmaToken: MetaDataModel.figmaToken,
-            // fileUrl: MetaDataModel.fileUrl,
-            raw_ui_data: MetaDataModel.rawUiData,
-            raw_uml_data: MetaDataModel.rawUmlData,
+            projectName: metaDataModel.projectName,
+            figmaToken: metaDataModel.figmaToken,
+            fileUrl: metaDataModel.fileUrl,
+            raw_ui_data: metaDataModel.raw_ui_data,
+            raw_uml_data: metaDataModel.raw_uml_data,
         };
 
         const headers = {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
         };
 
-        console.log(data)
+        console.log("Data to be sent:", data);
 
-        const response = await axios.post(`${baseUrl}/code`, data, { headers });
+        const response = await axios.post(baseUrl, data, { headers });
 
-        console.log(response)
+        console.log("Response:", response.data);
 
+        // Return the response data
         return response.data;
     } catch (error) {
-        console.log("Error from metadara service service try catch:", error);
+        console.log("Error from metadata service try catch:", error);
+
+        // Return the error response data
         return error.response.data;
     }
+};
 
-}
+export const getProjectsByUser = async () => {
+    try {
+
+        const token = localStorage.getItem("token");
+
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+        };
+
+        const response = await axios.get(`${url}`,{headers});
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching projects:', error);
+        throw new Error('Failed to fetch projects');
+    }
+};

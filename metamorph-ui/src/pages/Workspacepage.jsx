@@ -10,8 +10,6 @@ import "../CSS/workspace.css";
 function WorkSpacePage() {
 
     let navigate = useNavigate();
-
-
     useEffect(() => {
         document.title = "Workspace Page";
       
@@ -21,15 +19,11 @@ function WorkSpacePage() {
             navigate("/");
           }
         };
-        // Call checkAuth immediately when the component mounts
         checkAuth();
-        // Listen for changes in localStorage
         const handleStorageChange = () => {
-          checkAuth(); // Re-run authentication check whenever localStorage changes
+          checkAuth(); 
         };
-        // Add event listener to localStorage
         window.addEventListener("storage", handleStorageChange);
-        // Clean up by removing the event listener when the component unmounts
         return () => {
           window.removeEventListener("storage", handleStorageChange);
         };

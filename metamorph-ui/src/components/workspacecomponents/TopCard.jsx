@@ -10,8 +10,8 @@ const TopCard = () => {
         </h4>
         <div className="top_card_body">
           <p className="top_card_body_text">
-            On the Free plan, you are limited to 1 project and 10 code views or
-            downloads. For unlimited projects, custom domains, Vercel
+            On the Free plan, you are limited to 3 project unlimited code views or
+            downloads. For unlimited projects, custom domains, Github
             integration and a whole lot more, upgrade your workspace.
           </p>
           <button className="top_card_btn">Upgrade Now</button>
