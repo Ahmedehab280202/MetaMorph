@@ -48,3 +48,14 @@ form .gender-details .gender-title {
   font-size: 20px;
   font-weight: 500;
 }
+
+.error-message-span {
+  font-size: 12px;
+  padding: 3px;
+  color: red;
+  display: none;
+}
+
+input:invalid ~ .error-message-span {
+  display: block;
+}

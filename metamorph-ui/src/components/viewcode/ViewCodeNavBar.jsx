@@ -3,14 +3,17 @@ import { PiButterfly } from "react-icons/pi";
 import { FaFileExport } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 import "../../CSS/code_view/codeviewnav.css";
-import { getProjectNameLocalStorage } from "../../services/FrontEndCodeService";
+import {
+  getFrontEndData,
+  getProjectNameLocalStorage,
+} from "../../services/FrontEndCodeService";
 import { RepositoryData } from "../../models/GithubPublish";
 import { publishRepository } from "../../services/PublishService";
 
+import { exportService } from "../../services/ExportService";
 
 function ViewCodeNavBar() {
-
-  const projectName = getProjectNameLocalStorage(); 
+  const projectName = getProjectNameLocalStorage();
 
   const [modal, setModal] = useState(false);
 
@@ -20,25 +23,69 @@ function ViewCodeNavBar() {
 
   const [githubUserName, setGithubUserName] = useState("");
   const [accessToken, setAccessToken] = useState("");
-  const [repositoryName, setRepositoryName] = useState("")
+  const [repositoryName, setRepositoryName] = useState("");
+  const [html_css_code, sethtml_css_code] = useState("");
+  const [java_code, setjava_code] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if(githubUserName === "" || accessToken === "" || repositoryName === ""){
-      console.log("Please fill all the fields");
-      return;
-    }else{
-      const publishData = new RepositoryData(githubUserName,accessToken,repositoryName);
-      console.log("publishData:", publishData)
-      try{
-        const response = await publishRepository(publishData);
-        return response;
-      }catch(error){
-        console.error("publish to github  error:", error);
+    getFrontEndData(projectName).then(async (response) => {
+      const data = JSON.parse(response.data[0].responseData);
+
+      if (
+        githubUserName === "" ||
+        accessToken === "" ||
+        repositoryName === ""
+      ) {
+        console.log("Please fill all the fields");
+        return;
+      } else {
+        const publishData = new RepositoryData(
+          githubUserName,
+          accessToken,
+          repositoryName,
+          data.html_css_code,
+          data.java_code
+        );
+        console.log("publishData:", publishData);
+        try {
+          const response = await publishRepository(publishData);
+          console.log(response)
+          return response;
+        } catch (error) {
+          console.error("publish to github  error:", error);
+        }
       }
-    }
-  }
+    });
+  };
+
+  const handleExport = (e) => {
+    e.preventDefault();
+
+    getFrontEndData(projectName).then((response) => {
+      const data = JSON.parse(response.data[0].responseData);
+      exportService(data).then(async (response) => {
+        if (response.status == 200) {
+          const blob = new Blob([response.data], { type: "application/zip" });
+
+          // Create a URL for the Blob
+          const url = window.URL.createObjectURL(blob);
+
+          // Create a link element and click it to trigger the download
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "MyGenApp.zip";
+          link.click();
+
+          // Clean up by revoking the URL
+          window.URL.revokeObjectURL(url);
+        }
+      });
+    });
+
+    console.log("testing export button!");
+  };
 
   return (
     <>
@@ -53,7 +100,7 @@ function ViewCodeNavBar() {
 
         <div className="code-view-nav-buttons">
           <button class="export-btn">
-            <div className="export-btn-container">
+            <div className="export-btn-container" onClick={handleExport}>
               <div>
                 <FaFileExport />
               </div>
@@ -89,7 +136,7 @@ function ViewCodeNavBar() {
                   name="Github Username"
                   onChange={(e) => setGithubUserName(e.target.value)}
                 />
-              </div>  
+              </div>
               <div className="input_box">
                 <label for="Access Token">
                   <b>Access Token</b>

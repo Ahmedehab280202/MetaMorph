@@ -8,7 +8,6 @@ import '../CSS/register.css';
 function RegisterPage() {
 
   let navigate = useNavigate()
-
   const [values,setValues] = useState({
     firstname:"",
     lastname:"",
@@ -23,36 +22,52 @@ function RegisterPage() {
       name: "firstname",
       input_name: "firstname",
       input_type: "text",
-      placeholder: "Enter your firstname"
+      // errorMessage:"firstname should be written in charachters only",
+      placeholder: "Enter your firstname",
+      // pattern: "^[A-Za-z]{2-8}$",
+      // required: true,
     },
     {
       id:2,
       name: "lastname",
       input_name: "lastname",
       input_type: "text",
-      placeholder: "Enter your lastname"
+      // errorMessage:"lastname should be written in charachters only",
+      placeholder: "Enter your lastname",
+      // pattern: "^[A-Za-z]{2-8}$",
+      // required: true,
     },
 
     {
       id:3,
       name: "email",
+      // type: "email",
       input_name: "email",
       input_type: "text",
-      placeholder: "Enter your email"
+      // errorMessage:" should be valid email address",
+      placeholder: "Enter your email",
+
+      // required: true,
     },
     {
       id:4,
       name: "username",
       input_name: "username",
       input_type: "text",
-      placeholder: "Enter your username"
+      // errorMessage:"username should be 3-16 and has no special chars",
+      placeholder: "Enter your username",
+      // pattern: "^[A-Za-z0-9]{2-8}$",
+      // required: true,
     },
     {
       id:5,
       name: "password",
       input_name: "password",
       input_type: "text",
-      placeholder: "Enter your password"
+      // errorMessage:"password should be 8-20 charachters",
+      placeholder: "Enter your password",
+      // pattern: `^(?=.*[0-9])(?=.*[a-zA-Z]){8,20}$`, //atleast one number and one letter and between 8 and 20
+      // required: true,
     },
   ]
 
@@ -89,7 +104,7 @@ function RegisterPage() {
         <form action="#" onSubmit={handleSubmit}>
           <div className="user-details">
             {inputs.map((input)=>(
-              <FormInput key={input.id} {...input} value={values[input.input_name]} onChange={onChange}/>
+              <FormInput key={input.id} {...input} value={values[input.input_name]} onChange={onChange} errorMessage={input.errorMessage}/>
             ))}
           </div>
           <div className="button_container">
