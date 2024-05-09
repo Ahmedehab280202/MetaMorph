@@ -1,6 +1,6 @@
 import ClassNode from "metamorph-lib/Backend Standardization TS/dist/models/ClassNode";
 import PropNode from "metamorph-lib/Backend Standardization TS/dist/models/PropNode";
-import ControllerProp from "./ControllerProp";
+
 export default class ControllerFile {
     public class_name: String;
     public class_name_lc: String;

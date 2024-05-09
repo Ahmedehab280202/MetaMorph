@@ -1,7 +1,6 @@
 import { Paint } from "../../types/types"
 import LTRB_Edges from "./LTRB_Edges"
 
-
 export default class Border {
   readonly weight : number
   readonly colour : ReadonlyArray<Paint>
@@ -13,3 +12,6 @@ export default class Border {
     this.radius = radius
   }
 }
+
+
+4

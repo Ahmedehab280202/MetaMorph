@@ -1,8 +1,11 @@
 import express, { Request, Response } from 'express';
 import fs from 'fs';
+import * as fs_extra from 'fs-extra';
 import archiver from 'archiver';
 import path from 'path';
 import cors from 'cors';
+import { Octokit } from "octokit";
+import { execSync } from 'child_process';
 import multer from 'multer';
 import bodyParser from 'body-parser';
 import csvParser from 'csv-parser';
@@ -36,8 +39,106 @@ app.post('/project/code', async (req: Request, res: Response) => {
 app.post('/project/zip', async (req: Request, res: Response) => {
   const spring_app = new SpringBootApp(__dirname,req.body.html_css_code, req.body.java_code)
 
-  res.send('/project/zip')
+  const folderName = 'MyGenApp';
+  const dirPath = path.join('./src', folderName);
+
+  const outputZip = 'src/MyGenApp.zip';
+  const output = fs.createWriteStream(outputZip);
+  const archive = archiver('zip', {
+    zlib: { level: 9 } // Set compression level to maximum
+  });
+
+  archive.pipe(output);
+  archive.directory(dirPath, folderName);
+  await archive.finalize();
+
+  // Listen for 'close' event on the output stream 
+  output.on('close', () => {
+    console.log('Zip file created successfully.');
+
+    // Set the content type and attachment header
+    res.set('Content-Type', 'application/zip');
+    res.set('Content-Disposition', `attachment; filename=MyGenApp.zip`);
+
+    // Send the zip file as the response
+    res.sendFile('MyGenApp.zip', { root: __dirname }, (err) => {
+      if (err) {
+        console.error('Error sending file:', err);
+        res.status(500).end();
+      } else {
+        console.log('File sent successfully.');
+        // Delete the zip file after sending
+        fs.unlink(outputZip, (err) => {
+          if (err) {
+            console.error('Error deleting file:', err);
+          } else {
+            console.log('File deleted successfully.');
+          }
+        });
+      }
+    });
+  });
+
+  // Listen for 'error' event on the archive
+  archive.on('error', (err) => {
+    console.error('Error creating zip file:', err);
+    res.status(500).end();
+  });
+
+  /* res.send('/project/zip') */
 })
+
+app.post('/project/github', async (req: Request, res: Response) => {
+  const spring_app = new SpringBootApp(__dirname,req.body.html_css_code, req.body.java_code)
+
+  const octokit = new Octokit({ auth: req.body.access_token });
+
+  async function createRepository(repoName: string): Promise<void> {
+    await octokit.request("POST /user/repos", {
+        name: repoName,
+        private: false, // Set to true for a private repository
+    });
+  }
+
+  async function pushToRepository(repoName: string): Promise<void> {
+    const repoOwner = req.body.repo_owner; // Assuming you have a way to get the repo owner
+    const directoryPath = `${__dirname}/MyGenApp`; // Path to the directory you want to push
+
+    // Clone the newly created repository to a local directory
+    execSync(`git clone https://github.com/${repoOwner}/${repoName}.git`);
+
+    // Change directory to the cloned repository
+    process.chdir(repoName);
+
+    // Copy files/directories to the local repository
+    // Example using fs-extra to copy directory contents
+    fs_extra.copySync(directoryPath, process.cwd());
+
+    // Add, commit, and push changes to the remote repository
+    execSync("git add .");
+    execSync(`git commit -m "MetaMorph Init"`);
+    execSync("git push origin master");
+  }
+
+  await createRepository(req.body.repo_name)
+    .then(() => {
+        console.log("Repository created successfully");
+
+        // Push files/directories to the repository
+        pushToRepository(req.body.repo_name)
+          .then(() => {
+              console.log("Files/directories pushed successfully");
+          })
+          .catch((err) => {
+              console.error("Error pushing files/directories:", err);
+          });
+    })
+    .catch((err) => {
+        console.error("Error creating repository:", err);
+    });
+
+  res.send('/project/github');
+});
 
 
 /* app.post('/', upload.single('raw_uml_data'), async (req: Request, res: Response) => {

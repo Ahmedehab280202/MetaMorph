@@ -1,6 +1,6 @@
 import ClassNode from "metamorph-lib/Backend Standardization TS/dist/models/ClassNode";
 
-export default class ModelFile {
+export default class RepositoryFile {
     private class_name: String;
     constructor(class_node: ClassNode) {
         this.class_name = class_node.name;

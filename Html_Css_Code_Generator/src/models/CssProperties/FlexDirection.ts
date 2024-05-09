@@ -8,7 +8,6 @@ export default class FlexDirection {
     this.value = (
       primary_axis.direction == 'HORIZONTAL'
       ? 'row' :
-      /* primary_axis.direction == 'VERTICAL' */
       'column' 
     )
   }
