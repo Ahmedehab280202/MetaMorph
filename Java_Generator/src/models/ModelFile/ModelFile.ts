@@ -60,7 +60,7 @@ export default class ModelFile {
         `    ${this.prop_nodes.map(prop => new ModelProp(prop,this.relationships).toString()).join('    ')}`,
         `${new ModelConstructor(this.construction).toString()}`,
 
-        `${!this.parent_node ?
+        `${(!this.parent_node) || (this.parent_node.type == 'interface')?
           `    public UUID getId() {\n`+
           `      return id;\n`+
           `    }\n`+
