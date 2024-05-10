@@ -150,7 +150,7 @@ function ViewCodeNavBar() {
               </div>
               <div className="input_box">
                 <label for="Repositoryname">
-                  <b>Repositoryname</b>
+                  <b>Repository name</b>
                 </label>
                 <input
                   type="Repositoryname"
