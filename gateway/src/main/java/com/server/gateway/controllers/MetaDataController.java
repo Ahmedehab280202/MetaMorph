@@ -58,12 +58,12 @@ public class MetaDataController {
             Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
             User loggedInUser = (User) authentication.getPrincipal();
 
-            int maxMetadataLimit = 3;
-            List<MetaData> userMetadata = meta_repo.findByDataOwner(loggedInUser);
-            if (userMetadata.size() >= maxMetadataLimit) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body("Maximum number of projects reached for " + loggedInUser.getFirstname());
-            }
+            // int maxMetadataLimit = 3;
+            // List<MetaData> userMetadata = meta_repo.findByDataOwner(loggedInUser);
+            // if (userMetadata.size() >= maxMetadataLimit) {
+            //     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+            //             .body("Maximum number of projects reached for " + loggedInUser.getFirstname());
+            // }
 
             // System.out.println(request_body);
 
