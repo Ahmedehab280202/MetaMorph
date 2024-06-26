@@ -3,6 +3,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { register } from "../services/AuthService";
 import "../CSS/register.css";
 
 function RegisterPage() {
@@ -23,10 +25,19 @@ function RegisterPage() {
     resolver: yupResolver(schema),
   });
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [firstname,setFirstname] = useState("");
+  const [lastname,setLastname] = useState("");
+  const [username, setUsername] = useState("");
+  const [age,setAge] = useState("");
+  const [phonenumber,setPhonenumber] = useState("");
+  const [job,setJob] = useState("");
+
   const onSubmit = async (data,e) => {
     console.log(data);
     e.preventDefault();
-    
+    const logindata = new LoginModel(email, password);
   };
 
   return (
