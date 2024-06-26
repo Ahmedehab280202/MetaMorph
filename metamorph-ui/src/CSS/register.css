@@ -5,54 +5,128 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
-.register-container {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  max-width: 700px;
-  width: 100%;
-  background: #fff;
-  border-radius: 7px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-}
-.register-container .title {
-  font-size: 25px;
-  font-weight: 500;
-  position: relative;
+body {
+  /* min-height: 43vh; */
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
+  padding: 20px;
+  background: rgb(130, 106, 251);
+  background: linear-gradient(to right, #5c0759, #7f1077, #f004c8);
 }
-
-form .category {
-  display: flex;
-  width: 80%;
-  margin: 14px 0;
-  justify-content: space-between;
+.container {
+  position: relative;
+  max-width: 700px;
+  width: 100% !important;
+  background: #fff !important;
+  padding: 25px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1) !important;
+  display: flex !important;
+  overflow: auto !important;
+  min-height: 59vh !important;
+  align-items: center !important;
+  flex-direction: column !important;
 }
-form .category label {
+.container header {
+  font-size: 1.5rem;
+  color: #7f1077;
+  font-weight: 500;
+  text-align: center;
+}
+.container .form {
+  margin-top: 35px;
+}
+.form .input-box {
+  width: 100%;
+  margin-top: 25px;
+}
+.input-box label {
+  color: #7f1077;
+}
+.form :where(.input-box input, .select-box) {
+  position: relative;
+  height: 50px;
+  width: 100%;
+  outline: none;
+  font-size: 1rem;
+  color: #707070;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 0 15px;
+}
+.input-box input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+.form .column {
+  display: flex;
+  column-gap: 15px;
+}
+.form .gender-box {
+  margin-top: 20px;
+}
+.gender-box h3 {
+  color: #333;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.form :where(.gender-option, .gender) {
   display: flex;
   align-items: center;
+  column-gap: 50px;
+  flex-wrap: wrap;
+}
+.form .gender {
+  column-gap: 5px;
+}
+.gender input {
+  accent-color: rgb(130, 106, 251);
+}
+.form :where(.gender input, .gender label) {
   cursor: pointer;
 }
-form .category label .dot {
-  height: 18px;
-  width: 18px;
-  border-radius: 50%;
-  margin-right: 10px;
-  background: #d9d9d9;
-  border: 5px solid transparent;
-  transition: all 0.3s ease;
+.gender label {
+  color: #707070;
 }
-form .button {
-  display: flex;
-  height: 45px;
-  width: 30%;
-  margin: 35px 0;
+.address :where(input, .select-box) {
+  margin-top: 15px;
 }
-.button_container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.select-box select {
+  height: 100%;
+  width: 100%;
+  outline: none;
+  border: none;
+  color: #707070;
+  font-size: 1rem;
 }
+.error {
+  color: red;
+  font-size: 12px;
+}
+.form button {
+  height: 55px;
+  width: 100%;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 400;
+  margin-top: 30px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  /* background: rgb(130, 106, 251); */
+  background: #7f1077;
+}
+.form button:hover {
+  background: rgb(88, 56, 250);
+}
+/*Responsive*/
+/* @media screen and (max-width: 500px) {
+  .form .column {
+    flex-wrap: wrap;
+  }
+  .form :where(.gender-option, .gender) {
+    row-gap: 15px;
+  }
+} */

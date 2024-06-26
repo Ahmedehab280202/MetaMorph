@@ -1,119 +1,90 @@
-import React,{useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { RegisterModel } from '../models/AuthModel'
-import { register } from '../services/AuthService'
-import FormInput from '../components/FormInput';
-import '../CSS/register.css';
+import React from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
+import { useNavigate } from "react-router-dom";
+import "../CSS/register.css";
 
 function RegisterPage() {
+  let navigate = useNavigate();
 
-  let navigate = useNavigate()
-  const [values,setValues] = useState({
-    firstname:"",
-    lastname:"",
-    email:"",
-    username:"",
-    password:"",
-  })
+  const schema = yup.object().shape({
+    firstname: yup.string().required("Your firstname is required"),
+    lastname: yup.string().required("Your lastname is required"),
+    username: yup.string().required("Your username is required"),
+    email: yup.string().email("Invalid email format").required("Your email is required"),
+    age: yup.number().typeError("Age must be a number").positive("Age must be a positive number").integer("Age must be an integer").required("Your age is required"),
+    phonenumber: yup.number().typeError("Phone number must be a number").positive("Phone number must be a positive number").integer("Phone number must be an integer").required("Your phone number is required"),
+    job: yup.string().required("Job is required"),
+    password: yup.string().min(8, "Password must be at least 8 characters").max(20, "Password cannot exceed 20 characters").required("Your password is required")
+  });
 
-  const inputs = [
-    {
-      id:1,
-      name: "firstname",
-      input_name: "firstname",
-      input_type: "text",
-      // errorMessage:"firstname should be written in charachters only",
-      placeholder: "Enter your firstname",
-      // pattern: "^[A-Za-z]{2-8}$",
-      // required: true,
-    },
-    {
-      id:2,
-      name: "lastname",
-      input_name: "lastname",
-      input_type: "text",
-      // errorMessage:"lastname should be written in charachters only",
-      placeholder: "Enter your lastname",
-      // pattern: "^[A-Za-z]{2-8}$",
-      // required: true,
-    },
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-    {
-      id:3,
-      name: "email",
-      // type: "email",
-      input_name: "email",
-      input_type: "text",
-      // errorMessage:" should be valid email address",
-      placeholder: "Enter your email",
-
-      // required: true,
-    },
-    {
-      id:4,
-      name: "username",
-      input_name: "username",
-      input_type: "text",
-      // errorMessage:"username should be 3-16 and has no special chars",
-      placeholder: "Enter your username",
-      // pattern: "^[A-Za-z0-9]{2-8}$",
-      // required: true,
-    },
-    {
-      id:5,
-      name: "password",
-      input_name: "password",
-      input_type: "text",
-      // errorMessage:"password should be 8-20 charachters",
-      placeholder: "Enter your password",
-      // pattern: `^(?=.*[0-9])(?=.*[a-zA-Z]){8,20}$`, //atleast one number and one letter and between 8 and 20
-      // required: true,
-    },
-  ]
-
-  const handleSubmit = async (e) => {
+  const onSubmit = async (data,e) => {
+    console.log(data);
     e.preventDefault();
-    var { firstname, lastname, email, username, password } = values;
-    console.log("values before submit:", values);
-    const registerData = values;
-
-    console.log("registerData",registerData);
-
-    console.log("handel submit wslet lehnaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa!!!!!!!!!")
-
-    try {
-      const response = await register(registerData);
-      navigate("/")
-      console.log('response elhandle submit:',response);
-
-    } catch (error) {
-      console.error('Registration error:', error);
-    }
-  }
-
-  const onChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
+    
   };
 
-  console.log(values)
-
   return (
-    <div className="register-container">
-      <div className="title">Registration</div>
-      <div className="content">
-        <form action="#" onSubmit={handleSubmit}>
-          <div className="user-details">
-            {inputs.map((input)=>(
-              <FormInput key={input.id} {...input} value={values[input.input_name]} onChange={onChange} errorMessage={input.errorMessage}/>
-            ))}
-          </div>
-          <div className="button_container">
-            <div className="button">
-              <input type="submit" value="Register" />
+    <div>
+      <section className="container">
+        <header>Registration Form</header>
+        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+          <div className="column">
+            <div className="input-box">
+              <label>First Name</label>
+              <input type="text" placeholder="Enter First Name" {...register("firstname")} />
+              {errors.firstname && <p className="error">{errors.firstname.message}</p>}
+            </div>
+            <div className="input-box">
+              <label>Last Name</label>
+              <input type="text" placeholder="Enter Last Name" {...register("lastname")} />
+              {errors.lastname && <p className="error">{errors.lastname.message}</p>}
             </div>
           </div>
+          <div className="column">
+            <div className="input-box">
+              <label>User Name</label>
+              <input type="text" placeholder="Enter User Name" {...register("username")} />
+              {errors.username && <p className="error">{errors.username.message}</p>}
+            </div>
+            <div className="input-box">
+              <label>Age</label>
+              <input type="number" placeholder="Enter Age" {...register("age")} />
+              {errors.age && <p className="error">{errors.age.message}</p>}
+            </div>
+          </div>
+          <div className="column">
+            <div className="input-box">
+              <label>Phone Number</label>
+              <input type="number" placeholder="Enter phone number" {...register("phonenumber")} />
+              {errors.phonenumber && <p className="error">{errors.phonenumber.message}</p>}
+            </div>
+            <div className="input-box">
+              <label>Job</label>
+              <input type="text" placeholder="Enter Job" {...register("job")} />
+              {errors.job && <p className="error">{errors.job.message}</p>}
+            </div>
+          </div>
+          <div className="column">
+            <div className="input-box">
+              <label>Email</label>
+              <input type="text" placeholder="Enter Email" {...register("email")} />
+              {errors.email && <p className="error">{errors.email.message}</p>}
+            </div>
+            <div className="input-box">
+              <label>Password</label>
+              <input type="password" placeholder="Enter password" {...register("password")} />
+              {errors.password && <p className="error">{errors.password.message}</p>}
+            </div>
+          </div>
+          <button type="submit">Submit</button>
         </form>
-      </div>
+      </section>
     </div>
   );
 }
