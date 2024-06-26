@@ -3,7 +3,7 @@ import { RegisterModel } from '../models/AuthModel';
 
 const baseUrl = "http://localhost:8080/auth";
 
-export const register = async (registerModel) => {
+export const signup = async (registerModel) => {
     try {
         const data = {
             firstname: registerModel.firstname,
@@ -11,6 +11,9 @@ export const register = async (registerModel) => {
             email: registerModel.email,
             username: registerModel.username,
             password: registerModel.password,
+            age:registerModel.age,
+            job:registerModel.job,
+            phonenumber:registerModel.phonenumber
         };
 
         const headers = {

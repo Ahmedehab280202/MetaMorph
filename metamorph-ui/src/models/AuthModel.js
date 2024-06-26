@@ -8,7 +8,6 @@ export class RegisterModel {
         this.phonenumber = phonenumber;
         this.job = job;
         this.password = password;
-
     }
 }
 

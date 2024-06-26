@@ -4,7 +4,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from 'yup';
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { register } from "../services/AuthService";
+import { signup } from "../services/AuthService";
+import { RegisterModel } from "../models/AuthModel";
 import "../CSS/register.css";
 
 function RegisterPage() {
@@ -34,62 +35,71 @@ function RegisterPage() {
   const [phonenumber,setPhonenumber] = useState("");
   const [job,setJob] = useState("");
 
-  const onSubmit = async (data,e) => {
-    console.log(data);
+  const onRegister = async (data,e) => {
+    // console.log(data);
     e.preventDefault();
-    const logindata = new LoginModel(email, password);
+    const registerdata = new RegisterModel(data.firstname, data.lastname, data.email, data.username, data.password, data.age, data.phonenumber, data.job);
+    console.log("test the object")
+    console.log("register:data", registerdata);
+    try {
+      const response = await signup(registerdata);
+      console.log('response elhandle submit:',response);
+      navigate("/")
+    } catch (error) {
+      console.error("Registration error:", error);
+    }
   };
 
   return (
     <div>
       <section className="container">
         <header>Registration Form</header>
-        <form className="form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="form" onSubmit={handleSubmit(onRegister)}>
           <div className="column">
             <div className="input-box">
               <label>First Name</label>
-              <input type="text" placeholder="Enter First Name" {...register("firstname")} />
+              <input type="text" placeholder="Enter First Name" onChange={(e) => setFirstname(e.target.value)} {...register("firstname")} />
               {errors.firstname && <p className="error">{errors.firstname.message}</p>}
             </div>
             <div className="input-box">
               <label>Last Name</label>
-              <input type="text" placeholder="Enter Last Name" {...register("lastname")} />
+              <input type="text" placeholder="Enter Last Name" onChange={(e) => setLastname(e.target.value)} {...register("lastname")} />
               {errors.lastname && <p className="error">{errors.lastname.message}</p>}
             </div>
           </div>
           <div className="column">
             <div className="input-box">
               <label>User Name</label>
-              <input type="text" placeholder="Enter User Name" {...register("username")} />
+              <input type="text" placeholder="Enter User Name" onChange={(e) => setUsername(e.target.value)} {...register("username")} />
               {errors.username && <p className="error">{errors.username.message}</p>}
             </div>
             <div className="input-box">
               <label>Age</label>
-              <input type="number" placeholder="Enter Age" {...register("age")} />
+              <input type="number" placeholder="Enter Age" onChange={(e) => setAge(e.target.value)} {...register("age")} />
               {errors.age && <p className="error">{errors.age.message}</p>}
             </div>
           </div>
           <div className="column">
             <div className="input-box">
               <label>Phone Number</label>
-              <input type="number" placeholder="Enter phone number" {...register("phonenumber")} />
+              <input type="number" placeholder="Enter phone number" onChange={(e) => setPhonenumber(e.target.value)} {...register("phonenumber")} />
               {errors.phonenumber && <p className="error">{errors.phonenumber.message}</p>}
             </div>
             <div className="input-box">
               <label>Job</label>
-              <input type="text" placeholder="Enter Job" {...register("job")} />
+              <input type="text" placeholder="Enter Job" onChange={(e) => setJob(e.target.value)} {...register("job")} />
               {errors.job && <p className="error">{errors.job.message}</p>}
             </div>
           </div>
           <div className="column">
             <div className="input-box">
               <label>Email</label>
-              <input type="text" placeholder="Enter Email" {...register("email")} />
+              <input type="text" placeholder="Enter Email" onChange={(e) => setEmail(e.target.value)} {...register("email")} />
               {errors.email && <p className="error">{errors.email.message}</p>}
             </div>
             <div className="input-box">
               <label>Password</label>
-              <input type="password" placeholder="Enter password" {...register("password")} />
+              <input type="password" placeholder="Enter password" onChange={(e) => setPassword(e.target.value)} {...register("password")} />
               {errors.password && <p className="error">{errors.password.message}</p>}
             </div>
           </div>
