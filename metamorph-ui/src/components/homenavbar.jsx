@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from 'yup';
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { PiButterfly } from "react-icons/pi";
@@ -18,40 +21,40 @@ function HomeNavBar() {
     setModal(!modal);
   };
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const schema = yup.object().shape({
+    email: yup.string().email("Invalid email format").required("Your email is required"),
+    password: yup.string().min(8, "Password must be at least 8 characters").max(20, "Password cannot exceed 20 characters").required("Your password is required")
+  });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (email === "" || password === "") {
-      console.log("Please fill all the fields");
-      return;
-    } else {
-      console.log("before pressing login debug");
-      const logindata = new LoginModel(email, password);
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema),
+  });
 
-      console.log("login data:", logindata);
-      toggleModal();
-      try {
-        console.log("test before executing the login service !");
-        const response = await login(logindata);
-        console.log("response elhandle submit:", response);
+  const handleLogin = async (data) => {
+    console.log("before pressing login debug");
+    const logindata = new LoginModel(data.email, data.password);
 
-        if (response.status === 200) {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("email", JSON.stringify(logindata.email));
-          localStorage.setItem("firstName", response.data.firstName);
-          localStorage.setItem("lastName", response.data.lastName);
-          navigate("/workspace"); // Navigate to workspace dashboard upon successful login
-        } else {
-          console.log("An error occurred while trying to login");
-        }
+    console.log("login data:", logindata);
+    toggleModal();
+    try {
+      console.log("test before executing the login service !");
+      const response = await login(logindata);
+      console.log("response elhandle submit:", response);
 
-        const user_test = JSON.stringify(logindata.email);
-        console.log(user_test);
-      } catch (error) {
-        console.error("Registration error:", error);
+      if (response.status === 200) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("email", JSON.stringify(logindata.email));
+        localStorage.setItem("firstName", response.data.firstName);
+        localStorage.setItem("lastName", response.data.lastName);
+        navigate("/workspace"); // Navigate to workspace dashboard upon successful login
+      } else {
+        console.log("An error occurred while trying to login");
       }
+
+      const user_test = JSON.stringify(logindata.email);
+      console.log(user_test);
+    } catch (error) {
+      console.error("Registration error:", error);
     }
   };
 
@@ -92,31 +95,33 @@ function HomeNavBar() {
             <div className="login-modal-header">
               <h2>Login</h2>
             </div>
-            <form action="#" className="login-form" onSubmit={handleSubmit}>
+            <form className="login-form" onSubmit={handleSubmit(handleLogin)}>
               <div className="input_box">
-                <label for="email">
+                <label htmlFor="email">
                   <b>Email</b>
                 </label>
                 <input
                   type="text"
                   placeholder="Enter Email"
                   name="email"
-                  onChange={(e) => setEmail(e.target.value)}
+                  {...register("email")}
                 />
+                {errors.email && <p className="error">{errors.email.message}</p>}
               </div>
               <div className="input_box">
-                <label for="psw">
+                <label htmlFor="password">
                   <b>Password</b>
                 </label>
                 <input
                   type="password"
                   placeholder="Enter Password"
-                  name="psw"
-                  onChange={(e) => setPassword(e.target.value)}
+                  name="password"
+                  {...register("password")}
                 />
+                {errors.password && <p className="error">{errors.password.message}</p>}
               </div>
               <div className="button-container">
-                <button className="form-button">Login</button>
+                <button className="form-button" type="submit">Login</button>
               </div>
               <div className="login_signup">
                 Don't have an account?{" "}

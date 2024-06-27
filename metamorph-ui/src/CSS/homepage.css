@@ -157,3 +157,8 @@ body.active-modal {
 .login-modal-header {
   color: purple;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+}
