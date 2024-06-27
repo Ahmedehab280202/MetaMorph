@@ -51,7 +51,7 @@ function RegisterPage() {
   };
 
   return (
-    <div>
+    <div className="register_container_wrapper">
       <section className="container">
         <header>Registration Form</header>
         <form className="form" onSubmit={handleSubmit(onRegister)}>

@@ -6,13 +6,14 @@
   font-family: "Poppins", sans-serif;
 }
 
-body {
+.register_container_wrapper{
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
   background: rgb(130, 106, 251);
   background: linear-gradient(to right, #5c0759, #7f1077, #f004c8);
+  height: 100vh;
 }
 
 .container {
