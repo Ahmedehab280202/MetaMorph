@@ -65,17 +65,15 @@ public class User {
     @NotBlank(message = "password is mandatory")
     private String password;
 
-    // @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = true)
-    // @JoinColumn(name = "work_space_id", referencedColumnName = "id")
-    // @JsonBackReference
-    // private WorkSpace work_space;
+    @Column(name = "age")
+    private int age;
 
-    // @ManyToOne
-    // @JoinColumn(name = "project_id", referencedColumnName = "proj_id") // Specify the name of the foreign key column
-    // @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    // @JsonIdentityReference(alwaysAsId = true)
-    // @OnDelete(action = OnDeleteAction.CASCADE)
-    // private ProjectArtifact proj_artifact;
+    @Column(name = "phonenumber")
+    private int phonenumber;
+
+    @Column(name = "job")
+    @NotBlank(message = "job is mandatory")
+    private String job;
 
     @OneToMany(mappedBy = "dataOwner",  cascade = CascadeType.REMOVE, orphanRemoval = true)
     List<MetaData> user_data;
@@ -87,17 +85,19 @@ public class User {
     public User() {
     }
 
-
-    public User(String id, String firstname, String lastname, String email, String username, String password, List<MetaData> user_data) {
+    public User(String id, String firstname, String lastname, String email, String username, String password, int age, int phonenumber, String job, List<MetaData> user_data) {
         this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.age = age;
+        this.phonenumber = phonenumber;
+        this.job = job;
         this.user_data = user_data;
     }
-
+   
 
     public String getId() {
         return this.id;
@@ -147,6 +147,30 @@ public class User {
         this.password = password;
     }
 
+    public int getAge() {
+        return this.age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public int getPhonenumber() {
+        return this.phonenumber;
+    }
+
+    public void setPhonenumber(int phonenumber) {
+        this.phonenumber = phonenumber;
+    }
+
+    public String getJob() {
+        return this.job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
     public List<MetaData> getUser_data() {
         return this.user_data;
     }
@@ -154,6 +178,7 @@ public class User {
     public void setUser_data(List<MetaData> user_data) {
         this.user_data = user_data;
     }
+
 
 }
 

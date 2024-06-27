@@ -35,19 +35,33 @@ public class AuthController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody Map<String, String> body) {
+    public ResponseEntity<Map<String, String>> register(@RequestBody Map<String, String> body) {
 
-        // System.out.println(body);
+        System.out.println(body);
 
         String username = body.get("username");
         String firstname = body.get("firstname");
         String lastname = body.get("lastname");
         String email = body.get("email");
         String password = body.get("password");
+        String job = body.get("job");
 
-        if (username == null || firstname == null || lastname == null || email == null || password == null) {
+        // Check for null values
+        // if (username == null || firstname == null || lastname == null || email == null || password == null || job == null) {
+        //     Map<String, String> errorResponse = new HashMap<>();
+        //     errorResponse.put("error", "All fields are required");
+        //     return ResponseEntity.badRequest().body(errorResponse);
+        // }
+
+        // Parse age and phonenumber to int
+        int age;
+        int phonenumber;
+        try {
+            age = Integer.parseInt(body.get("age"));
+            phonenumber = Integer.parseInt(body.get("phonenumber"));
+        } catch (NumberFormatException e) {
             Map<String, String> errorResponse = new HashMap<>();
-            errorResponse.put("error", "All fields are required");
+            errorResponse.put("error", "Age and phonenumber must be valid integers");
             return ResponseEntity.badRequest().body(errorResponse);
         }
 
@@ -59,6 +73,9 @@ public class AuthController {
         user.setLastname(lastname);
         user.setEmail(email);
         user.setPassword(passwordHashed);
+        user.setJob(job);
+        user.setAge(age);
+        user.setPhonenumber(phonenumber);
 
         this.user_repo.save(user);
 
